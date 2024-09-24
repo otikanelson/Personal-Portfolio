@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/v4-shims.min.js" integrity="sha512-gXYZ34cbCchjX/wdcI1HDXjtplfbLEKnCMj7xJbqnOJon+Fy3aHXTt+otc3jH0KxMHM4+j+oIAMyNi1XZ2U3ow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="header">
+        <div class="container">
+        <nav>
+            <img src="images/Logo.png" class="logo">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Portfolio</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="header-text">
+            <p>UI/UX Desinger</p>
+            <h1>Hi, I'm <span>Nelson Otika</span><br>And i am a Software developer </h1>
+        </div>
+    </div>
+</div>
+
+<!---about---> 
+<div id="about">
+    <div class="container">
+        <div class="row">
+            <div class="about-col-1">
+                <img src="images/Background.png">
+            </div>
+            
+            <div class="about-col-2">
+                <h1 class="sub-title">About me</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus,
+                    ab minus modi eligendi pariatur quibusdam fuga dolorum. Suscipit
+                    qui aperiam perspiciatis repellat debitis molestias numquam iusto
+                    obcaecati quis, doloremque, incidunt odio repudiandae earum! Nisi
+                    excepturi voluptates repudiandae ratione, praesentium vitae placeat
+                    omnis unde in? Dolorem aspernatur error quasi sed
+                    quidem quas ipsam quo eligendi sit! Veniam nam sunt atque debitis
+                    ipsa doloremque, inventore, non excepturi fugit, temporibus eaque minima fuga.</p>
+
+                    <div class="tab-titles">
+                        <p class="tab-links active-link" onclick="opentab('skills')"> Skills</p>
+                        <p class="tab-links" onclick="opentab('Experience')"> Experience</p>
+                        <p class="tab-links" onclick="opentab('Education')"> Education</p>
+                    </div>
+                    <div class="tab-contents active-tab" id="skills"> 
+                        <ul>
+                            <li><span>UI/UX</span><br>Desinging Mobile App Interfaces</li>
+                            <li><span>Web Development</span><br>Web Site Development</li>
+                            <li><span>App Development</span><br>Building Android Apps</li>
+                        </ul>
+                    </div>
+                    <div class="tab-contents" id="Experience"> 
+                        <ul>
+                            <li><span>2019-2020</span><br>Rollercoaster at age 8</li>
+                            <li><span>2022-2023</span><br>Web/App Development at NIIT</li>
+                            <li><span>2024-current</span><br>Building Android Apps at School</li>
+                        </ul>
+                    </div><div class="tab-contents" id="Education"> 
+                        <ul>
+                            <li><span>2019-2020</span><br>Bsc of Science at Unversity of Lagos</li>
+                            <li><span>2022-2023</span><br>Web/App Development at NIIT</li>
+                            <li><span>2024-current</span><br>Building Android Apps at School</li>
+                        </ul>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- services -->
+ <div id="services">
+    <div class="container">
+        <h1 class="sub-title">My services</h1>
+        <div class="services-list">
+            <div>
+                <i class="fa-solid fa-code"></i>
+                <h2> web Development</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Ipsam, facilis officiis nulla, id aut, laborum et animi natus 
+                    maiores quos aperiam velit.</p>
+                    <a href="#">learn more</a>
+            </div>
+            <div>
+                <i class="fa-solid fa-code-compare"></i>
+                <h2> UI/UX Design</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Ipsam, facilis officiis nulla, id aut, laborum et animi natus 
+                    maiores quos aperiam velit.</p>
+                    <a href="#">learn more</a>
+            </div>
+            <div>
+                <i class="fa-solid fa-crop-simple"></i>
+                <h2> App Development and design</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Ipsam, facilis officiis nulla, id aut, laborum et animi natus 
+                    maiores quos aperiam velit.</p>
+                    <a href="#">learn more</a>
+            </div>
+        </div>
+    </div>
+ </div>
+<script>
+    var tablinks = document.getElementsByClassName("tab-links");
+    var tabcontents = document.getElementsByClassName("tab-contents");
+
+    function opentab(tabname){
+        for(tablink of tablinks){
+            tablink.classList.remove("active-link");
+        }
+        for(tabcontent of tabcontents){
+            tabcontent.classList.remove("active-tab");
+        }
+        event.currentTarget.classList.add("active-link");
+        document.getElementById(tabname).classList.add("active-tab")
+    }
+</script>
+
+</body>
+</html>
