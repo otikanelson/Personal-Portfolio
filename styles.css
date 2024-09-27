@@ -21,7 +21,7 @@ body{
 }
     
 .container{
-    padding: 5px 5%;
+    padding: 0px 3.5%;
 }
 
 nav{
@@ -29,17 +29,18 @@ nav{
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+    padding: 0px 2%;
 }
 
 .logo{
-    width: 115px;
-    height: 100px;
+    width: 220px;
+    height: 80px;
 }
 
 nav ul li{
     display: inline-block;
     list-style: none;
-    margin: 10px 15px 40px;
+    margin: 20px 15px 40px;
 
 }
 
@@ -89,30 +90,29 @@ nav ul li a:hover::after{
     justify-content: space-between;
     flex-wrap: wrap;
 }
-.about-col-1{
-    flex-basis: 35%;
-}
-.about-col-1 img{
-    width: 100%;
-    border-radius: 15px;
-    background-color: #abababad;
-}
-.about-col-2{
-    flex-basis: 60%;
+
+.about-col{
+    flex-basis: 100%;
+    font-size: 24px;
 }
 .sub-title{
-    font-size: 60px;
-    font-weight: 600;
+    font-size: 45px;
+    font-weight: 550;
     color: #fff;
 }
 .tab-titles{
     display: flex;
-    margin: 20px 0 40px;
+    margin: 20px -10px 40px;
+    font-size: 20px;
+}
+.tab-titles p{
+    margin: 20px 10px 0px;
 }
 .tab-links{
     margin-right: 50px;
     font-size: 18px;
     font-weight: 500;
+    font-size: 22px;
     cursor: pointer;
     position: relative;
 }
@@ -127,7 +127,7 @@ nav ul li a:hover::after{
     transition: 0.5s;
 }
 .tab-links.active-link::after{
-    width: 50%;
+    width: 75%;
 }
 
 .tab-contents ul li{
@@ -136,10 +136,10 @@ nav ul li a:hover::after{
 }
 .tab-contents ul li span{
     color: #2600ff7e;
-    font-size: 14px;
 }
 .tab-contents{
     display: none;
+    font-size: 20px;
 }
 .tab-contents.active-tab{
     display: block;
@@ -178,14 +178,17 @@ margin-bottom: 30px;
     margin-top: 20px;
     display: inline-block;
 }
+
 .services-list div:hover{
     background: #5707ec;
     transform: translateY(-10px);
 }
+
 /* portfolio */
 #portfolio{
     padding: 50px 0;
 }
+
 .work-list{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -203,15 +206,15 @@ margin-bottom: 30px;
     border-radius: 10px;
     display: block;
     transition: transform 0.5s;
-}
+ }
 .layer{
     width: 100%;
-    height: 100%;
+    height: 0;
     background: linear-gradient(rgba(0,0,0,0.6), #5707ec93);
     border-radius: 10px;
     position: absolute;
     left: 0;
-    bottom: 94px;
+    bottom: 0;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -220,9 +223,10 @@ margin-bottom: 30px;
     padding: 0 20px;
     text-align: center;
     font-size: 14px;
+    transition: height 0.2s;
 }
 .layer h3{
-    font-weight: 400px;
+    font-weight: 500px;
     font-size: 30px;
 }
 .layer a{
@@ -242,4 +246,200 @@ margin-bottom: 30px;
 }
 .work:hover .layer{
     height: 100%;
+} 
+.btn{
+    display: block;
+    margin: 50px auto;
+    width: fit-content;
+    border-radius: 6px;
+    padding: 12px 45px;
+    font-size: 20px;
+    font: bold;
+    font-family: 'poppins','sans serif';
+    font-weight: 200px;
+    border: 1px solid #5707ec;
+    text-decoration: none;
+    color: #fff;
+    transition: background 0.5s;
+}
+.btn:hover{
+    background: #5707ec;
+}
+
+/* --------Contacts---------- */
+
+.contact-left{
+    flex-basis: 35%;
+}
+.contact-right{
+    flex-basis: 60%;
+}
+.contact-left p{
+    margin-top: 30px;
+}
+.contact-left p i{
+    color: #5707ec;
+    margin-right: 15px;
+    font-size: 25px;
+}
+.Social-icons{
+    margin-top: 30px;
+}
+.Social-icons a{
+    text-decoration: none;
+    font-size: 30px;
+    margin-right: 15px;
+    color: #5707ec;
+    display: inline-block;
+}
+.Social-icons a:hover{
+    color: #ababab;
+    transform: translateY(-5px);
+}
+.btn.btn2{
+    display: inline-block;
+    background: #5707ec;
+}
+.contact-right form{
+    width: 100%;
+}
+form input, form textarea{
+    width: 100%;
+    border: 0;
+    outline: none;
+    background: #2e2e2e;
+    padding: 15px;
+    margin: 15px 0;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 10px;
+}
+.Copyright{
+    text-align: center;
+    padding: 17px;
+    background: #2e2e2e;
+    margin-top: 30px;
+    font-size: 14px;
+}
+.Copyright i{
+    color: #5707ec;
+}
+/* --------css for small screens------ */
+nav .fas{
+    display: none;
+}
+@media only screen and (max-width: 600px) and (min-width: 200px){
+    #header{
+        background-image: url(images/Phone_Background.png);
+        background-size: 100%;
+    }
+    .header-text{
+        margin-top: 100px;
+        font-size: 16px;
+    }
+    .header-text h1{
+        font-size: 30px;
+    }
+    nav ul {
+        background: #5707ec;
+        position: fixed;
+        top: 0;
+        right: -200px;
+        width: 200px;
+        height: 100vh;
+        padding-top: 20px;
+        z-index: 2;
+        transition: right;
+    }
+    nav ul li{
+        display: block;
+        list-style: none;
+        margin: 15px 15px 25px;
+    }
+    nav ul li a{
+        color: #fff;
+        text-decoration: none;
+        font-size: 18px;
+        position: relative;
+    }
+
+    nav .fas{
+        display: block;
+        font-size: 20px;
+        margin: 15px;
+    }
+    nav ul.fas{
+        position: absolute;
+        cursor: pointer;
+    }
+/* ---------about--------  */
+    #about{
+        padding: 60px 0;
+        color: #ababab;
+    }
+    .about-col{
+        font-size: 15px;
+    }
+    .sub-title{
+        font-size: 40px;
+        font-weight: 600;
+        color: #fff;
+    }
+    .tab-title p{
+        margin: 20px 10px 0px;
+    }
+    .tab-titles{
+        display: flex;
+        font-size: 15px;
+    }
+    .tab-links{
+        margin-right: 50px;
+        font-size: 15px;
+        font-weight: 200;
+        cursor: pointer;
+        position: relative;
+    }
+    .tab-links::after{
+        content: '';
+        width: 0;
+        height: 3px;
+        background: #2600ffc0;
+        position: absolute;
+        left: 0;
+        bottom: -12px;
+        transition: 0.5s;
+    }
+    .tab-links.active-link::after{
+        width: 75%;
+    }
+    
+    .tab-contents ul li{
+        list-style: none;
+        margin: 10px 0;
+    }
+    .tab-contents ul li span{
+        color: #2600ff7e;
+    }
+    .tab-contents{
+        display: none;
+        font-size: 15px;
+    }
+    .tab-contents.active-tab{
+        display: block;
+    }
+    .container{
+        padding: 0px 7%;
+    }
+    .contact-left{
+    flex-basis: 90%;
+    }
+    .contact-right{
+    flex-basis: 100%;
+    }
+    .btn.btn2{
+    display: inline-block;
+    background: #5707ec;
+    margin-bottom: 10px;
+    padding: 15px 40px 15px;
+    }
 }

@@ -10,18 +10,20 @@
 </head>
 <body>
     <div id="header">
-        <div class="container">
         <nav>
             <img src="images/Logo.png" class="logo">
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Portfolio</a></li>
-                <li><a href="#">Contact</a></li>
+            <ul id="sidemenu">     
+                <i class="fas fa-times" onclick="closemenu()"></i>
+                <li><a href="#header">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
+            <i class="fas fa-bars" onclick="openmenu()"></i>
         </nav>
         <div class="header-text">
+            <div class="container">
             <p>UI/UX Desinger</p>
             <h1>Hi, I'm <span>Nelson Otika</span><br>And i am a Software developer </h1>
         </div>
@@ -32,20 +34,10 @@
 <div id="about">
     <div class="container">
         <div class="row">
-            <div class="about-col-1">
-                <img src="images/informal pic.png">
-            </div>
-            
-            <div class="about-col-2">
+            <div class="about-col">
                 <h1 class="sub-title">About me</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus,
-                    ab minus modi eligendi pariatur quibusdam fuga dolorum. Suscipit
-                    qui aperiam perspiciatis repellat debitis molestias numquam iusto
-                    obcaecati quis, doloremque, incidunt odio repudiandae earum! Nisi
-                    excepturi voluptates repudiandae ratione, praesentium vitae placeat
-                    omnis unde in? Dolorem aspernatur error quasi sed
-                    quidem quas ipsam quo eligendi sit! Veniam nam sunt atque debitis
-                    ipsa doloremque, inventore, non excepturi fugit, temporibus eaque minima fuga.</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum obcaecati officia quia quae sapiente vero rem porro, enim debitis minus quasi consequatur voluptates iure vitae labore itaque ab ipsam expedita magnam cum quod mollitia natus dolor quaerat. In, voluptatem, asperiores
+                     iste quam mollitia perspiciatis quo similique harum autem maxime sit.</p>
 
                     <div class="tab-titles">
                         <p class="tab-links active-link" onclick="opentab('skills')"> Skills</p>
@@ -115,7 +107,7 @@
         <h1 class="sub-title">My Work</h1>
         <div class="work-list">
             <div class="work">
-                <img src="images/Work_1.jpg">
+                <img src="images/Work_3.jpg">
                 <div class="layer">
                     <h3>Fitness App</h3>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -135,7 +127,7 @@
                 </div>
         </div>
             <div class="work">
-                <img src="images/Work_3.jpg">
+                <img src="images/Work_1.jpg">
                 <div class="layer">
                     <h3>Birthday website</h3>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -143,11 +135,43 @@
                          quidem quia illum asperiores quasi in vel. Dicta, optio.</p>
                     <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
             </div>
+            </div>
+    </div>
+</div>
+</div>
+<a href="#" class = "btn"> View more</a>
+<div id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="contact-left">
+                <h1 class="sub-title">Contact me</h1>
+                <p><i class="fas fa-paper-plane"></i>contact@example.com</p>
+                <p><i class="fa-solid fa-phone"></i>0123456789</p>
+                <div class="Social-icons">
+                    <a href="https://facebook.com/"><i class="fab fa-facebook"></i></a>
+                    <a href="https://facebook.com/"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://github.com/otikanelson"><i class="fab fa-github"></i></a>
+                    <a href="edin.com/in/otika-nelson-0318622b2/?trk=opento_sprofile_details"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <a href="" class="btn btn2">Download Cv</a>
+            </div>
+            <div class="contact-right">
+                <form>
+                    <input type="text" name="Name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your email" required>
+                    <textarea name="Message" rows="8" placeholder="Your message" ></textarea>
+                    <button type="submit" class="btn btn2">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="Copyright">
+        <p>Copyright © Nelson. Made with <i class="fas fa-heart"></i> By Radson Tech</p>
     </div>
 </div>
 
-
 <script>
+
     var tablinks = document.getElementsByClassName("tab-links");
     var tabcontents = document.getElementsByClassName("tab-contents");
 
@@ -161,6 +185,19 @@
         event.currentTarget.classList.add("active-link");
         document.getElementById(tabname).classList.add("active-tab")
     }
+</script>
+
+<script>
+
+    var sidemeu = document.getElementById("sidemenu");
+
+    function openmenu(){
+        sidemeu.style.right = "0";
+    }
+    function closemenu(){
+        sidemeu.style.right = "-200px";
+    }
+
 </script>
 
 </body>
