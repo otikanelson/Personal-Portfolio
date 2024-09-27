@@ -15,9 +15,9 @@ body{
     background-image: url(images/Background.png);
     background-size: 32%;
     background-repeat: no-repeat;
+    background-color: #453661;
     background-position-x: right;
-    background-position-y: bottom;
-    
+    background-position-y: 100px;
 }
     
 .container{
@@ -79,10 +79,9 @@ nav ul li a:hover::after{
 .header-text h1 span{
     color: #2600ffc0;
 }
-
 /*----------about-----------*/
 #about{
-    padding: 40px 0;
+    padding: 0;
     color: #ababab;
 }
 .row{
@@ -90,7 +89,6 @@ nav ul li a:hover::after{
     justify-content: space-between;
     flex-wrap: wrap;
 }
-
 .about-col{
     flex-basis: 100%;
     font-size: 24px;
@@ -309,7 +307,7 @@ form input, form textarea{
     outline: none;
     background: #2e2e2e;
     padding: 15px;
-    margin: 15px 0;
+    margin: 15px 10;
     color: #fff;
     font-size: 18px;
     border-radius: 10px;
