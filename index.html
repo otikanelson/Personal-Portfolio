@@ -39,11 +39,11 @@
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum obcaecati officia quia quae sapiente vero rem porro, enim debitis minus quasi consequatur voluptates iure vitae labore itaque ab ipsam expedita magnam cum quod mollitia natus dolor quaerat. In, voluptatem, asperiores
                      iste quam mollitia perspiciatis quo similique harum autem maxime sit.</p>
 
-                    <div class="tab-titles">
-                        <p class="tab-links active-link" onclick="opentab('skills')"> Skills</p>
-                        <p class="tab-links" onclick="opentab('Experience')"> Experience</p>
-                        <p class="tab-links" onclick="opentab('Education')"> Education</p>
-                    </div>
+                     <div class="tab-titles">
+                        <p class="tab-links active-link" onclick="opentab(event, 'skills')"> Skills</p>
+                        <p class="tab-links" onclick="opentab(event, 'Experience')"> Experience</p>
+                        <p class="tab-links" onclick="opentab(event, 'Education')"> Education</p>
+                    </div>                    
                     <div class="tab-contents active-tab" id="skills"> 
                         <ul>
                             <li><span>UI/UX</span><br>Desinging Mobile App Interfaces</li>
@@ -169,6 +169,6 @@
         <p>Copyright © Nelson. Made with <i class="fas fa-heart"></i> By Radson Tech</p>
     </div>
 </div>
-
+<script src="script.js"></script>
 </body>
 </html>
