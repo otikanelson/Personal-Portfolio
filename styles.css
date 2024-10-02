@@ -18,6 +18,11 @@ body{
     background-position-x: right;
     background-position-y: bottom;
 }
+
+.logo {
+    width: 100px; 
+    height: 200px; 
+  }
     
 .container{
     padding: 0px 3.5%;
@@ -325,7 +330,7 @@ form input, form textarea{
 nav .fas{
     display: none;
 }
-@media only screen and (max-width: 600px) and (min-width: 200px){
+@media only screen and (max-width: 600px){
     #header{
         background-image: url(images/Phone_Background.png);
         background-size: 100%;
@@ -340,7 +345,7 @@ nav .fas{
         font-size: 30px;
     }
     nav ul {
-        background: #5707ec;
+        background: #02178a;
         position: fixed;
         top: 0;
         right: -200px;
