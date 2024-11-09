@@ -98,6 +98,7 @@ nav ul li a:hover::after{
     font-size: 24px;
 }
 .sub-title{
+    margin-top: 100px;
     font-size: 45px;
     font-weight: 550;
     color: #fff;
@@ -105,16 +106,16 @@ nav ul li a:hover::after{
 .tab-titles{
     display: flex;
     margin: 20px -10px 40px;
-    font-size: 20px;
+    font-size: 0px;
 }
 .tab-titles p{
-    margin: 20px 10px 0px;
+    margin: 20px 60px 40px 10px;
 }
 .tab-links{
-    margin-right: 50px;
+    margin-right: 60px;
     font-size: 18px;
     font-weight: 500;
-    font-size: 22px;
+    font-size: 45px;
     cursor: pointer;
     position: relative;
 }
@@ -131,6 +132,27 @@ nav ul li a:hover::after{
 .tab-links.active-link::after{
     width: 75%;
 }
+.circle {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: conic-gradient(#4caf50 calc(80 * 1%), #ddd 0%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .percent {
+    position: absolute;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .skill p {
+    margin-top: 10px;
+    font-size: 18px;
+  }
 
 .tab-contents ul li{
     list-style: none;
@@ -141,7 +163,7 @@ nav ul li a:hover::after{
 }
 .tab-contents{
     display: none;
-    font-size: 20px;
+    font-size: 30px;
 }
 .tab-contents.active-tab{
     display: block;
