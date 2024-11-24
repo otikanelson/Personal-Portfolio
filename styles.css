@@ -1,92 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Manrope:wght@200..800&family=Noto+Serif+Display:ital,wght@0,100..900;1,100..900&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 *{
     margin: 0;
     padding: 0;
-    font-family: 'poppins', sans-serif;
+    font-family: 'Urbanist', sans-serif;
+    font-style: italic;
     box-sizing: border-box;
+    scrollbar-width: none;
 }
 body{
-    background: #080808;
+    background: #EEEEEE;
     color: #fff;
 }
 #header{
     width: 100%;
     height: 100vh;
-    background-image: url(images/Background.png);
-    background-size: 32%;
-    background-repeat: no-repeat;
-    background-color: #000000;
-    background-position-x: right;
-    background-position-y: bottom;
 }
-
-.logo {
-    width: 100px; 
-    height: 200px; 
-  }
-    
-.container{
-    padding: 0px 3.5%;
-}
-
-nav{
+.header_container{
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 0px 2%;
+    align-items: center;
+    margin: 0px 40px;
 }
-
-.logo{
-    width: 220px;
-    height: 80px;
+.Portfolio_pic{ 
+    display: flex;
+    justify-content: right;
+    align-content: center;
+    min-height: 80vh;
+    width: 35%;
 }
-
-nav ul li{
-    display: inline-block;
-    list-style: none;
-    margin: 20px 15px 40px;
-
+.pic_container{
+    margin: auto 0;
+    width: 380px;
+    height: 360px;
+    border-radius: 55% 45% 55% 45%;
+    overflow: hidden;
+    animation: imgFloat 7s ease-in-out;
 }
-
-nav ul li a{
-    color: #fff;
-    text-decoration: none;
-    font-size: 18px;
+.pic_container img{
+    width: 380px;
+    height: 380px;
+    object-fit: cover;
+}
+@keyframes imgFloat{
+    50%{
+        transform: translate Y(10px);
+        border-radius: 45% 55% 45% 55%;
+    }
+}
+.container{
+    padding: 0px 3%;
+}
+nav{
+    border-radius: 30px;
     position: relative;
+    background-color: #000000;
+    margin: 0px 70px 0px;
 }
 
-nav ul li a::after{
-    content: '';
-    width: 0;
-    height: 3px;
-    background: #2600ffc0;
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    transition: 0.5s;
+nav ul{
+    display: flex;
+    justify-content: space-between;
 }
-
-nav ul li a:hover::after{
-    width: 100%;
+nav ul li{
+    list-style: none;
+    margin: 20px 8px;
 }
-
+nav ul li a{
+    color: #ffff;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-style: normal;
+    position: relative;
+    padding: 10px 30px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+nav ul li a.active{
+    background-color: #000080;
+    transform: scale(1.1);
+    padding: 12px 30px;
+}
+nav img{
+    width: 75px;
+    height: 40px;
+    margin: 8px;
+}
 .header-text{
-    margin-top: 15%;
-    font-size: 30px;
+    color: #000000;
+    font-style: italic;
+    font-family: 'urbanist';
+    margin: 40px 30px;
 }
 
 .header-text h1{
-    font-size: 60px;
-    margin-top: 10px;
+    font-size: 50px;
+    font-family: 'urbanist';
+    font-style: italic;
+    color: #000000;
+}
+.header-text p{
+    font-size: 40px;
+    font-family: 'urbanist';
+    font-style: italic;
+    color: #000000;
 }
 
 .header-text h1 span{
-    color: #2600ffc0;
+    color: #000080;
 }
+.header-text h2{
+    font-size: 32px;
+    font-family: 'urbanist';
+    font-style: italic;
+    color: #000000;
+}
+.header-text img{
+    width: 60px;
+    height: 20px;
+}
+
 /*----------about-----------*/
 #about{
     padding: 0;
-    color: #ababab;
+    color: #000000;
 }
 .row{
     display: flex;
@@ -98,10 +135,10 @@ nav ul li a:hover::after{
     font-size: 24px;
 }
 .sub-title{
-    margin-top: 100px;
+    margin: 70px 0px 10px;
     font-size: 45px;
     font-weight: 550;
-    color: #fff;
+    color: #000000;
 }
 .tab-titles{
     display: flex;
@@ -171,6 +208,7 @@ nav ul li a:hover::after{
 /* services */
 #services{
     padding: 30px 0; 
+    margin-top: 10px;
 }
 .services-list{
     display: grid;
@@ -184,7 +222,7 @@ nav ul li a:hover::after{
     font-size: 15px;
     font-weight: 300;
     border-radius: 5px;
-    transition: Background 0.5s, transform 0.5s;
+    transition:  0.5s, transform 0.5s;
 }
 .services-list div i{
 font-size: 50px;
@@ -283,7 +321,7 @@ margin-bottom: 30px;
     font-weight: 200px;
     border: 1px solid #5707ec;
     text-decoration: none;
-    color: #fff;
+    color: #000000;
     transition: background 0.5s;
 }
 .btn:hover{
@@ -294,6 +332,7 @@ margin-bottom: 30px;
 
 .contact-left{
     flex-basis: 35%;
+    color: #000000;
 }
 .contact-right{
     flex-basis: 60%;
