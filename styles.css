@@ -3,7 +3,6 @@
     margin: 0;
     padding: 0;
     font-family: 'Urbanist', sans-serif;
-    font-style: italic;
     box-sizing: border-box;
     scrollbar-width: none;
 }
@@ -88,8 +87,6 @@ nav img{
 }
 .header-text{
     color: #000000;
-    font-style: italic;
-    font-family: 'urbanist';
     margin: 40px 30px;
 }
 
@@ -104,20 +101,33 @@ nav img{
     font-family: 'urbanist';
     font-style: italic;
     color: #000000;
+    margin-top: 50px;
 }
 
 .header-text h1 span{
     color: #000080;
 }
-.header-text h2{
-    font-size: 32px;
+.top{
+    display: flex;
+}
+.rating{
+    margin: 0px 200px;
+}
+.rating h2{
+    font-size: 20px;
     font-family: 'urbanist';
-    font-style: italic;
+    color: #000000;
+}
+.rating h3{
+    font-size: 15px;
+    font-weight: 300;
+    margin: 0px 30px;
+    font-family: 'urbanist';
     color: #000000;
 }
 .header-text img{
-    width: 60px;
-    height: 20px;
+    width: 50px;
+    height: 15px;
 }
 
 /*----------about-----------*/
