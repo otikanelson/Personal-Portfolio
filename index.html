@@ -177,6 +177,169 @@
         </div>
     </section>
 
+    
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio-section">
+        <div class="section-header">
+            <h2 class="section-title">My Work</h2>
+            <p class="section-subtitle">
+                Explore my projects across different domains of software development
+            </p>
+        </div>
+        
+        <div class="portfolio-categories">
+            <!-- Mobile App Development Card -->
+            <div class="category-card" data-category="mobile" onclick="navigateToCategory('mobile')">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="category-title">Mobile App Development</h3>
+                    <p class="category-description">Native Android applications built with Kotlin and Java</p>
+                </div>
+                
+                <div class="category-content">
+                    <div class="project-previews">
+                        <div class="project-preview">
+                            <div class="preview-thumbnail">
+                                <img src="images/Work_3.jpg" alt="Fitness App">
+                            </div>
+                            <div class="preview-info">
+                                <h4>Fitness Tracker App</h4>
+                                <p>Personal workout tracker with clean UI and progress tracking</p>
+                            </div>
+                        </div>
+                        
+                        <div class="project-preview">
+                            <div class="preview-thumbnail">
+                                <img src="images/Work_2.jpg" alt="Train Booking App">
+                            </div>
+                            <div class="preview-info">
+                                <h4>Train Booking System</h4>
+                                <p>Android booking app with seat selection and payment flow</p>
+                            </div>
+                        </div>
+                        
+                        <div class="project-preview">
+                            <div class="preview-thumbnail">
+                                <img src="images/Work_3.jpg" alt="Weather App">
+                            </div>
+                            <div class="preview-info">
+                                <h4>Weather Forecast App</h4>
+                                <p>Real-time weather updates with beautiful animations</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="view-all-btn">
+                        <span>View All Mobile Projects</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Web Development Card -->
+            <div class="category-card" data-category="web" onclick="navigateToCategory('web')">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="category-title">Web Development</h3>
+                    <p class="category-description">Responsive websites and web applications</p>
+                </div>
+                
+                <div class="category-content">
+                    <div class="project-previews">
+                        <div class="project-preview">
+                            <div class="preview-thumbnail">
+                                <img src="images/Work_1.jpg" alt="Birthday Website">
+                            </div>
+                            <div class="preview-info">
+                                <h4>Interactive Birthday Site</h4>
+                                <p>Creative landing page with animations and RSVP system</p>
+                            </div>
+                        </div>
+                        
+                        <div class="project-preview">
+                            <div class="preview-thumbnail">
+                                <img src="images/Work_1.jpg" alt="Portfolio Website">
+                            </div>
+                            <div class="preview-info">
+                                <h4>Portfolio Website</h4>
+                                <p>Modern portfolio with smooth animations and interactions</p>
+                            </div>
+                        </div>
+                        
+                        <div class="project-preview">
+                            <div class="preview-thumbnail">
+                                <img src="images/Work_1.jpg" alt="E-commerce Site">
+                            </div>
+                            <div class="preview-info">
+                                <h4>E-commerce Platform</h4>
+                                <p>Full-stack shopping site with payment integration</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="view-all-btn">
+                        <span>View All Web Projects</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Projects Card -->
+            <div class="category-card" data-category="other" onclick="navigateToCategory('other')">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="category-title">Other Projects</h3>
+                    <p class="category-description">Desktop applications, games, and experimental projects</p>
+                </div>
+                
+                <div class="category-content">
+                    <div class="project-previews">
+                        <div class="project-preview">
+                            <div class="preview-thumbnail">
+                                <img src="images/Work_2.jpg" alt="Paint Application">
+                            </div>
+                            <div class="preview-info">
+                                <h4>JavaFX Paint App</h4>
+                                <p>Digital painting application with brush tools and layers</p>
+                            </div>
+                        </div>
+                        
+                        <div class="project-preview">
+                            <div class="preview-thumbnail">
+                                <img src="images/Work_2.jpg" alt="Game Project">
+                            </div>
+                            <div class="preview-info">
+                                <h4>2D Puzzle Game</h4>
+                                <p>Interactive puzzle game built with Java and graphics</p>
+                            </div>
+                        </div>
+                        
+                        <div class="project-preview">
+                            <div class="preview-thumbnail">
+                                <img src="images/Work_2.jpg" alt="Database System">
+                            </div>
+                            <div class="preview-info">
+                                <h4>Database Management</h4>
+                                <p>SQL-based inventory management system</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="view-all-btn">
+                        <span>View All Other Projects</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- About Section -->
     <section id="about" class="about-section">
         <div class="about-container">
@@ -283,75 +446,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio-section">
-        <div class="section-header">
-            <h2 class="section-title">Featured Work</h2>
-            <p class="section-subtitle">
-                A showcase of projects that demonstrate my passion for creating exceptional digital experiences
-            </p>
-        </div>
-        <div class="portfolio-grid">
-            <div class="portfolio-card">
-                <div class="portfolio-image">
-                    <img src="images/Work_3.jpg" alt="Fitness App">
-                </div>
-                <div class="portfolio-content">
-                    <h3 class="portfolio-title">Fitness Tracker App</h3>
-                    <p class="portfolio-description">
-                        A personal workout tracker and guide built using Kotlin. Features a clean UI, 
-                        animated transitions, and allows users to log workouts, set goals, and view progress.
-                    </p>
-                    <a href="#" class="portfolio-link">
-                        View Project
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="portfolio-card">
-                <div class="portfolio-image">
-                    <img src="images/Work_2.jpg" alt="Train Booking App">
-                </div>
-                <div class="portfolio-content">
-                    <h3 class="portfolio-title">Train Booking System</h3>
-                    <p class="portfolio-description">
-                        An Android-based train booking prototype with seat selection, fare calculation, 
-                        and simulated payment flow. Emphasizes logic, form validation, and navigation efficiency.
-                    </p>
-                    <a href="#" class="portfolio-link">
-                        View Project
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="portfolio-card">
-                <div class="portfolio-image">
-                    <img src="images/Work_1.jpg" alt="Birthday Website">
-                </div>
-                <div class="portfolio-content">
-                    <h3 class="portfolio-title">Interactive Birthday Site</h3>
-                    <p class="portfolio-description">
-                        A creative landing page for a surprise birthday celebration using HTML, CSS animations, 
-                        and JavaScript. Includes photo gallery, embedded music, and RSVP form.
-                    </p>
-                    <a href="#" class="portfolio-link">
-                        View Project
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <div style="text-align: center; margin-top: 60px;">
-            <a href="#" class="btn btn-primary">
-                View All Projects
-                <i class="fas fa-external-link-alt"></i>
-            </a>
         </div>
     </section>
 
