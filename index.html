@@ -3,197 +3,437 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Portfolio Website</title>
-    <link rel="shortcut icon" type="p_icon" href="images/Browser_Logo.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/v4-shims.min.js" integrity="sha512-gXYZ34cbCchjX/wdcI1HDXjtplfbLEKnCMj7xJbqnOJon+Fy3aHXTt+otc3jH0KxMHM4+j+oIAMyNi1XZ2U3ow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Nelson Otika | Software Engineer</title>
+    <link rel="shortcut icon" type="image/png" href="images/Browser_Logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-        <nav>
-            <ul id="sidemenu">
-                <i class="fas fa-times" onclick="closemenu()"></i>
-                <li><a href="#header" class="active">Home</a></li>
-                <li><a href="#about">About </a></li>
-                <img src="images/Logo.png">
-                <li><a href="#services">Services</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <ul class="nav-menu">
+            <li><a href="#hero" class="nav-link active">Home</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><img src="images/Logo.png" alt="Logo" class="nav-logo"></li>
+            <li><a href="#portfolio" class="nav-link">Work</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
 
-            <i class="fas fa-bars" onclick="openmenu()"></i>
-        </nav>
-        <div class="header_container">
-            <div class="header-text">
-        <div class="top">
+    <button class="menu-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
 
-            <p>UI/UX</p>
-            <div class="rating">
-                <img src = 'images/stars.png'>
-                <h2>3 Years </h2>
-                <h3>Experience</h3>
-            </div>
-        </div>
-
-            <h1>Hi, I'm <span>Nelson Otika</span> <br>and i am a Web developer </h1>
-
-        </div>
-            <div class="Portfolio_pic">
-            <div class="pic_container">
-                <img src="images/Background.png">
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- services -->
- <div id="services">
-    <div class="container">
-        <h1 class="sub-title">My services</h1>
-        <div class="services-list">
-            <div>
-                <i class="fa-solid fa-code"></i>
-                <h2> web Development</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Ipsam, facilis officiis nulla, id aut, laborum et animi natus 
-                    maiores quos aperiam velit.</p>
-                    <a href="#">learn more</a>
-            </div>
-            <div>
-                <i class="fa-solid fa-crop-simple"></i>
-                <h2> UI/UX Design</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Ipsam, facilis officiis nulla, id aut, laborum et animi natus 
-                    maiores quos aperiam velit.</p>
-                    <a href="#">learn more</a>
-            </div>
-            <div>
-                <i class="fa-brands fa-android"></i>
-                <h2> App Development and design</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Ipsam, facilis officiis nulla, id aut, laborum et animi natus 
-                    maiores quos aperiam velit.</p>
-                    <a href="#">learn more</a>
-            </div>
-        </div>
-    </div>
- </div>
-
-<!---about---> 
-<div id="about">
-    <div class="container">
-        <div class="row">
-            <div class="about-col">
-                <h1 class="sub-title">About me</h1>
-                <p>I'm Otika Nelson Somto, a passionate Software Engineering student at Babcock University
-                     with a strong foundation in mobile and web development. My journey in tech has been 
-                     marked by hands-on experience, from interning at NIIT to freelancing and working on 
-                     diverse projects. I've developed Android applications, created interactive websites, 
-                     and even built a JavaFX-based paint application. My skills span Java, C/C++, HTML, CSS,
-                      SQL, JavaScript, and Kotlin, with proficiency in tools like Android Studio, Git, and IntelliJ. 
-                      Beyond coding, I'm an active member of my university's Coding Club, Java Republic Club, and 
-                      Google Developers Student Club, where I continue to expand my knowledge and collaborate with
-                       fellow tech enthusiasts. I'm driven by a passion for creating user-friendly, innovative solutions
-                        and am always eager to take on new challenges in the ever-evolving world of software development.</p>
-
-                     <div class="tab-titles">
-                        <p class="tab-links active-link" onclick="opentab(event, 'skills')"> Skills</p>
-                        <p class="tab-links" onclick="opentab(event, 'Experience')"> Experience</p>
-                        <p class="tab-links" onclick="opentab(event, 'Education')"> Education</p>
-                    </div>                    
-                    <div class="tab-contents active-tab" id="skills"> 
-                        <ul>
-                            <li><span>UI/UX</span><br>Designing Mobile App Interfaces</li>
-                            <li><span>Web Development</span><br>Web Site Development</li>
-                            <li><span>App Development</span><br>Android Application Development</li>
-                        </ul>
-                    </div>
-                    <div class="tab-contents" id="Experience"> 
-                        <ul>
-                            <li><span>2024-current</span><br>Building Android Projects at School</li>
-                            <li><span>2022-2023</span><br>Web/App Development at NIIT(Festac)</li>
-                        </ul>
-                    </div>
-                    </div>
-                    <div class="tab-contents" id="Education"> 
-                        <ul>
-                            <li><span>2023-2024</span><br>NIIT Mobile Application Certificate</li>
-                            <li><span>2021-Present</span><br>BSc in Software Engineering at Babcock University</li>
-                            <li><span>2015-2021</span><br>Radiance High School</li>
-                        </ul>
-                    </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Portfolio -->
-<div id="Portfolio">
-    <div class="container">
-        <h1 class="sub-title">My Work</h1>
-        <div class="work-list">
-            <div class="work">
-                <img src="images/Work_3.jpg">
-                <div class="layer">
-                    <h3>Fitness App</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                         Harum, iure impedit, tenetur adipisci architecto quae 
-                         quidem quia illum asperiores quasi in vel. Dicta, optio.</p>
-                         <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                    </div>
-                 </div>
-            <div class="work">
-                <img src="images/Work_2.jpg">
-                <div class="layer">
-                    <h3>Train Booking App</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                         Harum, iure impedit, tenetur adipisci architecto quae 
-                         quidem quia illum asperiores quasi in vel. Dicta, optio.</p>
-                    <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span>✨</span>
+                    <span>UI/UX Designer & Developer</span>
                 </div>
-        </div>
-            <div class="work">
-                <img src="images/Work_1.jpg">
-                <div class="layer">
-                    <h3>Birthday website</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                         Harum, iure impedit, tenetur adipisci architecto quae 
-                         quidem quia illum asperiores quasi in vel. Dicta, optio.</p>
-                    <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-            </div>
-            </div>
-    </div>
-</div>
-</div>
-<a href="#" class = "btn"> View more</a>
-<div id="contact">
-    <div class="container">
-        <div class="row">
-            <div class="contact-left">
-                <h1 class="sub-title">Contact me</h1>
-                <p><i class="fas fa-paper-plane"></i>contact@example.com</p>
-                <p><i class="fa-solid fa-phone"></i>0123456789</p>
-                <div class="Social-icons">
-                    <a href="https://facebook.com/"><i class="fab fa-facebook"></i></a>
-                    <a href="https://facebook.com/"><i class="fab fa-whatsapp"></i></a>
-                    <a href="https://github.com/otikanelson"><i class="fab fa-github"></i></a>
-                    <a href="linkedin.com/in/otika-nelson-0318622b2/?trk=opento_sprofile_details"><i class="fab fa-linkedin"></i></a>
+                <h1 class="hero-title">Nelson Otika</h1>
+                <p class="hero-subtitle">
+                    Crafting exceptional digital experiences through innovative design and clean code. 
+                    Transforming ideas into beautiful, functional applications.
+                </p>
+                <div class="hero-cta">
+                    <a href="#portfolio" class="btn btn-primary">
+                        View My Work
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        Let's Talk
+                        <i class="fas fa-message"></i>
+                    </a>
                 </div>
-                <a href="" class="btn btn2">Download Cv</a>
             </div>
-            <div class="contact-right">
+            <div class="hero-image">
+                <div class="image-container">
+                    <img src="images/bg.png" alt="Nelson Otika" class="floating-image">
+                    <div class="floating-elements">
+                        <div class="floating-element"></div>
+                        <div class="floating-element"></div>
+                        <div class="floating-element"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills-section">
+        <div class="section-header">
+            <h2 class="section-title">Technology Stack</h2>
+            <p class="section-subtitle">
+                A comprehensive toolkit of modern technologies and frameworks I use to bring ideas to life
+            </p>
+        </div>
+        <div class="skills-container">
+            <div class="skills-track">
+                <div class="skill-card">
+                    <i class="fab fa-java skill-icon"></i>
+                    <span class="skill-name">Java</span>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-js-square skill-icon"></i>
+                    <span class="skill-name">JavaScript</span>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-html5 skill-icon"></i>
+                    <span class="skill-name">HTML5</span>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-css3-alt skill-icon"></i>
+                    <span class="skill-name">CSS3</span>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-android skill-icon"></i>
+                    <span class="skill-name">Android</span>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-database skill-icon"></i>
+                    <span class="skill-name">SQL</span>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-git-alt skill-icon"></i>
+                    <span class="skill-name">Git</span>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-mobile-alt skill-icon"></i>
+                    <span class="skill-name">Kotlin</span>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-figma skill-icon"></i>
+                    <span class="skill-name">Figma</span>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-react skill-icon"></i>
+                    <span class="skill-name">React</span>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-node-js skill-icon"></i>
+                    <span class="skill-name">Node.js</span>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-code skill-icon"></i>
+                    <span class="skill-name">C/C++</span>
+                </div>
+            </div>
+            <!-- Duplicate for seamless scrolling -->
+            <div class="skills-track">
+                <div class="skill-card">
+                    <i class="fab fa-java skill-icon"></i>
+                    <span class="skill-name">Java</span>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-js-square skill-icon"></i>
+                    <span class="skill-name">JavaScript</span>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-html5 skill-icon"></i>
+                    <span class="skill-name">HTML5</span>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-css3-alt skill-icon"></i>
+                    <span class="skill-name">CSS3</span>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-android skill-icon"></i>
+                    <span class="skill-name">Android</span>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-database skill-icon"></i>
+                    <span class="skill-name">SQL</span>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-git-alt skill-icon"></i>
+                    <span class="skill-name">Git</span>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-mobile-alt skill-icon"></i>
+                    <span class="skill-name">Kotlin</span>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-figma skill-icon"></i>
+                    <span class="skill-name">Figma</span>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-react skill-icon"></i>
+                    <span class="skill-name">React</span>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-node-js skill-icon"></i>
+                    <span class="skill-name">Node.js</span>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-code skill-icon"></i>
+                    <span class="skill-name">C/C++</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="about-container">
+            <div class="about-content">
+                <h2>About Me</h2>
+                <p class="about-text">
+                    I'm Otika Nelson Somto, a passionate Software Engineering student at Babcock University 
+                    with a strong foundation in mobile and web development. My journey in tech has been 
+                    marked by hands-on experience, from interning at NIIT to freelancing and working on 
+                    diverse projects. I'm driven by a passion for creating user-friendly, innovative solutions 
+                    and am always eager to take on new challenges in the ever-evolving world of software development.
+                </p>
+                
+                <div class="tabs-container">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" onclick="openTab(event, 'skills')">Skills</button>
+                        <button class="tab-button" onclick="openTab(event, 'experience')">Experience</button>
+                        <button class="tab-button" onclick="openTab(event, 'education')">Education</button>
+                    </div>
+                    
+                    <div id="skills" class="tab-content active">
+                        <div class="tab-item">
+                            <div class="tab-item-date">UI/UX Design</div>
+                            <div class="tab-item-content">
+                                <h4>User Interface Design</h4>
+                                <p>Designing intuitive and visually appealing mobile app interfaces with focus on user experience</p>
+                            </div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="tab-item-date">Web Development</div>
+                            <div class="tab-item-content">
+                                <h4>Full-Stack Development</h4>
+                                <p>Building responsive websites and web applications using modern technologies and frameworks</p>
+                            </div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="tab-item-date">App Development</div>
+                            <div class="tab-item-content">
+                                <h4>Mobile Applications</h4>
+                                <p>Creating native Android applications with Kotlin and Java, focusing on performance and user experience</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="experience" class="tab-content">
+                        <div class="tab-item">
+                            <div class="tab-item-date">2024 - Present</div>
+                            <div class="tab-item-content">
+                                <h4>Android Developer</h4>
+                                <p>Building innovative Android projects at Babcock University, focusing on modern development practices</p>
+                            </div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="tab-item-date">2022 - 2023</div>
+                            <div class="tab-item-content">
+                                <h4>Web/App Developer Intern</h4>
+                                <p>Gained hands-on experience in web and mobile app development at NIIT Festac</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="education" class="tab-content">
+                        <div class="tab-item">
+                            <div class="tab-item-date">2021 - Present</div>
+                            <div class="tab-item-content">
+                                <h4>BSc Software Engineering</h4>
+                                <p>Babcock University - Studying comprehensive software development principles and practices</p>
+                            </div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="tab-item-date">2023 - 2024</div>
+                            <div class="tab-item-content">
+                                <h4>Mobile Application Certificate</h4>
+                                <p>NIIT - Specialized certification in mobile application development</p>
+                            </div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="tab-item-date">2015 - 2021</div>
+                            <div class="tab-item-content">
+                                <h4>Secondary Education</h4>
+                                <p>Radiance High School - Foundation in sciences and mathematics</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>3+</h3>
+                        <p>Years Experience</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>15+</h3>
+                        <p>Projects Completed</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>100%</h3>
+                        <p>Client Satisfaction</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>24/7</h3>
+                        <p>Support Available</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio-section">
+        <div class="section-header">
+            <h2 class="section-title">Featured Work</h2>
+            <p class="section-subtitle">
+                A showcase of projects that demonstrate my passion for creating exceptional digital experiences
+            </p>
+        </div>
+        <div class="portfolio-grid">
+            <div class="portfolio-card">
+                <div class="portfolio-image">
+                    <img src="images/Work_3.jpg" alt="Fitness App">
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="portfolio-title">Fitness Tracker App</h3>
+                    <p class="portfolio-description">
+                        A personal workout tracker and guide built using Kotlin. Features a clean UI, 
+                        animated transitions, and allows users to log workouts, set goals, and view progress.
+                    </p>
+                    <a href="#" class="portfolio-link">
+                        View Project
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="portfolio-card">
+                <div class="portfolio-image">
+                    <img src="images/Work_2.jpg" alt="Train Booking App">
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="portfolio-title">Train Booking System</h3>
+                    <p class="portfolio-description">
+                        An Android-based train booking prototype with seat selection, fare calculation, 
+                        and simulated payment flow. Emphasizes logic, form validation, and navigation efficiency.
+                    </p>
+                    <a href="#" class="portfolio-link">
+                        View Project
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="portfolio-card">
+                <div class="portfolio-image">
+                    <img src="images/Work_1.jpg" alt="Birthday Website">
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="portfolio-title">Interactive Birthday Site</h3>
+                    <p class="portfolio-description">
+                        A creative landing page for a surprise birthday celebration using HTML, CSS animations, 
+                        and JavaScript. Includes photo gallery, embedded music, and RSVP form.
+                    </p>
+                    <a href="#" class="portfolio-link">
+                        View Project
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 60px;">
+            <a href="#" class="btn btn-primary">
+                View All Projects
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="section-header">
+            <h2 class="section-title">Let's Work Together</h2>
+            <p class="section-subtitle">
+                Ready to bring your ideas to life? Let's discuss your next project
+            </p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Get In Touch</h3>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>contact@example.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+234 123 456 789</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Lagos, Nigeria</span>
+                </div>
+                
+                <div class="social-links">
+                    <a href="https://github.com/otikanelson" class="social-link">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/otika-nelson-0318622b2" class="social-link">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+                
+                <div style="margin-top: 40px;">
+                    <a href="#" class="btn btn-primary">
+                        <i class="fas fa-download"></i>
+                        Download CV
+                    </a>
+                </div>
+            </div>
+            
+            <div class="contact-form">
                 <form>
-                    <input type="text" name="Name" placeholder="Your Name" required>
-                    <input type="email" name="email" placeholder="Your email" required>
-                    <textarea name="Message" rows="8" placeholder="Your message" ></textarea>
-                    <button type="submit" class="btn btn2">Send</button>
+                    <div class="form-group">
+                        <input type="text" class="form-input" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-input" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-input" placeholder="Subject" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-input" placeholder="Your Message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        Send Message
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
                 </form>
             </div>
         </div>
-    </div>
-    <div class="Copyright">
-        <p>Copyright © Nelson. Made with <i class="fas fa-heart"></i> By Radson Tech</p>
-    </div>
-</div>
-<script src="script.js"></script>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: var(--card-bg); padding: 40px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
+        <p style="color: var(--text-secondary); margin: 0;">
+            © 2024 Nelson Otika. Made with 
+            <i class="fas fa-heart" style="color: var(--primary-color); margin: 0 5px;"></i> 
+            by Radson Tech
+        </p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
