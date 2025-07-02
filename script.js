@@ -275,14 +275,90 @@ document.addEventListener('mousemove', function(e) {
 });
 */
 
-// Portfolio card click handlers
-document.querySelectorAll('.portfolio-card').forEach(card => {
-    card.addEventListener('click', function() {
-        const link = this.querySelector('.portfolio-link');
-        if (link && link.href && link.href !== '#') {
-            window.open(link.href, '_blank');
+// Portfolio category navigation
+function navigateToCategory(category) {
+    // Add a subtle animation before navigation
+    const card = document.querySelector(`[data-category="${category}"]`);
+    card.style.transform = 'scale(0.95)';
+    
+    setTimeout(() => {
+        // Navigate to the specific category page
+        switch(category) {
+            case 'mobile':
+                window.location.href = 'mobile-projects.html';
+                break;
+            case 'web':
+                window.location.href = 'web-projects.html';
+                break;
+            case 'other':
+                window.location.href = 'other-projects.html';
+                break;
+            default:
+                console.log('Unknown category:', category);
         }
+    }, 150);
+}
+
+// Enhanced portfolio card interactions
+document.addEventListener('DOMContentLoaded', function() {
+    const categoryCards = document.querySelectorAll('.category-card');
+    
+    categoryCards.forEach(card => {
+        // Add mouse enter effect
+        card.addEventListener('mouseenter', function() {
+            // Add subtle animation to icon
+            const icon = this.querySelector('.category-icon');
+            if (icon) {
+                icon.style.animation = 'pulse 0.6s ease-in-out';
+            }
+        });
+        
+        // Reset animation on mouse leave
+        card.addEventListener('mouseleave', function() {
+            const icon = this.querySelector('.category-icon');
+            if (icon) {
+                icon.style.animation = '';
+            }
+        });
+        
+        // Add click effect
+        card.addEventListener('mousedown', function() {
+            this.style.transform = 'scale(0.98)';
+        });
+        
+        card.addEventListener('mouseup', function() {
+            this.style.transform = '';
+        });
     });
+    
+    // Intersection observer for portfolio section
+    const portfolioSection = document.querySelector('.portfolio-section');
+    if (portfolioSection) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Animate cards in sequence
+                    const cards = entry.target.querySelectorAll('.category-card');
+                    cards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, index * 200);
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        // Initially hide cards for animation
+        const cards = portfolioSection.querySelectorAll('.category-card');
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        });
+        
+        observer.observe(portfolioSection);
+    }
 });
 
 // Add keyboard navigation support
