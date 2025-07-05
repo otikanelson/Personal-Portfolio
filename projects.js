@@ -1,387 +1,516 @@
-// Projects Page Functionality
+// Projects Page JavaScript - No Auto-scroll Interruption
 
-let currentProject = 'fitness';
-let currentScreenshot = 0;
-
-document.addEventListener('DOMContentLoaded', function() {
-    initializeProjectsPage();
-});
-
-function initializeProjectsPage() {
-    // Set up project card interactions
-    setupProjectCards();
-    
-    // Set up navigation dots
-    setupNavigationDots();
-    
-    // Set up screenshot navigation
-    setupScreenshotNavigation();
-    
-    // Initialize scroll animations
-    setupScrollAnimations();
-    
-    // Set initial active states
-    setActiveProject('fitness');
-}
-
-function setupProjectCards() {
-    const projectCards = document.querySelectorAll('.project-card');
-    
-    projectCards.forEach(card => {
-        card.addEventListener('click', function() {
-            const projectId = this.getAttribute('data-project');
-            setActiveProject(projectId);
-        });
+class ProjectsCarousel {
+    constructor() {
+        this.currentProject = 0;
+        this.totalProjects = 2;
+        this.isTransitioning = false;
+        this.userIsInteracting = false;
+        this.interactionTimeout = null;
         
-        // Add hover effects
-        card.addEventListener('mouseenter', function() {
-            if (!this.classList.contains('active')) {
-                this.style.transform = 'scale(0.98)';
-                this.style.opacity = '0.9';
-            }
-        });
+        this.init();
+    }
+
+    init() {
+        this.bindElements();
+        this.bindEvents();
+        this.setActiveProject(0);
         
-        card.addEventListener('mouseleave', function() {
-            if (!this.classList.contains('active')) {
-                this.style.transform = 'scale(0.95)';
-                this.style.opacity = '0.7';
-            }
-        });
-    });
-}
+        console.log('📱 Mobile Projects Page Initialized');
+    }
 
-function setupNavigationDots() {
-    const navDots = document.querySelectorAll('.nav-dot');
-    
-    navDots.forEach(dot => {
-        dot.addEventListener('click', function() {
-            const projectId = this.getAttribute('data-project');
-            setActiveProject(projectId);
-        });
-    });
-}
+    bindElements() {
+        // Main elements
+        this.carousel = document.getElementById('projectCarousel');
+        this.projectCards = document.querySelectorAll('.project-card');
+        this.screenshots = document.querySelectorAll('.screenshot');
+        this.navDots = document.querySelectorAll('.nav-dot');
+        
+        // Navigation buttons
+        this.prevBtn = document.getElementById('prevBtn');
+        this.nextBtn = document.getElementById('nextBtn');
+        this.phonePrevBtn = document.getElementById('phonePrevBtn');
+        this.phoneNextBtn = document.getElementById('phoneNextBtn');
+        
+        // Container for interaction detection
+        this.projectsContainer = document.querySelector('.projects-container');
+        this.phoneContainer = document.querySelector('.phone-container');
+    }
 
-function setupScreenshotNavigation() {
-    // Auto-cycle screenshots every 4 seconds
-    setInterval(() => {
-        nextScreenshot();
-    }, 4000);
-}
-
-function setupScrollAnimations() {
-    // Animate project cards on scroll
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, { threshold: 0.1 });
-
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-        observer.observe(card);
-    });
-}
-
-function setActiveProject(projectId) {
-    currentProject = projectId;
-    currentScreenshot = 0;
-    
-    // Update active project card
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach(card => {
-        card.classList.remove('active');
-        if (card.getAttribute('data-project') === projectId) {
-            card.classList.add('active');
-            
-            // Scroll to active card if needed
-            card.scrollIntoView({
-                behavior: 'smooth',
-                block: 'nearest'
+    bindEvents() {
+        // Carousel navigation
+        this.prevBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.prevProject()));
+        this.nextBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.nextProject()));
+        
+        // Phone navigation
+        this.phonePrevBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.prevProject()));
+        this.phoneNextBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.nextProject()));
+        
+        // Project card clicks
+        this.projectCards.forEach((card, index) => {
+            card.addEventListener('click', () => {
+                this.handleUserInteraction(() => this.setActiveProject(index));
             });
-        }
-    });
-    
-    // Update navigation dots
-    const navDots = document.querySelectorAll('.nav-dot');
-    navDots.forEach(dot => {
-        dot.classList.remove('active');
-        if (dot.getAttribute('data-project') === projectId) {
-            dot.classList.add('active');
-        }
-    });
-    
-    // Update phone display
-    updatePhoneDisplay(projectId);
-}
-
-function updatePhoneDisplay(projectId) {
-    // Hide all screenshot sets
-    const screenshotSets = document.querySelectorAll('.screenshot-set');
-    screenshotSets.forEach(set => {
-        set.classList.remove('active');
-    });
-    
-    // Show active screenshot set
-    const activeSet = document.querySelector(`[data-project="${projectId}"]`);
-    if (activeSet) {
-        activeSet.classList.add('active');
+        });
         
-        // Reset to first screenshot
-        const screenshots = activeSet.querySelectorAll('.screenshot');
-        screenshots.forEach((screenshot, index) => {
-            screenshot.classList.remove('active');
-            if (index === 0) {
-                screenshot.classList.add('active');
+        // Navigation dot clicks
+        this.navDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                this.handleUserInteraction(() => this.setActiveProject(index));
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (this.shouldHandleKeyboard(e)) {
+                this.handleKeyboard(e);
+            }
+        });
+        
+        // Touch/swipe events
+        this.bindTouchEvents();
+        
+        // Mouse interaction detection
+        this.bindMouseEvents();
+        
+        // Scroll interaction detection
+        this.bindScrollEvents();
+        
+        // Visibility change handling
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                this.userIsInteracting = true; // Prevent auto-scroll when tab is hidden
             }
         });
     }
-}
 
-function nextScreenshot() {
-    const activeSet = document.querySelector('.screenshot-set.active');
-    if (!activeSet) return;
-    
-    const screenshots = activeSet.querySelectorAll('.screenshot');
-    const totalScreenshots = screenshots.length;
-    
-    // Remove current active
-    screenshots[currentScreenshot].classList.remove('active');
-    
-    // Move to next screenshot
-    currentScreenshot = (currentScreenshot + 1) % totalScreenshots;
-    
-    // Add active to new screenshot
-    screenshots[currentScreenshot].classList.add('active');
-}
+    bindMouseEvents() {
+        // Detect mouse interactions in the projects area
+        const interactiveElements = [
+            this.projectsContainer,
+            this.phoneContainer,
+            ...this.projectCards,
+            ...this.navDots
+        ].filter(Boolean);
 
-function previousScreenshot() {
-    const activeSet = document.querySelector('.screenshot-set.active');
-    if (!activeSet) return;
-    
-    const screenshots = activeSet.querySelectorAll('.screenshot');
-    const totalScreenshots = screenshots.length;
-    
-    // Remove current active
-    screenshots[currentScreenshot].classList.remove('active');
-    
-    // Move to previous screenshot
-    currentScreenshot = currentScreenshot === 0 ? totalScreenshots - 1 : currentScreenshot - 1;
-    
-    // Add active to new screenshot
-    screenshots[currentScreenshot].classList.add('active');
-}
-
-// Keyboard navigation support
-document.addEventListener('keydown', function(e) {
-    switch(e.key) {
-        case 'ArrowLeft':
-            previousScreenshot();
-            e.preventDefault();
-            break;
-        case 'ArrowRight':
-            nextScreenshot();
-            e.preventDefault();
-            break;
-        case 'ArrowUp':
-            navigateProject('up');
-            e.preventDefault();
-            break;
-        case 'ArrowDown':
-            navigateProject('down');
-            e.preventDefault();
-            break;
+        interactiveElements.forEach(element => {
+            // Mouse enter - user is potentially interacting
+            element.addEventListener('mouseenter', () => {
+                this.userIsInteracting = true;
+                this.clearInteractionTimeout();
+            });
+            
+            // Mouse leave - start timeout to resume auto behavior
+            element.addEventListener('mouseleave', () => {
+                this.setInteractionTimeout();
+            });
+            
+            // Any mouse movement within the area
+            element.addEventListener('mousemove', () => {
+                this.userIsInteracting = true;
+                this.clearInteractionTimeout();
+                this.setInteractionTimeout();
+            });
+        });
     }
-});
 
-function navigateProject(direction) {
-    const projects = ['fitness', 'train', 'weather', 'shopping'];
-    const currentIndex = projects.indexOf(currentProject);
-    
-    let newIndex;
-    if (direction === 'up') {
-        newIndex = currentIndex === 0 ? projects.length - 1 : currentIndex - 1;
-    } else {
-        newIndex = currentIndex === projects.length - 1 ? 0 : currentIndex + 1;
+    bindScrollEvents() {
+        // Detect scrolling within project cards
+        this.projectCards.forEach(card => {
+            card.addEventListener('scroll', () => {
+                this.handleUserInteraction();
+            });
+        });
+        
+        // Detect page scrolling
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            this.userIsInteracting = true;
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                this.setInteractionTimeout();
+            }, 150);
+        });
     }
-    
-    setActiveProject(projects[newIndex]);
-}
 
-// Touch support for mobile
-let touchStartY = 0;
-let touchEndY = 0;
+    bindTouchEvents() {
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchEndX = 0;
+        let touchEndY = 0;
 
-document.addEventListener('touchstart', function(e) {
-    touchStartY = e.changedTouches[0].screenY;
-});
+        const touchElements = [this.phoneContainer, this.projectsContainer].filter(Boolean);
 
-document.addEventListener('touchend', function(e) {
-    touchEndY = e.changedTouches[0].screenY;
-    handleSwipe();
-});
+        touchElements.forEach(element => {
+            element.addEventListener('touchstart', (e) => {
+                this.handleUserInteraction();
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            }, { passive: true });
 
-function handleSwipe() {
-    const swipeThreshold = 50;
-    const swipeDistance = touchStartY - touchEndY;
-    
-    if (Math.abs(swipeDistance) > swipeThreshold) {
-        if (swipeDistance > 0) {
-            // Swipe up - next project
-            navigateProject('down');
+            element.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                touchEndY = e.changedTouches[0].screenY;
+                this.handleSwipe(touchStartX, touchStartY, touchEndX, touchEndY);
+            }, { passive: true });
+        });
+    }
+
+    handleSwipe(startX, startY, endX, endY) {
+        const swipeThreshold = 50;
+        const diffX = startX - endX;
+        const diffY = startY - endY;
+
+        // Determine if it's a horizontal or vertical swipe
+        if (Math.abs(diffX) > Math.abs(diffY)) {
+            // Horizontal swipe
+            if (Math.abs(diffX) > swipeThreshold) {
+                if (diffX > 0) {
+                    this.nextProject(); // Swipe left
+                } else {
+                    this.prevProject(); // Swipe right
+                }
+            }
         } else {
-            // Swipe down - previous project
-            navigateProject('up');
+            // Vertical swipe
+            if (Math.abs(diffY) > swipeThreshold) {
+                if (diffY > 0) {
+                    this.nextProject(); // Swipe up
+                } else {
+                    this.prevProject(); // Swipe down
+                }
+            }
         }
     }
-}
 
-// Smooth scroll for project carousel
-function smoothScrollToProject(projectId) {
-    const targetCard = document.querySelector(`[data-project="${projectId}"]`);
-    if (targetCard) {
-        targetCard.scrollIntoView({
-            behavior: 'smooth',
-            block: 'center'
-        });
-    }
-}
-
-// Performance optimization - debounce scroll events
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Enhanced project card animations
-function animateProjectCard(card, isActive) {
-    if (isActive) {
-        card.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-        card.style.transform = 'scale(1) translateY(0)';
-        card.style.opacity = '1';
+    handleUserInteraction(callback) {
+        this.userIsInteracting = true;
+        this.clearInteractionTimeout();
         
-        // Animate icon
-        const icon = card.querySelector('.project-icon');
-        if (icon) {
-            icon.style.animation = 'pulse 0.6s ease-in-out';
+        if (callback) {
+            callback();
         }
         
-        // Animate content with stagger
-        const elements = card.querySelectorAll('.project-title, .project-description, .project-features, .learn-more-btn');
-        elements.forEach((el, index) => {
-            setTimeout(() => {
-                el.style.opacity = '1';
-                el.style.transform = 'translateY(0)';
-            }, index * 100);
+        // Set a longer timeout after user interaction
+        this.setInteractionTimeout(5000); // 5 seconds instead of default 3
+    }
+
+    setInteractionTimeout(delay = 3000) {
+        this.clearInteractionTimeout();
+        this.interactionTimeout = setTimeout(() => {
+            this.userIsInteracting = false;
+        }, delay);
+    }
+
+    clearInteractionTimeout() {
+        if (this.interactionTimeout) {
+            clearTimeout(this.interactionTimeout);
+            this.interactionTimeout = null;
+        }
+    }
+
+    shouldHandleKeyboard(e) {
+        // Don't handle keyboard if user is typing in an input
+        const activeElement = document.activeElement;
+        const inputElements = ['INPUT', 'TEXTAREA', 'SELECT'];
+        return !inputElements.includes(activeElement.tagName);
+    }
+
+    handleKeyboard(e) {
+        switch(e.key) {
+            case 'ArrowLeft':
+            case 'ArrowUp':
+                e.preventDefault();
+                this.handleUserInteraction(() => this.prevProject());
+                break;
+            case 'ArrowRight':
+            case 'ArrowDown':
+                e.preventDefault();
+                this.handleUserInteraction(() => this.nextProject());
+                break;
+            case ' ': // Spacebar
+                e.preventDefault();
+                this.handleUserInteraction(() => this.nextProject());
+                break;
+            case 'Home':
+                e.preventDefault();
+                this.handleUserInteraction(() => this.setActiveProject(0));
+                break;
+            case 'End':
+                e.preventDefault();
+                this.handleUserInteraction(() => this.setActiveProject(this.totalProjects - 1));
+                break;
+        }
+    }
+
+    setActiveProject(index) {
+        if (this.isTransitioning || index === this.currentProject) {
+            return;
+        }
+
+        this.isTransitioning = true;
+        const previousProject = this.currentProject;
+        this.currentProject = index;
+
+        // Update 3D carousel positions
+        this.update3DCarousel();
+        
+        // Update project cards
+        this.updateProjectCards();
+        
+        // Update screenshots
+        this.updateScreenshots();
+        
+        // Update navigation dots
+        this.updateNavigationDots();
+        
+        // Smooth scroll to active card on mobile
+        this.scrollToActiveCard();
+        
+        // Announce change for accessibility
+        this.announceProjectChange();
+
+        // Reset transition flag
+        setTimeout(() => {
+            this.isTransitioning = false;
+        }, 600);
+    }
+
+    update3DCarousel() {
+        this.projectCards.forEach((card, index) => {
+            card.classList.remove('transitioning');
+            // Force reflow
+            card.offsetHeight;
+            card.classList.add('transitioning');
+            
+            const offset = index - this.currentProject;
+            const translateY = offset * 120;
+            const translateZ = Math.abs(offset) * -150;
+            const rotateX = Math.abs(offset) * -15;
+            const zIndex = this.totalProjects - Math.abs(offset);
+            
+            if (index === this.currentProject) {
+                card.style.transform = 'translateY(0px) translateZ(50px) rotateX(0deg)';
+                card.style.zIndex = 10;
+            } else {
+                card.style.transform = `translateY(${translateY}px) translateZ(${translateZ}px) rotateX(${rotateX}deg)`;
+                card.style.zIndex = zIndex;
+            }
         });
-    } else {
-        card.style.transform = 'scale(0.95) translateY(10px)';
-        card.style.opacity = '0.7';
+    }
+
+    updateProjectCards() {
+        this.projectCards.forEach((card, index) => {
+            card.classList.toggle('active', index === this.currentProject);
+        });
+    }
+
+    updateScreenshots() {
+        this.screenshots.forEach((screenshot, index) => {
+            screenshot.classList.toggle('active', index === this.currentProject);
+        });
+    }
+
+    updateNavigationDots() {
+        this.navDots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === this.currentProject);
+        });
+    }
+
+    scrollToActiveCard() {
+        // Only scroll on mobile/tablet viewports
+        if (window.innerWidth <= 1024) {
+            const activeCard = this.projectCards[this.currentProject];
+            if (activeCard) {
+                setTimeout(() => {
+                    activeCard.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }, 100);
+            }
+        }
+    }
+
+    announceProjectChange() {
+        const projectNames = [
+            'Fitness Tracker App',
+            'Train Booking System', 
+            'Weather Forecast App',
+            'E-Commerce Shopping App'
+        ];
+        
+        const announcement = document.createElement('div');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.setAttribute('aria-atomic', 'true');
+        announcement.className = 'sr-only';
+        announcement.textContent = `Now viewing ${projectNames[this.currentProject]}`;
+        announcement.style.cssText = `
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        `;
+        
+        document.body.appendChild(announcement);
+        
+        setTimeout(() => {
+            if (announcement.parentNode) {
+                document.body.removeChild(announcement);
+            }
+        }, 1000);
+    }
+
+    nextProject() {
+        const next = (this.currentProject + 1) % this.totalProjects;
+        this.setActiveProject(next);
+    }
+
+    prevProject() {
+        const prev = (this.currentProject - 1 + this.totalProjects) % this.totalProjects;
+        this.setActiveProject(prev);
+    }
+
+    // Public methods for external access
+    getCurrentProject() {
+        return this.currentProject;
+    }
+
+    getTotalProjects() {
+        return this.totalProjects;
+    }
+
+    // Method to programmatically set user interaction state
+    setUserInteractionState(isInteracting) {
+        this.userIsInteracting = isInteracting;
+        if (isInteracting) {
+            this.clearInteractionTimeout();
+        } else {
+            this.setInteractionTimeout();
+        }
     }
 }
 
-// Initialize intersection observer for performance
-const projectObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const projectId = entry.target.getAttribute('data-project');
-            // Pre-load images for better performance
-            preloadProjectImages(projectId);
-        }
-    });
-}, { rootMargin: '100px' });
-
-// Pre-load images for smooth transitions
-function preloadProjectImages(projectId) {
-    const screenshotSet = document.querySelector(`.screenshot-set[data-project="${projectId}"]`);
-    if (screenshotSet) {
-        const images = screenshotSet.querySelectorAll('img');
+// Enhanced error handling for images
+class ImageLoader {
+    static setupErrorHandling() {
+        const images = document.querySelectorAll('.screenshot img');
+        
         images.forEach(img => {
-            if (!img.complete) {
-                img.loading = 'lazy';
+            img.addEventListener('loadstart', function() {
+                this.parentElement.classList.add('loading');
+            });
+            
+            img.addEventListener('load', function() {
+                this.parentElement.classList.remove('loading');
+            });
+            
+            img.addEventListener('error', function() {
+                this.parentElement.classList.remove('loading');
+                this.parentElement.classList.add('error');
+                console.warn('Failed to load screenshot:', this.src);
+                
+                // Create fallback content
+                const fallback = document.createElement('div');
+                fallback.style.cssText = `
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    text-align: center;
+                    color: #666;
+                    font-size: 14px;
+                `;
+                fallback.innerHTML = '📱<br>Preview<br>Unavailable';
+                this.parentElement.appendChild(fallback);
+            });
+        });
+    }
+}
+
+// Performance optimization utilities
+class PerformanceOptimizer {
+    static optimize() {
+        // Add will-change property for better performance
+        const animatedElements = document.querySelectorAll('.project-card, .screenshot, .nav-dot');
+        animatedElements.forEach(element => {
+            element.style.willChange = 'transform, opacity';
+        });
+        
+        // Remove will-change after initial animations
+        setTimeout(() => {
+            animatedElements.forEach(element => {
+                element.style.willChange = 'auto';
+            });
+        }, 2000);
+        
+        // Preload next/previous images
+        this.preloadImages();
+    }
+    
+    static preloadImages() {
+        const screenshots = document.querySelectorAll('.screenshot img');
+        screenshots.forEach(img => {
+            const imageUrl = img.src;
+            if (imageUrl) {
+                const preloadImg = new Image();
+                preloadImg.src = imageUrl;
             }
         });
     }
 }
 
-// Initialize observers
+// Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach(card => {
-        projectObserver.observe(card);
-    });
-});
-
-// Error handling for images
-document.addEventListener('DOMContentLoaded', function() {
-    const images = document.querySelectorAll('.screenshot img');
-    images.forEach(img => {
-        img.addEventListener('error', function() {
-            // Fallback for broken images
-            this.style.display = 'none';
-            console.warn('Failed to load image:', this.src);
-        });
+    // Initialize the carousel
+    window.projectsCarousel = new ProjectsCarousel();
+    
+    // Setup image error handling
+    ImageLoader.setupErrorHandling();
+    
+    // Apply performance optimizations
+    PerformanceOptimizer.optimize();
+    
+    // Add intersection observer for performance
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
         
-        img.addEventListener('load', function() {
-            // Remove loading state
-            this.parentElement.classList.remove('loading');
+        document.querySelectorAll('.project-card').forEach(card => {
+            observer.observe(card);
         });
-    });
-});
-
-// Accessibility improvements
-function announceProjectChange(projectName) {
-    // Create announcement for screen readers
-    const announcement = document.createElement('div');
-    announcement.setAttribute('aria-live', 'polite');
-    announcement.setAttribute('aria-atomic', 'true');
-    announcement.className = 'sr-only';
-    announcement.textContent = `Now viewing ${projectName} project`;
+    }
     
-    document.body.appendChild(announcement);
-    
-    // Remove after announcement
-    setTimeout(() => {
-        document.body.removeChild(announcement);
-    }, 1000);
-}
+    console.log(`
+🚀 Mobile Projects Page Loaded Successfully!
+📱 Navigation Options:
+   • Click project cards to switch
+   • Use arrow buttons or navigation dots
+   • Keyboard: Arrow keys, Space, Home/End
+   • Touch: Swipe gestures supported
+   • Auto-scroll: Disabled during user interaction
 
-// Update setActiveProject to include accessibility
-const originalSetActiveProject = setActiveProject;
-setActiveProject = function(projectId) {
-    originalSetActiveProject(projectId);
-    
-    // Get project name for announcement
-    const projectCard = document.querySelector(`[data-project="${projectId}"]`);
-    const projectName = projectCard ? projectCard.querySelector('.project-title').textContent : projectId;
-    
-    announceProjectChange(projectName);
-};
-
-// Console welcome message
-console.log(`
-📱 Mobile Projects Page Loaded Successfully!
-🎮 Navigation Controls:
-   • Click cards or dots to switch projects
-   • Use arrow keys for navigation
-   • Swipe on mobile devices
-   • Screenshots auto-cycle every 4 seconds
-
-💡 Features:
-   • Smooth animations and transitions
-   • Keyboard accessibility
-   • Touch gesture support
+✨ Features:
+   • 3D carousel effect
+   • Smart interaction detection
+   • No interruption during manual navigation
+   • Responsive design
+   • Accessibility support
    • Performance optimized
 `);
+});
+
+// Export for potential external use
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { ProjectsCarousel, ImageLoader, PerformanceOptimizer };
+}

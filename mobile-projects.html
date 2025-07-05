@@ -13,16 +13,6 @@
     <link rel="stylesheet" href="projects.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <ul class="nav-menu">
-            <li><a href="index.html" class="nav-link">Home</a></li>
-            <li><a href="index.html#about" class="nav-link">About</a></li>
-            <li><img src="images/Logo.png" alt="Logo" class="nav-logo"></li>
-            <li><a href="index.html#portfolio" class="nav-link active">Work</a></li>
-            <li><a href="index.html#contact" class="nav-link">Contact</a></li>
-        </ul>
-    </nav>
 
     <!-- Back Button -->
     <div class="back-navigation">
@@ -34,17 +24,18 @@
 
     <!-- Mobile Projects Section -->
     <section class="projects-section">
-        <div class="projects-container">
-            <!-- Left Side - Project Details Carousel -->
-            <div class="projects-sidebar">
-                <div class="section-header">
-                    <h1 class="page-title">Mobile App Development</h1>
-                    <p class="page-subtitle">Native Android applications built with modern technologies</p>
-                </div>
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">Mobile App Development</h1>
+            <p class="page-subtitle">Native Android applications built with modern technologies</p>
+        </div>
 
-                <div class="projects-carousel">
+        <div class="projects-container">
+            <!-- Left Side - 3D Carousel -->
+            <div class="projects-carousel-container">
+                <div class="carousel-3d" id="projectCarousel">
                     <!-- Project 1 - Fitness Tracker -->
-                    <div class="project-card active" data-project="fitness">
+                    <div class="project-card active" data-project="0">
                         <div class="project-header">
                             <div class="project-icon">
                                 <i class="fas fa-dumbbell"></i>
@@ -72,9 +63,7 @@
                                     <li>Social sharing capabilities</li>
                                 </ul>
                             </div>
-                        </div>
-                        
-                        <div class="project-actions">
+                            
                             <a href="#" class="learn-more-btn">
                                 Learn More
                                 <i class="fas fa-external-link-alt"></i>
@@ -83,7 +72,7 @@
                     </div>
 
                     <!-- Project 2 - Train Booking -->
-                    <div class="project-card" data-project="train">
+                    <div class="project-card" data-project="1">
                         <div class="project-header">
                             <div class="project-icon">
                                 <i class="fas fa-train"></i>
@@ -111,87 +100,7 @@
                                     <li>Route planning and scheduling</li>
                                 </ul>
                             </div>
-                        </div>
-                        
-                        <div class="project-actions">
-                            <a href="#" class="learn-more-btn">
-                                Learn More
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Project 3 - Weather App -->
-                    <div class="project-card" data-project="weather">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-cloud-sun"></i>
-                            </div>
-                            <div class="project-meta">
-                                <h3 class="project-title">Weather Forecast App</h3>
-                                <div class="project-tags">
-                                    <span class="tag">Kotlin</span>
-                                    <span class="tag">REST API</span>
-                                    <span class="tag">Material Design</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="project-description">
-                            <p>A beautiful weather application that provides real-time weather updates and forecasts. Features stunning animations and a user-friendly interface that adapts to different weather conditions.</p>
                             
-                            <div class="project-features">
-                                <h4>Key Features:</h4>
-                                <ul>
-                                    <li>Real-time weather data</li>
-                                    <li>7-day weather forecast</li>
-                                    <li>Location-based services</li>
-                                    <li>Beautiful weather animations</li>
-                                    <li>Customizable notifications</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="project-actions">
-                            <a href="#" class="learn-more-btn">
-                                Learn More
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Project 4 - Shopping App -->
-                    <div class="project-card" data-project="shopping">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-shopping-cart"></i>
-                            </div>
-                            <div class="project-meta">
-                                <h3 class="project-title">E-Commerce Shopping App</h3>
-                                <div class="project-tags">
-                                    <span class="tag">Kotlin</span>
-                                    <span class="tag">MVVM</span>
-                                    <span class="tag">Room Database</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="project-description">
-                            <p>A full-featured e-commerce application with product browsing, cart management, and order processing. Implements modern Android architecture patterns and provides a smooth shopping experience.</p>
-                            
-                            <div class="project-features">
-                                <h4>Key Features:</h4>
-                                <ul>
-                                    <li>Product catalog with search</li>
-                                    <li>Shopping cart management</li>
-                                    <li>User authentication</li>
-                                    <li>Order tracking system</li>
-                                    <li>Wishlist and favorites</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="project-actions">
                             <a href="#" class="learn-more-btn">
                                 Learn More
                                 <i class="fas fa-external-link-alt"></i>
@@ -202,81 +111,39 @@
 
                 <!-- Carousel Navigation -->
                 <div class="carousel-navigation">
-                    <button class="nav-dot active" data-project="fitness"></button>
-                    <button class="nav-dot" data-project="train"></button>
-                    <button class="nav-dot" data-project="weather"></button>
-                    <button class="nav-dot" data-project="shopping"></button>
+                    <button class="carousel-btn carousel-prev" id="prevBtn">
+                        <i class="fas fa-chevron-up"></i>
+                    </button>
+                    <button class="carousel-btn carousel-next" id="nextBtn">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
                 </div>
             </div>
 
-            <!-- Right Side - Phone Mockup Display -->
+            <!-- Right Side - Phone Display -->
             <div class="phone-display">
                 <div class="phone-container">
                     <div class="phone-mockup">
-                        <!-- Phone Frame (placeholder for your image) -->
                         <div class="phone-frame">
                             <div class="phone-screen">
-                                <!-- Project Screenshots Slider -->
-                                <div class="screenshots-slider">
-                                    <!-- Fitness App Screenshots -->
-                                    <div class="screenshot-set active" data-project="fitness">
-                                        <div class="screenshot active">
-                                            <img src="images/Work_3.jpg" alt="Fitness App Home">
-                                        </div>
-                                        <div class="screenshot">
-                                            <img src="images/Work_3.jpg" alt="Fitness App Workout">
-                                        </div>
-                                        <div class="screenshot">
-                                            <img src="images/Work_3.jpg" alt="Fitness App Progress">
-                                        </div>
+                                <!-- Screenshots Container -->
+                                <div class="screenshots-container">
+                                    <!-- Screenshot 1 -->
+                                    <div class="screenshot active">
+                                        <img src="images/Frebfit_1.jpg" alt="Fitness App Home">
                                     </div>
-
-                                    <!-- Train Booking Screenshots -->
-                                    <div class="screenshot-set" data-project="train">
-                                        <div class="screenshot active">
-                                            <img src="images/Work_2.jpg" alt="Train Booking Home">
-                                        </div>
-                                        <div class="screenshot">
-                                            <img src="images/Work_2.jpg" alt="Train Booking Seats">
-                                        </div>
-                                        <div class="screenshot">
-                                            <img src="images/Work_2.jpg" alt="Train Booking Payment">
-                                        </div>
-                                    </div>
-
-                                    <!-- Weather App Screenshots -->
-                                    <div class="screenshot-set" data-project="weather">
-                                        <div class="screenshot active">
-                                            <img src="images/Work_3.jpg" alt="Weather App Home">
-                                        </div>
-                                        <div class="screenshot">
-                                            <img src="images/Work_3.jpg" alt="Weather App Forecast">
-                                        </div>
-                                        <div class="screenshot">
-                                            <img src="images/Work_3.jpg" alt="Weather App Settings">
-                                        </div>
-                                    </div>
-
-                                    <!-- Shopping App Screenshots -->
-                                    <div class="screenshot-set" data-project="shopping">
-                                        <div class="screenshot active">
-                                            <img src="images/Work_2.jpg" alt="Shopping App Home">
-                                        </div>
-                                        <div class="screenshot">
-                                            <img src="images/Work_2.jpg" alt="Shopping App Product">
-                                        </div>
-                                        <div class="screenshot">
-                                            <img src="images/Work_2.jpg" alt="Shopping App Cart">
-                                        </div>
+                                    <!-- Screenshot 2 -->
+                                    <div class="screenshot">
+                                        <img src="images/Train_1.jpg" alt="Train Booking Home">
                                     </div>
                                 </div>
 
-                                <!-- Screenshot Navigation -->
-                                <div class="screenshot-nav">
-                                    <button class="nav-btn prev-btn" onclick="previousScreenshot()">
+                                <!-- Arrow Navigation -->
+                                <div class="phone-navigation">
+                                    <button class="nav-arrow" id="phonePrevBtn">
                                         <i class="fas fa-chevron-left"></i>
                                     </button>
-                                    <button class="nav-btn next-btn" onclick="nextScreenshot()">
+                                    <button class="nav-arrow" id="phoneNextBtn">
                                         <i class="fas fa-chevron-right"></i>
                                     </button>
                                 </div>
@@ -285,6 +152,12 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Project Navigation Dots -->
+        <div class="project-dots">
+            <button class="nav-dot active" data-project="0"></button>
+            <button class="nav-dot" data-project="1"></button>
         </div>
     </section>
 

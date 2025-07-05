@@ -14,16 +14,6 @@
     <link rel="stylesheet" href="other-projects.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <ul class="nav-menu">
-            <li><a href="index.html" class="nav-link">Home</a></li>
-            <li><a href="index.html#about" class="nav-link">About</a></li>
-            <li><img src="images/Logo.png" alt="Logo" class="nav-logo"></li>
-            <li><a href="index.html#portfolio" class="nav-link active">Work</a></li>
-            <li><a href="index.html#contact" class="nav-link">Contact</a></li>
-        </ul>
-    </nav>
 
     <!-- Back Button -->
     <div class="back-navigation">
@@ -34,18 +24,19 @@
     </div>
 
     <!-- Other Projects Section -->
-    <section class="projects-section">
-        <div class="projects-container">
-            <!-- Left Side - Project Details Carousel -->
-            <div class="projects-sidebar">
-                <div class="section-header">
-                    <h1 class="page-title">Other Projects</h1>
-                    <p class="page-subtitle">Desktop applications, games, and experimental projects</p>
-                </div>
+    <section class="projects-section other-projects">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">Other Projects</h1>
+            <p class="page-subtitle">Desktop applications, games, and experimental projects</p>
+        </div>
 
-                <div class="projects-carousel">
+        <div class="projects-container">
+            <!-- Left Side - 3D Carousel -->
+            <div class="projects-carousel-container">
+                <div class="carousel-3d" id="projectCarousel">
                     <!-- Project 1 - JavaFX Paint Application -->
-                    <div class="project-card active" data-project="paint">
+                    <div class="project-card active" data-project="0">
                         <div class="project-header">
                             <div class="project-icon">
                                 <i class="fas fa-paint-brush"></i>
@@ -74,9 +65,7 @@
                                     <li>Export to multiple formats</li>
                                 </ul>
                             </div>
-                        </div>
-                        
-                        <div class="project-actions">
+                            
                             <a href="#" class="learn-more-btn">
                                 Learn More
                                 <i class="fas fa-external-link-alt"></i>
@@ -85,7 +74,7 @@
                     </div>
 
                     <!-- Project 2 - 2D Puzzle Game -->
-                    <div class="project-card" data-project="puzzle">
+                    <div class="project-card" data-project="1">
                         <div class="project-header">
                             <div class="project-icon">
                                 <i class="fas fa-puzzle-piece"></i>
@@ -114,9 +103,7 @@
                                     <li>Customizable difficulty</li>
                                 </ul>
                             </div>
-                        </div>
-                        
-                        <div class="project-actions">
+                            
                             <a href="#" class="learn-more-btn">
                                 Learn More
                                 <i class="fas fa-external-link-alt"></i>
@@ -125,7 +112,7 @@
                     </div>
 
                     <!-- Project 3 - Database Management System -->
-                    <div class="project-card" data-project="database">
+                    <div class="project-card" data-project="2">
                         <div class="project-header">
                             <div class="project-icon">
                                 <i class="fas fa-database"></i>
@@ -154,9 +141,7 @@
                                     <li>Data backup and restore</li>
                                 </ul>
                             </div>
-                        </div>
-                        
-                        <div class="project-actions">
+                            
                             <a href="#" class="learn-more-btn">
                                 Learn More
                                 <i class="fas fa-external-link-alt"></i>
@@ -165,7 +150,7 @@
                     </div>
 
                     <!-- Project 4 - Algorithm Visualizer -->
-                    <div class="project-card" data-project="algorithm">
+                    <div class="project-card" data-project="3">
                         <div class="project-header">
                             <div class="project-icon">
                                 <i class="fas fa-project-diagram"></i>
@@ -194,9 +179,7 @@
                                     <li>Educational annotations</li>
                                 </ul>
                             </div>
-                        </div>
-                        
-                        <div class="project-actions">
+                            
                             <a href="#" class="learn-more-btn">
                                 Learn More
                                 <i class="fas fa-external-link-alt"></i>
@@ -207,35 +190,37 @@
 
                 <!-- Carousel Navigation -->
                 <div class="carousel-navigation">
-                    <button class="nav-dot active" data-project="paint"></button>
-                    <button class="nav-dot" data-project="puzzle"></button>
-                    <button class="nav-dot" data-project="database"></button>
-                    <button class="nav-dot" data-project="algorithm"></button>
+                    <button class="carousel-btn carousel-prev" id="prevBtn">
+                        <i class="fas fa-chevron-up"></i>
+                    </button>
+                    <button class="carousel-btn carousel-next" id="nextBtn">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
                 </div>
             </div>
 
-            <!-- Right Side - Desktop/Application Display -->
+            <!-- Right Side - Desktop Display -->
             <div class="desktop-display">
                 <div class="desktop-container">
                     <div class="desktop-mockup">
-                        <!-- Desktop Frame -->
                         <div class="desktop-frame">
+                            <!-- Desktop Taskbar -->
                             <div class="desktop-taskbar">
                                 <div class="taskbar-start">
                                     <div class="start-button">
                                         <i class="fab fa-windows"></i>
                                     </div>
                                     <div class="taskbar-apps">
-                                        <div class="app-icon active" data-project="paint">
+                                        <div class="app-icon active" data-project="0">
                                             <i class="fas fa-paint-brush"></i>
                                         </div>
-                                        <div class="app-icon" data-project="puzzle">
+                                        <div class="app-icon" data-project="1">
                                             <i class="fas fa-puzzle-piece"></i>
                                         </div>
-                                        <div class="app-icon" data-project="database">
+                                        <div class="app-icon" data-project="2">
                                             <i class="fas fa-database"></i>
                                         </div>
-                                        <div class="app-icon" data-project="algorithm">
+                                        <div class="app-icon" data-project="3">
                                             <i class="fas fa-project-diagram"></i>
                                         </div>
                                     </div>
@@ -252,11 +237,12 @@
                                 </div>
                             </div>
                             
+                            <!-- Desktop Content -->
                             <div class="desktop-content">
                                 <!-- Application Windows -->
                                 <div class="app-windows">
                                     <!-- Paint App Window -->
-                                    <div class="app-window active" data-project="paint">
+                                    <div class="app-window active" data-project="0">
                                         <div class="window-header">
                                             <div class="window-title">
                                                 <i class="fas fa-paint-brush"></i>
@@ -269,22 +255,14 @@
                                             </div>
                                         </div>
                                         <div class="window-content">
-                                            <div class="screenshots-slider">
-                                                <div class="screenshot active">
-                                                    <img src="images/Work_2.jpg" alt="Paint App Interface">
-                                                </div>
-                                                <div class="screenshot">
-                                                    <img src="images/Work_2.jpg" alt="Paint App Tools">
-                                                </div>
-                                                <div class="screenshot">
-                                                    <img src="images/Work_2.jpg" alt="Paint App Canvas">
-                                                </div>
+                                            <div class="screenshot active">
+                                                <img src="images/Work_2.jpg" alt="Paint App Interface">
                                             </div>
                                         </div>
                                     </div>
 
                                     <!-- Puzzle Game Window -->
-                                    <div class="app-window" data-project="puzzle">
+                                    <div class="app-window" data-project="1">
                                         <div class="window-header">
                                             <div class="window-title">
                                                 <i class="fas fa-puzzle-piece"></i>
@@ -297,22 +275,14 @@
                                             </div>
                                         </div>
                                         <div class="window-content">
-                                            <div class="screenshots-slider">
-                                                <div class="screenshot active">
-                                                    <img src="images/Work_3.jpg" alt="Puzzle Game Menu">
-                                                </div>
-                                                <div class="screenshot">
-                                                    <img src="images/Work_3.jpg" alt="Puzzle Game Play">
-                                                </div>
-                                                <div class="screenshot">
-                                                    <img src="images/Work_3.jpg" alt="Puzzle Game Score">
-                                                </div>
+                                            <div class="screenshot active">
+                                                <img src="images/Work_3.jpg" alt="Puzzle Game Interface">
                                             </div>
                                         </div>
                                     </div>
 
                                     <!-- Database System Window -->
-                                    <div class="app-window" data-project="database">
+                                    <div class="app-window" data-project="2">
                                         <div class="window-header">
                                             <div class="window-title">
                                                 <i class="fas fa-database"></i>
@@ -325,22 +295,14 @@
                                             </div>
                                         </div>
                                         <div class="window-content">
-                                            <div class="screenshots-slider">
-                                                <div class="screenshot active">
-                                                    <img src="images/Work_1.jpg" alt="Database Dashboard">
-                                                </div>
-                                                <div class="screenshot">
-                                                    <img src="images/Work_1.jpg" alt="Database Records">
-                                                </div>
-                                                <div class="screenshot">
-                                                    <img src="images/Work_1.jpg" alt="Database Reports">
-                                                </div>
+                                            <div class="screenshot active">
+                                                <img src="images/Work_1.jpg" alt="Database Dashboard">
                                             </div>
                                         </div>
                                     </div>
 
                                     <!-- Algorithm Visualizer Window -->
-                                    <div class="app-window" data-project="algorithm">
+                                    <div class="app-window" data-project="3">
                                         <div class="window-header">
                                             <div class="window-title">
                                                 <i class="fas fa-project-diagram"></i>
@@ -353,27 +315,19 @@
                                             </div>
                                         </div>
                                         <div class="window-content">
-                                            <div class="screenshots-slider">
-                                                <div class="screenshot active">
-                                                    <img src="images/Work_2.jpg" alt="Algorithm Sorting">
-                                                </div>
-                                                <div class="screenshot">
-                                                    <img src="images/Work_2.jpg" alt="Algorithm Comparison">
-                                                </div>
-                                                <div class="screenshot">
-                                                    <img src="images/Work_2.jpg" alt="Algorithm Analysis">
-                                                </div>
+                                            <div class="screenshot active">
+                                                <img src="images/Work_2.jpg" alt="Algorithm Visualizer">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Screenshot Navigation -->
-                                <div class="screenshot-nav">
-                                    <button class="nav-btn prev-btn" onclick="previousScreenshot()">
+                                <!-- Desktop Navigation -->
+                                <div class="desktop-navigation">
+                                    <button class="nav-arrow" id="desktopPrevBtn">
                                         <i class="fas fa-chevron-left"></i>
                                     </button>
-                                    <button class="nav-btn next-btn" onclick="nextScreenshot()">
+                                    <button class="nav-arrow" id="desktopNextBtn">
                                         <i class="fas fa-chevron-right"></i>
                                     </button>
                                 </div>
@@ -383,10 +337,17 @@
                 </div>
             </div>
         </div>
+
+        <!-- Project Navigation Dots -->
+        <div class="project-dots">
+            <button class="nav-dot active" data-project="0"></button>
+            <button class="nav-dot" data-project="1"></button>
+            <button class="nav-dot" data-project="2"></button>
+            <button class="nav-dot" data-project="3"></button>
+        </div>
     </section>
 
     <script src="script.js"></script>
-    <script src="projects.js"></script>
     <script src="other-projects.js"></script>
 </body>
 </html>
