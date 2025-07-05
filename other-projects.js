@@ -1,598 +1,675 @@
-// Other Projects Page Specific Functionality
-
-// Desktop application data
-const desktopApps = {
-    'paint': {
-        title: 'Paint Application',
-        icon: 'fas fa-paint-brush'
-    },
-    'puzzle': {
-        title: 'Puzzle Game',
-        icon: 'fas fa-puzzle-piece'
-    },
-    'database': {
-        title: 'Inventory Management',
-        icon: 'fas fa-database'
-    },
-    'algorithm': {
-        title: 'Algorithm Visualizer',
-        icon: 'fas fa-project-diagram'
+class OtherProjectsCarousel {
+    constructor() {
+        this.currentProject = 0;
+        this.totalProjects = 4;
+        this.isTransitioning = false;
+        this.userIsInteracting = false;
+        this.interactionTimeout = null;
+        
+        // Application data for window titles and icons
+        this.applicationData = {
+            0: {
+                title: 'Paint Application',
+                icon: 'fas fa-paint-brush'
+            },
+            1: {
+                title: 'Puzzle Game',
+                icon: 'fas fa-puzzle-piece'
+            },
+            2: {
+                title: 'Inventory Management',
+                icon: 'fas fa-database'
+            },
+            3: {
+                title: 'Algorithm Visualizer',
+                icon: 'fas fa-project-diagram'
+            }
+        };
+        
+        this.init();
     }
-};
 
-document.addEventListener('DOMContentLoaded', function() {
-    initializeDesktopProjects();
-    
-    // Override the setActiveProject function for desktop projects
-    const originalSetActiveProject = window.setActiveProject;
-    
-    window.setActiveProject = function(projectId) {
-        originalSetActiveProject(projectId);
-        updateDesktopDisplay(projectId);
-        updateTaskbarIcons(projectId);
-    };
-    
-    // Set initial project
-    setActiveProject('paint');
-    
-    // Initialize desktop boot animation
-    setTimeout(() => {
-        const desktopFrame = document.querySelector('.desktop-frame');
-        if (desktopFrame) {
-            desktopFrame.classList.add('booting');
-        }
-    }, 500);
-});
+    init() {
+        this.bindElements();
+        this.bindEvents();
+        this.setActiveProject(0);
+        this.initializeDesktopFeatures();
+        
+        console.log('💻 Other Projects Page Initialized');
+    }
 
-function initializeDesktopProjects() {
-    setupTaskbarInteractions();
-    setupWindowControls();
-    setupDesktopAnimations();
-    setupSystemTray();
-    setupDesktopKeyboardShortcuts();
-}
+    bindElements() {
+        // Main elements
+        this.carousel = document.getElementById('projectCarousel');
+        this.projectCards = document.querySelectorAll('.project-card');
+        this.screenshots = document.querySelectorAll('.screenshot');
+        this.navDots = document.querySelectorAll('.nav-dot');
+        
+        // Navigation buttons
+        this.prevBtn = document.getElementById('prevBtn');
+        this.nextBtn = document.getElementById('nextBtn');
+        this.desktopPrevBtn = document.getElementById('desktopPrevBtn');
+        this.desktopNextBtn = document.getElementById('desktopNextBtn');
+        
+        // Desktop specific elements
+        this.desktopFrame = document.querySelector('.desktop-frame');
+        this.appWindows = document.querySelectorAll('.app-window');
+        this.appIcons = document.querySelectorAll('.app-icon');
+        this.startButton = document.querySelector('.start-button');
+        this.windowControls = document.querySelectorAll('.window-controls span');
+        this.timeDisplay = document.querySelector('.time');
+        
+        // Container for interaction detection
+        this.projectsContainer = document.querySelector('.projects-container');
+        this.desktopContainer = document.querySelector('.desktop-container');
+    }
 
-function setupTaskbarInteractions() {
-    // Start button interaction
-    const startButton = document.querySelector('.start-button');
-    if (startButton) {
-        startButton.addEventListener('click', function() {
-            this.classList.add('clicked');
-            handleStartButtonClick();
-            setTimeout(() => {
-                this.classList.remove('clicked');
-            }, 300);
+    bindEvents() {
+        // Carousel navigation
+        this.prevBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.prevProject()));
+        this.nextBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.nextProject()));
+        
+        // Desktop navigation
+        this.desktopPrevBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.prevProject()));
+        this.desktopNextBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.nextProject()));
+        
+        // Project card clicks
+        this.projectCards.forEach((card, index) => {
+            card.addEventListener('click', () => {
+                this.handleUserInteraction(() => this.setActiveProject(index));
+            });
+        });
+        
+        // Navigation dot clicks
+        this.navDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                this.handleUserInteraction(() => this.setActiveProject(index));
+            });
+        });
+        
+        // Desktop app icon clicks
+        this.appIcons.forEach((icon, index) => {
+            icon.addEventListener('click', () => {
+                this.handleUserInteraction(() => this.setActiveProject(index));
+                this.animateIconClick(icon);
+            });
+        });
+        
+        // Window control interactions
+        this.windowControls.forEach(control => {
+            control.addEventListener('click', () => {
+                this.handleUserInteraction(() => this.handleWindowControl(control.className));
+            });
+        });
+        
+        // Start button interaction
+        this.startButton?.addEventListener('click', () => {
+            this.handleUserInteraction(() => this.handleStartButtonClick());
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (this.shouldHandleKeyboard(e)) {
+                this.handleKeyboard(e);
+            }
+        });
+        
+        // Touch/swipe events
+        this.bindTouchEvents();
+        
+        // Mouse interaction detection
+        this.bindMouseEvents();
+        
+        // Scroll interaction detection
+        this.bindScrollEvents();
+        
+        // Visibility change handling
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                this.userIsInteracting = true;
+            }
         });
     }
-    
-    // App icon interactions
-    const appIcons = document.querySelectorAll('.app-icon');
-    appIcons.forEach(icon => {
-        icon.addEventListener('click', function() {
-            const projectId = this.getAttribute('data-project');
-            this.classList.add('clicked');
-            setActiveProject(projectId);
+
+    bindMouseEvents() {
+        const interactiveElements = [
+            this.projectsContainer,
+            this.desktopContainer,
+            ...this.projectCards,
+            ...this.navDots
+        ].filter(Boolean);
+
+        interactiveElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                this.userIsInteracting = true;
+                this.clearInteractionTimeout();
+            });
             
-            setTimeout(() => {
-                this.classList.remove('clicked');
-            }, 300);
+            element.addEventListener('mouseleave', () => {
+                this.setInteractionTimeout();
+            });
+            
+            element.addEventListener('mousemove', () => {
+                this.userIsInteracting = true;
+                this.clearInteractionTimeout();
+                this.setInteractionTimeout();
+            });
         });
-        
-        // Hover effects
-        icon.addEventListener('mouseenter', function() {
-            if (!this.classList.contains('active')) {
-                this.style.background = 'rgba(255, 255, 255, 0.2)';
-            }
-        });
-        
-        icon.addEventListener('mouseleave', function() {
-            if (!this.classList.contains('active')) {
-                this.style.background = 'rgba(255, 255, 255, 0.1)';
-            }
-        });
-    });
-}
-
-function setupWindowControls() {
-    const windowControls = document.querySelectorAll('.window-controls span');
-    
-    windowControls.forEach(control => {
-        control.addEventListener('click', function() {
-            const action = this.className;
-            const window = this.closest('.app-window');
-            handleWindowControl(action, window);
-        });
-    });
-}
-
-function handleWindowControl(action, windowElement) {
-    switch(action) {
-        case 'minimize':
-            animateWindowMinimize(windowElement);
-            break;
-        case 'maximize':
-            animateWindowMaximize(windowElement);
-            break;
-        case 'close':
-            animateWindowClose(windowElement);
-            break;
     }
-}
 
-function animateWindowMinimize(windowElement) {
-    windowElement.classList.add('minimizing');
-    
-    setTimeout(() => {
-        windowElement.style.opacity = '0';
-        windowElement.style.transform = 'scale(0.1) translateY(300px)';
+    bindScrollEvents() {
+        this.projectCards.forEach(card => {
+            card.addEventListener('scroll', () => {
+                this.handleUserInteraction();
+            });
+        });
         
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            this.userIsInteracting = true;
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                this.setInteractionTimeout();
+            }, 150);
+        });
+    }
+
+    bindTouchEvents() {
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchEndX = 0;
+        let touchEndY = 0;
+
+        const touchElements = [this.desktopContainer, this.projectsContainer].filter(Boolean);
+
+        touchElements.forEach(element => {
+            element.addEventListener('touchstart', (e) => {
+                this.handleUserInteraction();
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            }, { passive: true });
+
+            element.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                touchEndY = e.changedTouches[0].screenY;
+                this.handleSwipe(touchStartX, touchStartY, touchEndX, touchEndY);
+            }, { passive: true });
+        });
+    }
+
+    handleSwipe(startX, startY, endX, endY) {
+        const swipeThreshold = 50;
+        const diffX = startX - endX;
+        const diffY = startY - endY;
+
+        if (Math.abs(diffX) > Math.abs(diffY)) {
+            if (Math.abs(diffX) > swipeThreshold) {
+                if (diffX > 0) {
+                    this.nextProject();
+                } else {
+                    this.prevProject();
+                }
+            }
+        } else {
+            if (Math.abs(diffY) > swipeThreshold) {
+                if (diffY > 0) {
+                    this.nextProject();
+                } else {
+                    this.prevProject();
+                }
+            }
+        }
+    }
+
+    handleUserInteraction(callback) {
+        this.userIsInteracting = true;
+        this.clearInteractionTimeout();
+        
+        if (callback) {
+            callback();
+        }
+        
+        this.setInteractionTimeout(5000);
+    }
+
+    setInteractionTimeout(delay = 3000) {
+        this.clearInteractionTimeout();
+        this.interactionTimeout = setTimeout(() => {
+            this.userIsInteracting = false;
+        }, delay);
+    }
+
+    clearInteractionTimeout() {
+        if (this.interactionTimeout) {
+            clearTimeout(this.interactionTimeout);
+            this.interactionTimeout = null;
+        }
+    }
+
+    shouldHandleKeyboard(e) {
+        const activeElement = document.activeElement;
+        const inputElements = ['INPUT', 'TEXTAREA', 'SELECT'];
+        return !inputElements.includes(activeElement.tagName);
+    }
+
+    handleKeyboard(e) {
+        switch(e.key) {
+            case 'ArrowLeft':
+            case 'ArrowUp':
+                e.preventDefault();
+                this.handleUserInteraction(() => this.prevProject());
+                break;
+            case 'ArrowRight':
+            case 'ArrowDown':
+                e.preventDefault();
+                this.handleUserInteraction(() => this.nextProject());
+                break;
+            case ' ':
+                e.preventDefault();
+                this.handleUserInteraction(() => this.nextProject());
+                break;
+            case 'Home':
+                e.preventDefault();
+                this.handleUserInteraction(() => this.setActiveProject(0));
+                break;
+            case 'End':
+                e.preventDefault();
+                this.handleUserInteraction(() => this.setActiveProject(this.totalProjects - 1));
+                break;
+            case 'F5':
+                e.preventDefault();
+                this.handleUserInteraction(() => this.refreshDesktop());
+                break;
+        }
+    }
+
+    setActiveProject(index) {
+        if (this.isTransitioning || index === this.currentProject) {
+            return;
+        }
+
+        this.isTransitioning = true;
+        this.currentProject = index;
+
+        // Update 3D carousel positions
+        this.update3DCarousel();
+        
+        // Update project cards
+        this.updateProjectCards();
+        
+        // Update desktop display
+        this.updateDesktopDisplay();
+        
+        // Update navigation dots
+        this.updateNavigationDots();
+        
+        // Update window title
+        this.updateWindowTitle();
+        
+        // Smooth scroll to active card on mobile
+        this.scrollToActiveCard();
+        
+        // Announce change for accessibility
+        this.announceProjectChange();
+
         setTimeout(() => {
-            windowElement.style.opacity = '1';
-            windowElement.style.transform = 'scale(1) translateY(0)';
-            windowElement.classList.remove('minimizing');
-        }, 1000);
-    }, 400);
-}
+            this.isTransitioning = false;
+        }, 600);
+    }
 
-function animateWindowMaximize(windowElement) {
-    windowElement.classList.add('maximizing');
-    
-    // Temporarily expand window
-    const originalStyle = {
-        top: windowElement.style.top,
-        left: windowElement.style.left,
-        right: windowElement.style.right,
-        bottom: windowElement.style.bottom
-    };
-    
-    windowElement.style.top = '0px';
-    windowElement.style.left = '0px';
-    windowElement.style.right = '0px';
-    windowElement.style.bottom = '50px';
-    
-    setTimeout(() => {
-        // Restore original size
-        Object.assign(windowElement.style, originalStyle);
-        windowElement.classList.remove('maximizing');
-    }, 1000);
-}
+    update3DCarousel() {
+        this.projectCards.forEach((card, index) => {
+            card.classList.remove('transitioning');
+            card.offsetHeight;
+            card.classList.add('transitioning');
+            
+            const offset = index - this.currentProject;
+            const translateY = offset * 120;
+            const translateZ = Math.abs(offset) * -150;
+            const rotateX = Math.abs(offset) * -15;
+            const zIndex = this.totalProjects - Math.abs(offset);
+            
+            if (index === this.currentProject) {
+                card.style.transform = 'translateY(0px) translateZ(50px) rotateX(0deg)';
+                card.style.zIndex = 10;
+            } else {
+                card.style.transform = `translateY(${translateY}px) translateZ(${translateZ}px) rotateX(${rotateX}deg)`;
+                card.style.zIndex = zIndex;
+            }
+        });
+    }
 
-function animateWindowClose(windowElement) {
-    windowElement.style.animation = 'fadeOut 0.3s ease-out forwards';
-    
-    setTimeout(() => {
-        windowElement.style.animation = '';
-        windowElement.style.opacity = '1';
-    }, 1000);
-}
+    updateProjectCards() {
+        this.projectCards.forEach((card, index) => {
+            card.classList.toggle('active', index === this.currentProject);
+        });
+    }
 
-function handleStartButtonClick() {
-    // Create a simple start menu effect
-    const startMenu = document.createElement('div');
-    startMenu.className = 'start-menu';
-    startMenu.innerHTML = `
-        <div class="start-menu-content">
-            <div class="start-menu-item">
-                <i class="fas fa-paint-brush"></i>
-                <span>Paint Application</span>
-            </div>
-            <div class="start-menu-item">
-                <i class="fas fa-puzzle-piece"></i>
-                <span>Puzzle Game</span>
-            </div>
-            <div class="start-menu-item">
-                <i class="fas fa-database"></i>
-                <span>Database System</span>
-            </div>
-            <div class="start-menu-item">
-                <i class="fas fa-project-diagram"></i>
-                <span>Algorithm Visualizer</span>
-            </div>
-        </div>
-    `;
-    
-    // Add styles for start menu
-    startMenu.style.cssText = `
-        position: absolute;
-        bottom: 50px;
-        left: 15px;
-        width: 200px;
-        background: rgba(0, 0, 0, 0.9);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 8px;
-        padding: 10px 0;
-        opacity: 0;
-        transform: translateY(10px);
-        transition: all 0.3s ease;
-        z-index: 20;
-    `;
-    
-    document.querySelector('.desktop-frame').appendChild(startMenu);
-    
-    // Animate in
-    setTimeout(() => {
-        startMenu.style.opacity = '1';
-        startMenu.style.transform = 'translateY(0)';
-    }, 10);
-    
-    // Add click handlers for menu items
-    const menuItems = startMenu.querySelectorAll('.start-menu-item');
-    menuItems.forEach((item, index) => {
-        item.style.cssText = `
-            padding: 10px 15px;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: background 0.2s ease;
+    updateDesktopDisplay() {
+        // Update app windows
+        this.appWindows.forEach((window, index) => {
+            window.classList.toggle('active', index === this.currentProject);
+        });
+        
+        // Update app icons in taskbar
+        this.appIcons.forEach((icon, index) => {
+            icon.classList.toggle('active', index === this.currentProject);
+        });
+        
+        // Add desktop transition effect
+        if (this.desktopFrame) {
+            this.desktopFrame.setAttribute('data-project', this.currentProject);
+        }
+    }
+
+    updateNavigationDots() {
+        this.navDots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === this.currentProject);
+        });
+    }
+
+    updateWindowTitle() {
+        const activeWindow = document.querySelector('.app-window.active');
+        const appData = this.applicationData[this.currentProject];
+        
+        if (activeWindow && appData) {
+            const windowTitle = activeWindow.querySelector('.window-title');
+            if (windowTitle) {
+                const icon = windowTitle.querySelector('i');
+                const textNodes = Array.from(windowTitle.childNodes).filter(node => node.nodeType === Node.TEXT_NODE);
+                
+                if (icon) {
+                    icon.className = appData.icon;
+                }
+                
+                // Update text content while preserving structure
+                windowTitle.innerHTML = `<i class="${appData.icon}"></i> ${appData.title}`;
+            }
+        }
+    }
+
+    scrollToActiveCard() {
+        if (window.innerWidth <= 1024) {
+            const activeCard = this.projectCards[this.currentProject];
+            if (activeCard) {
+                setTimeout(() => {
+                    activeCard.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }, 100);
+            }
+        }
+    }
+
+    announceProjectChange() {
+        const projectNames = [
+            'JavaFX Paint Application',
+            '2D Puzzle Game', 
+            'Inventory Management System',
+            'Algorithm Visualizer'
+        ];
+        
+        const announcement = document.createElement('div');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.setAttribute('aria-atomic', 'true');
+        announcement.className = 'sr-only';
+        announcement.textContent = `Now viewing ${projectNames[this.currentProject]}`;
+        announcement.style.cssText = `
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         `;
         
-        item.addEventListener('mouseenter', function() {
-            this.style.background = 'rgba(99, 102, 241, 0.3)';
-        });
+        document.body.appendChild(announcement);
         
-        item.addEventListener('mouseleave', function() {
-            this.style.background = 'transparent';
-        });
-        
-        item.addEventListener('click', function() {
-            const projects = ['paint', 'puzzle', 'database', 'algorithm'];
-            setActiveProject(projects[index]);
-            closeStartMenu(startMenu);
-        });
-    });
-    
-    // Auto close after 3 seconds
-    setTimeout(() => {
-        closeStartMenu(startMenu);
-    }, 3000);
-}
+        setTimeout(() => {
+            if (announcement.parentNode) {
+                document.body.removeChild(announcement);
+            }
+        }, 1000);
+    }
 
-function closeStartMenu(startMenu) {
-    startMenu.style.opacity = '0';
-    startMenu.style.transform = 'translateY(10px)';
-    
-    setTimeout(() => {
-        if (startMenu.parentNode) {
-            startMenu.parentNode.removeChild(startMenu);
+    // Desktop specific interactions
+    handleWindowControl(controlType) {
+        switch(controlType) {
+            case 'close':
+                this.animateWindowAction('close');
+                break;
+            case 'minimize':
+                this.animateWindowAction('minimize');
+                break;
+            case 'maximize':
+                this.animateWindowAction('maximize');
+                break;
         }
-    }, 300);
-}
+    }
 
-function updateDesktopDisplay(projectId) {
-    // Hide all app windows
-    const appWindows = document.querySelectorAll('.app-window');
-    appWindows.forEach(window => {
-        if (window.classList.contains('active')) {
-            window.classList.add('switching-out');
-            
+    animateWindowAction(action) {
+        const activeWindow = document.querySelector('.app-window.active');
+        if (!activeWindow) return;
+        
+        switch(action) {
+            case 'close':
+                activeWindow.style.animation = 'windowMinimize 0.3s ease-out';
+                setTimeout(() => {
+                    activeWindow.style.animation = '';
+                }, 300);
+                break;
+                
+            case 'minimize':
+                activeWindow.classList.add('minimizing');
+                setTimeout(() => {
+                    activeWindow.classList.remove('minimizing');
+                }, 400);
+                break;
+                
+            case 'maximize':
+                activeWindow.classList.add('maximizing');
+                setTimeout(() => {
+                    activeWindow.classList.remove('maximizing');
+                }, 400);
+                break;
+        }
+    }
+
+    handleStartButtonClick() {
+        if (this.startButton) {
+            this.startButton.classList.add('clicked');
             setTimeout(() => {
-                window.classList.remove('active', 'switching-out');
+                this.startButton.classList.remove('clicked');
             }, 300);
         }
-    });
-    
-    // Show active app window
-    setTimeout(() => {
-        const activeWindow = document.querySelector(`[data-project="${projectId}"].app-window`);
-        if (activeWindow) {
-            activeWindow.classList.add('switching-in');
-            activeWindow.classList.add('active');
-            
+    }
+
+    animateIconClick(icon) {
+        icon.classList.add('clicked');
+        setTimeout(() => {
+            icon.classList.remove('clicked');
+        }, 300);
+    }
+
+    refreshDesktop() {
+        if (this.desktopFrame) {
+            this.desktopFrame.style.animation = 'desktopBoot 0.6s ease-out';
             setTimeout(() => {
-                activeWindow.classList.remove('switching-in');
-            }, 300);
+                this.desktopFrame.style.animation = '';
+            }, 600);
         }
-    }, 300);
+    }
+
+    initializeDesktopFeatures() {
+        // Initialize desktop boot animation
+        setTimeout(() => {
+            if (this.desktopFrame) {
+                this.desktopFrame.classList.add('booting');
+            }
+        }, 300);
+        
+        // Update time display
+        this.updateTimeDisplay();
+        setInterval(() => this.updateTimeDisplay(), 1000);
+    }
+
+    updateTimeDisplay() {
+        if (this.timeDisplay) {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { 
+                hour: 'numeric', 
+                minute: '2-digit',
+                hour12: true 
+            });
+            this.timeDisplay.textContent = timeString;
+        }
+    }
+
+    nextProject() {
+        const next = (this.currentProject + 1) % this.totalProjects;
+        this.setActiveProject(next);
+    }
+
+    prevProject() {
+        const prev = (this.currentProject - 1 + this.totalProjects) % this.totalProjects;
+        this.setActiveProject(prev);
+    }
+
+    getCurrentProject() {
+        return this.currentProject;
+    }
+
+    getTotalProjects() {
+        return this.totalProjects;
+    }
+
+    setUserInteractionState(isInteracting) {
+        this.userIsInteracting = isInteracting;
+        if (isInteracting) {
+            this.clearInteractionTimeout();
+        } else {
+            this.setInteractionTimeout();
+        }
+    }
 }
 
-function updateTaskbarIcons(projectId) {
-    // Update taskbar app icons
-    const appIcons = document.querySelectorAll('.app-icon');
-    appIcons.forEach(icon => {
-        icon.classList.remove('active');
-        if (icon.getAttribute('data-project') === projectId) {
-            icon.classList.add('active');
-        }
-    });
-}
-
-function setupDesktopAnimations() {
-    // Add loading states for app windows
-    const appWindows = document.querySelectorAll('.app-window');
-    appWindows.forEach(window => {
-        const images = window.querySelectorAll('img');
+// Enhanced error handling for other project images
+class OtherImageLoader {
+    static setupErrorHandling() {
+        const images = document.querySelectorAll('.screenshot img');
+        
         images.forEach(img => {
             img.addEventListener('loadstart', function() {
-                window.classList.add('loading');
+                this.parentElement.classList.add('loading');
             });
             
             img.addEventListener('load', function() {
-                window.classList.remove('loading');
+                this.parentElement.classList.remove('loading');
             });
             
             img.addEventListener('error', function() {
-                window.classList.remove('loading');
-                console.warn('Failed to load desktop app image:', this.src);
+                this.parentElement.classList.remove('loading');
+                this.parentElement.classList.add('error');
+                console.warn('Failed to load other project screenshot:', this.src);
+                
+                const fallback = document.createElement('div');
+                fallback.style.cssText = `
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    text-align: center;
+                    color: #666;
+                    font-size: 14px;
+                `;
+                fallback.innerHTML = '💻<br>Desktop App<br>Preview<br>Unavailable';
+                this.parentElement.appendChild(fallback);
             });
         });
-    });
+    }
 }
 
-function setupSystemTray() {
-    // Update time every minute
-    updateSystemTime();
-    setInterval(updateSystemTime, 60000);
-    
-    // Add system tray icon interactions
-    const trayIcons = document.querySelectorAll('.tray-icons i');
-    trayIcons.forEach(icon => {
-        icon.addEventListener('click', function() {
-            handleTrayIconClick(this.className);
+// Performance optimization utilities
+class OtherPerformanceOptimizer {
+    static optimize() {
+        const animatedElements = document.querySelectorAll('.project-card, .screenshot, .nav-dot, .desktop-frame, .app-window');
+        animatedElements.forEach(element => {
+            element.style.willChange = 'transform, opacity';
         });
         
-        // Add notification effect occasionally
-        setInterval(() => {
-            if (Math.random() < 0.1) { // 10% chance every interval
-                icon.classList.add('notification');
-                setTimeout(() => {
-                    icon.classList.remove('notification');
-                }, 2000);
+        setTimeout(() => {
+            animatedElements.forEach(element => {
+                element.style.willChange = 'auto';
+            });
+        }, 2000);
+        
+        this.preloadImages();
+    }
+    
+    static preloadImages() {
+        const screenshots = document.querySelectorAll('.screenshot img');
+        screenshots.forEach(img => {
+            const imageUrl = img.src;
+            if (imageUrl) {
+                const preloadImg = new Image();
+                preloadImg.src = imageUrl;
             }
-        }, 30000); // Check every 30 seconds
-    });
-}
-
-function updateSystemTime() {
-    const timeElement = document.querySelector('.time');
-    if (timeElement) {
-        const now = new Date();
-        const timeString = now.toLocaleTimeString([], { 
-            hour: 'numeric', 
-            minute: '2-digit',
-            hour12: true 
         });
-        
-        timeElement.classList.add('updating');
-        setTimeout(() => {
-            timeElement.textContent = timeString;
-            timeElement.classList.remove('updating');
-        }, 250);
     }
 }
 
-function handleTrayIconClick(iconClass) {
-    const desktopFrame = document.querySelector('.desktop-frame');
-    
-    if (iconClass.includes('fa-wifi')) {
-        // Simulate wifi toggle
-        showSystemNotification('WiFi', 'Connected to NelsonNetwork');
-    } else if (iconClass.includes('fa-volume')) {
-        // Simulate volume control
-        showSystemNotification('Volume', 'Volume set to 75%');
-    } else if (iconClass.includes('fa-battery')) {
-        // Simulate battery info
-        showSystemNotification('Battery', '87% - 4 hours remaining');
-    }
-}
-
-function showSystemNotification(title, message) {
-    const notification = document.createElement('div');
-    notification.className = 'system-notification';
-    notification.innerHTML = `
-        <div class="notification-title">${title}</div>
-        <div class="notification-message">${message}</div>
-    `;
-    
-    notification.style.cssText = `
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        width: 250px;
-        background: rgba(0, 0, 0, 0.9);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 8px;
-        padding: 15px;
-        color: white;
-        opacity: 0;
-        transform: translateX(100%);
-        transition: all 0.3s ease;
-        z-index: 30;
-    `;
-    
-    document.querySelector('.desktop-frame').appendChild(notification);
-    
-    // Animate in
-    setTimeout(() => {
-        notification.style.opacity = '1';
-        notification.style.transform = 'translateX(0)';
-    }, 10);
-    
-    // Auto remove after 3 seconds
-    setTimeout(() => {
-        notification.style.opacity = '0';
-        notification.style.transform = 'translateX(100%)';
-        
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
-            }
-        }, 300);
-    }, 3000);
-}
-
-function setupDesktopKeyboardShortcuts() {
-    document.addEventListener('keydown', function(e) {
-        // Alt + Tab for app switching
-        if (e.altKey && e.key === 'Tab') {
-            e.preventDefault();
-            switchToNextApp();
-        }
-        
-        // Windows key for start menu
-        if (e.key === 'Meta' || e.key === 'OS') {
-            e.preventDefault();
-            const startButton = document.querySelector('.start-button');
-            if (startButton) {
-                startButton.click();
-            }
-        }
-        
-        // F11 for fullscreen simulation
-        if (e.key === 'F11') {
-            e.preventDefault();
-            toggleFullscreen();
-        }
-        
-        // Ctrl + Alt + Del simulation
-        if (e.ctrlKey && e.altKey && e.key === 'Delete') {
-            e.preventDefault();
-            showTaskManager();
-        }
-    });
-}
-
-function switchToNextApp() {
-    const projects = ['paint', 'puzzle', 'database', 'algorithm'];
-    const currentIndex = projects.indexOf(currentProject);
-    const nextIndex = (currentIndex + 1) % projects.length;
-    setActiveProject(projects[nextIndex]);
-}
-
-function toggleFullscreen() {
-    const desktopFrame = document.querySelector('.desktop-frame');
-    
-    if (desktopFrame.classList.contains('fullscreen')) {
-        desktopFrame.classList.remove('fullscreen');
-        desktopFrame.style.transform = 'scale(1)';
-        desktopFrame.style.position = 'relative';
-    } else {
-        desktopFrame.classList.add('fullscreen');
-        desktopFrame.style.transform = 'scale(1.1)';
-        desktopFrame.style.position = 'fixed';
-        desktopFrame.style.top = '0';
-        desktopFrame.style.left = '0';
-        desktopFrame.style.right = '0';
-        desktopFrame.style.bottom = '0';
-        desktopFrame.style.zIndex = '1000';
-    }
-    
-    setTimeout(() => {
-        if (desktopFrame.classList.contains('fullscreen')) {
-            desktopFrame.style.transform = 'scale(1)';
-        }
-    }, 300);
-}
-
-function showTaskManager() {
-    showSystemNotification('Task Manager', 'Press Ctrl+Shift+Esc to open');
-}
-
-// Enhanced desktop right-click context menu
+// Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    const desktopContent = document.querySelector('.desktop-content');
+    // Initialize the carousel
+    window.otherProjectsCarousel = new OtherProjectsCarousel();
     
-    if (desktopContent) {
-        desktopContent.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            showDesktopContextMenu(e.clientX, e.clientY);
+    // Setup image error handling
+    OtherImageLoader.setupErrorHandling();
+    
+    // Apply performance optimizations
+    OtherPerformanceOptimizer.optimize();
+    
+    // Add intersection observer for performance
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.project-card').forEach(card => {
+            observer.observe(card);
         });
     }
+    
+    console.log(`
+🚀 Other Projects Page Loaded Successfully!
+💻 Navigation Options:
+   • Click project cards to switch
+   • Use arrow buttons or navigation dots
+   • Click taskbar icons or window controls
+   • Keyboard: Arrow keys, Space, Home/End, F5
+   • Touch: Swipe gestures supported
+
+✨ Features:
+   • 3D carousel effect
+   • Desktop environment mockup
+   • Interactive taskbar and windows
+   • Smart interaction detection
+   • No interruption during manual navigation
+   • Responsive design
+   • Accessibility support
+   • Performance optimized
+`);
 });
 
-function showDesktopContextMenu(x, y) {
-    // Remove existing context menu
-    const existingMenu = document.querySelector('.desktop-context-menu');
-    if (existingMenu) {
-        existingMenu.remove();
-    }
-    
-    const contextMenu = document.createElement('div');
-    contextMenu.className = 'desktop-context-menu';
-    contextMenu.innerHTML = `
-        <div class="context-menu-item" onclick="refreshDesktop()">
-            <i class="fas fa-sync-alt"></i> Refresh
-        </div>
-        <div class="context-menu-item" onclick="changeWallpaper()">
-            <i class="fas fa-image"></i> Change Wallpaper
-        </div>
-        <div class="context-menu-item" onclick="showDesktopProperties()">
-            <i class="fas fa-cog"></i> Properties
-        </div>
-    `;
-    
-    contextMenu.style.left = x + 'px';
-    contextMenu.style.top = y + 'px';
-    
-    document.querySelector('.desktop-frame').appendChild(contextMenu);
-    
-    setTimeout(() => {
-        contextMenu.classList.add('show');
-    }, 10);
-    
-    // Close menu when clicking elsewhere
-    document.addEventListener('click', function closeMenu() {
-        contextMenu.classList.remove('show');
-        setTimeout(() => {
-            if (contextMenu.parentNode) {
-                contextMenu.parentNode.removeChild(contextMenu);
-            }
-        }, 200);
-        document.removeEventListener('click', closeMenu);
-    });
+// Export for potential external use
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { OtherProjectsCarousel, OtherImageLoader, OtherPerformanceOptimizer };
 }
-
-function refreshDesktop() {
-    const desktopFrame = document.querySelector('.desktop-frame');
-    desktopFrame.style.animation = 'refreshSpin 0.6s ease-out';
-    
-    setTimeout(() => {
-        desktopFrame.style.animation = '';
-        showSystemNotification('Desktop', 'Desktop refreshed');
-    }, 600);
-}
-
-function changeWallpaper() {
-    const desktopFrame = document.querySelector('.desktop-frame');
-    const wallpapers = [
-        'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-        'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-        'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
-    ];
-    
-    const currentBg = desktopFrame.style.background;
-    let newBg;
-    do {
-        newBg = wallpapers[Math.floor(Math.random() * wallpapers.length)];
-    } while (newBg === currentBg);
-    
-    desktopFrame.style.background = newBg;
-    showSystemNotification('Desktop', 'Wallpaper changed');
-}
-
-function showDesktopProperties() {
-    showSystemNotification('Properties', 'Desktop: 1920x1080, 32-bit color');
-}
-
-// Console message for other projects
-console.log(`
-🖥️  Other Projects Page Loaded Successfully!
-💻 Desktop Controls:
-   • Alt + Tab: Switch between applications
-   • Right-click: Desktop context menu
-   • Windows key: Start menu
-   • F11: Toggle fullscreen mode
-   • Click taskbar icons to switch apps
-
-🎮 Interactive Features:
-   • Realistic desktop environment
-   • Window controls (minimize, maximize, close)
-   • System tray with live time
-   • Start menu with applications
-   • Context menu and notifications
-   • Keyboard shortcuts support
-`);

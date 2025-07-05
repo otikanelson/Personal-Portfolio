@@ -1,15 +1,10 @@
 /* Other Projects Specific Styles */
 
-/* Override projects container for desktop layout */
-.projects-container {
-    grid-template-columns: 1fr 650px;
-}
-
 /* Desktop Display Container */
 .desktop-display {
     position: sticky;
-    top: 120px;
-    height: calc(100vh - 240px);
+    top: 140px;
+    height: calc(100vh - 280px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,9 +12,8 @@
 
 .desktop-container {
     position: relative;
-    width: 100%;
-    max-width: 650px;
-    height: 500px;
+    width: 500px;
+    height: 350px;
 }
 
 .desktop-mockup {
@@ -52,7 +46,7 @@
 
 /* Desktop Taskbar */
 .desktop-taskbar {
-    height: 50px;
+    height: 40px;
     background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(20px);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -74,10 +68,10 @@
 }
 
 .start-button {
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     background: var(--gradient-1);
-    border-radius: 8px;
+    border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -92,7 +86,7 @@
 
 .start-button i {
     color: white;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .taskbar-apps {
@@ -101,16 +95,17 @@
 }
 
 .app-icon {
-    width: 40px;
-    height: 35px;
+    width: 35px;
+    height: 30px;
     background: rgba(255, 255, 255, 0.1);
-    border-radius: 6px;
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
+    border: 1px solid transparent;
 }
 
 .app-icon:hover {
@@ -137,7 +132,7 @@
 
 .app-icon i {
     color: white;
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
 .taskbar-end {
@@ -153,7 +148,7 @@
 
 .time {
     color: white;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 500;
 }
 
@@ -164,7 +159,7 @@
 
 .tray-icons i {
     color: white;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     cursor: pointer;
     transition: color 0.3s ease;
 }
@@ -175,7 +170,7 @@
 
 /* Desktop Content */
 .desktop-content {
-    height: calc(100% - 50px);
+    height: calc(100% - 40px);
     position: relative;
     overflow: hidden;
 }
@@ -189,10 +184,10 @@
 
 .app-window {
     position: absolute;
-    top: 30px;
-    left: 30px;
-    right: 30px;
-    bottom: 80px;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 60px;
     background: #f5f5f5;
     border-radius: 8px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -208,7 +203,7 @@
 }
 
 .window-header {
-    height: 35px;
+    height: 30px;
     background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%);
     border-bottom: 1px solid #e0e0e0;
     display: flex;
@@ -221,29 +216,29 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: #333;
 }
 
 .window-title i {
     color: var(--primary-color);
-    font-size: 0.8rem;
+    font-size: 0.75rem;
 }
 
 .window-controls {
     display: flex;
-    gap: 8px;
+    gap: 6px;
 }
 
 .window-controls span {
-    width: 18px;
-    height: 18px;
-    border-radius: 3px;
+    width: 16px;
+    height: 16px;
+    border-radius: 2px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -270,31 +265,17 @@
 }
 
 .window-content {
-    height: calc(100% - 35px);
+    height: calc(100% - 30px);
     background: #fff;
     position: relative;
     overflow: hidden;
 }
 
 /* Screenshots in windows */
-.screenshots-slider {
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-
 .screenshot {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0;
     transition: opacity 0.4s ease;
-}
-
-.screenshot.active {
-    opacity: 1;
 }
 
 .screenshot img {
@@ -308,8 +289,8 @@
     transform: scale(1.02);
 }
 
-/* Screenshot Navigation for Desktop */
-.screenshot-nav {
+/* Desktop Navigation */
+.desktop-navigation {
     position: absolute;
     top: 50%;
     left: 0;
@@ -324,13 +305,13 @@
     z-index: 5;
 }
 
-.desktop-content:hover .screenshot-nav {
+.desktop-content:hover .desktop-navigation {
     opacity: 1;
 }
 
-.nav-btn {
-    width: 45px;
-    height: 45px;
+.desktop-navigation .nav-arrow {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     border: none;
     background: rgba(0, 0, 0, 0.7);
@@ -345,14 +326,14 @@
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
-.nav-btn:hover {
+.desktop-navigation .nav-arrow:hover {
     background: var(--primary-color);
     transform: scale(1.1);
     box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
 }
 
-.nav-btn i {
-    font-size: 1rem;
+.desktop-navigation .nav-arrow i {
+    font-size: 0.9rem;
 }
 
 /* Desktop wallpaper effects */
@@ -362,7 +343,7 @@
     top: 0;
     left: 0;
     right: 0;
-    bottom: 50px;
+    bottom: 40px;
     background: 
         radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
         radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
@@ -405,217 +386,26 @@
     }
 }
 
-/* Responsive Design for Other Projects */
-@media (max-width: 1400px) {
-    .projects-container {
-        grid-template-columns: 1fr 550px;
+/* Desktop interaction states */
+.desktop-frame.loading {
+    opacity: 0.7;
+}
+
+.desktop-frame.loading .desktop-content {
+    background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 50%, #f0f0f0 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
     }
-    
-    .desktop-container {
-        max-width: 550px;
-        height: 420px;
+    100% {
+        background-position: 200% 0;
     }
 }
 
-@media (max-width: 1200px) {
-    .projects-container {
-        grid-template-columns: 1fr 500px;
-    }
-    
-    .desktop-container {
-        max-width: 500px;
-        height: 380px;
-    }
-    
-    .desktop-taskbar {
-        height: 45px;
-        padding: 0 12px;
-    }
-    
-    .start-button {
-        width: 30px;
-        height: 30px;
-    }
-    
-    .app-icon {
-        width: 35px;
-        height: 30px;
-    }
-}
-
-@media (max-width: 1024px) {
-    .projects-container {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-    
-    .desktop-display {
-        position: static;
-        height: 500px;
-        margin-top: 40px;
-    }
-    
-    .desktop-container {
-        max-width: 600px;
-        height: 450px;
-    }
-}
-
-@media (max-width: 768px) {
-    .desktop-container {
-        max-width: 100%;
-        height: 380px;
-    }
-    
-    .desktop-taskbar {
-        height: 40px;
-        padding: 0 10px;
-    }
-    
-    .taskbar-start {
-        gap: 10px;
-    }
-    
-    .start-button {
-        width: 28px;
-        height: 28px;
-    }
-    
-    .app-icon {
-        width: 32px;
-        height: 28px;
-    }
-    
-    .app-window {
-        top: 20px;
-        left: 20px;
-        right: 20px;
-        bottom: 60px;
-    }
-    
-    .window-header {
-        height: 30px;
-        padding: 0 12px;
-    }
-    
-    .window-title {
-        font-size: 0.8rem;
-    }
-    
-    .window-controls span {
-        width: 16px;
-        height: 16px;
-        font-size: 0.7rem;
-    }
-    
-    .screenshot-nav {
-        padding: 0 20px;
-    }
-    
-    .nav-btn {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .time {
-        font-size: 0.8rem;
-    }
-    
-    .tray-icons {
-        gap: 8px;
-    }
-    
-    .tray-icons i {
-        font-size: 0.8rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .desktop-container {
-        height: 320px;
-    }
-    
-    .desktop-taskbar {
-        height: 35px;
-        padding: 0 8px;
-    }
-    
-    .taskbar-start {
-        gap: 8px;
-    }
-    
-    .start-button {
-        width: 25px;
-        height: 25px;
-    }
-    
-    .start-button i {
-        font-size: 0.9rem;
-    }
-    
-    .app-icon {
-        width: 28px;
-        height: 25px;
-    }
-    
-    .app-icon i {
-        font-size: 0.8rem;
-    }
-    
-    .app-window {
-        top: 15px;
-        left: 15px;
-        right: 15px;
-        bottom: 50px;
-    }
-    
-    .window-header {
-        height: 28px;
-        padding: 0 10px;
-    }
-    
-    .window-title {
-        font-size: 0.75rem;
-        gap: 6px;
-    }
-    
-    .window-controls {
-        gap: 6px;
-    }
-    
-    .window-controls span {
-        width: 14px;
-        height: 14px;
-        font-size: 0.6rem;
-    }
-    
-    .nav-btn {
-        width: 35px;
-        height: 35px;
-    }
-    
-    .nav-btn i {
-        font-size: 0.9rem;
-    }
-    
-    .time {
-        font-size: 0.7rem;
-    }
-    
-    .system-tray {
-        gap: 10px;
-    }
-    
-    .tray-icons {
-        gap: 6px;
-    }
-    
-    .tray-icons i {
-        font-size: 0.7rem;
-    }
-}
-
-/* Enhanced desktop effects */
 .desktop-frame.booting {
     animation: desktopBoot 1s ease-out;
 }
@@ -635,152 +425,286 @@
     }
 }
 
-/* Loading states for desktop apps */
-.app-window.loading {
-    opacity: 0.7;
+/* Error states for desktop screenshots */
+.screenshot.error {
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #6c757d;
 }
 
-.app-window.loading .window-content::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 50%, #f0f0f0 100%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
-    z-index: 1;
+.screenshot.error::after {
+    content: '💻 Desktop App Preview Unavailable';
+    font-size: 12px;
+    margin-top: 8px;
+    text-align: center;
 }
 
-@keyframes shimmer {
-    0% {
-        background-position: -200% 0;
+/* Print styles for other projects */
+@media print {
+    .desktop-display,
+    .carousel-navigation,
+    .project-dots,
+    .desktop-navigation {
+        display: none;
     }
-    100% {
-        background-position: 200% 0;
+    
+    .projects-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .project-card {
+        position: static;
+        transform: none;
+        page-break-inside: avoid;
+        margin-bottom: 20px;
     }
 }
 
-/* Taskbar hover effects */
-.start-button.clicked {
-    animation: startClick 0.3s ease;
+/* Desktop responsive adjustments */
+@media (max-width: 1200px) {
+    .desktop-container {
+        width: 450px;
+        height: 310px;
+    }
+    
+    .desktop-taskbar {
+        height: 36px;
+        padding: 0 12px;
+    }
+    
+    .start-button {
+        width: 26px;
+        height: 26px;
+    }
+    
+    .app-icon {
+        width: 30px;
+        height: 26px;
+    }
 }
 
-@keyframes startClick {
-    0% { transform: scale(1); }
-    50% { transform: scale(0.9); }
-    100% { transform: scale(1); }
+@media (max-width: 1024px) {
+    .desktop-display {
+        position: static;
+        height: 400px;
+        margin-top: 30px;
+    }
+    
+    .desktop-container {
+        width: 500px;
+        height: 320px;
+    }
 }
 
-/* System tray animations */
-.tray-icons i.notification {
-    animation: iconBlink 1s ease-in-out infinite;
+@media (max-width: 768px) {
+    .desktop-container {
+        width: 100%;
+        max-width: 450px;
+        height: 280px;
+    }
+    
+    .desktop-taskbar {
+        height: 32px;
+        padding: 0 10px;
+    }
+    
+    .taskbar-start {
+        gap: 10px;
+    }
+    
+    .start-button {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .start-button i {
+        font-size: 0.8rem;
+    }
+    
+    .app-icon {
+        width: 28px;
+        height: 24px;
+    }
+    
+    .app-icon i {
+        font-size: 0.75rem;
+    }
+    
+    .app-window {
+        top: 15px;
+        left: 15px;
+        right: 15px;
+        bottom: 47px;
+    }
+    
+    .window-header {
+        height: 26px;
+        padding: 0 12px;
+    }
+    
+    .window-title {
+        font-size: 0.75rem;
+    }
+    
+    .window-controls span {
+        width: 14px;
+        height: 14px;
+        font-size: 0.6rem;
+    }
+    
+    .desktop-navigation {
+        padding: 0 20px;
+    }
+    
+    .desktop-navigation .nav-arrow {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .time {
+        font-size: 0.75rem;
+    }
+    
+    .tray-icons {
+        gap: 8px;
+    }
+    
+    .tray-icons i {
+        font-size: 0.7rem;
+    }
 }
 
-@keyframes iconBlink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+@media (max-width: 480px) {
+    .desktop-container {
+        height: 240px;
+    }
+    
+    .desktop-taskbar {
+        height: 28px;
+        padding: 0 8px;
+    }
+    
+    .taskbar-start {
+        gap: 8px;
+    }
+    
+    .start-button {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .start-button i {
+        font-size: 0.7rem;
+    }
+    
+    .app-icon {
+        width: 24px;
+        height: 20px;
+    }
+    
+    .app-icon i {
+        font-size: 0.65rem;
+    }
+    
+    .app-window {
+        top: 12px;
+        left: 12px;
+        right: 12px;
+        bottom: 40px;
+    }
+    
+    .window-header {
+        height: 24px;
+        padding: 0 10px;
+    }
+    
+    .window-title {
+        font-size: 0.7rem;
+        gap: 6px;
+    }
+    
+    .window-controls {
+        gap: 4px;
+    }
+    
+    .window-controls span {
+        width: 12px;
+        height: 12px;
+        font-size: 0.55rem;
+    }
+    
+    .desktop-navigation .nav-arrow {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .desktop-navigation .nav-arrow i {
+        font-size: 0.8rem;
+    }
+    
+    .time {
+        font-size: 0.65rem;
+    }
+    
+    .system-tray {
+        gap: 10px;
+    }
+    
+    .tray-icons {
+        gap: 6px;
+    }
+    
+    .tray-icons i {
+        font-size: 0.6rem;
+    }
 }
 
-/* Window resize effects */
-.app-window.resizing {
-    transition: all 0.3s ease;
-    border: 2px solid var(--primary-color);
-}
-
-/* Enhanced focus states for accessibility */
+/* Focus states for accessibility */
 .app-icon:focus,
 .start-button:focus,
 .window-controls span:focus,
-.nav-btn:focus {
+.desktop-navigation .nav-arrow:focus {
     outline: 2px solid var(--primary-color);
     outline-offset: 2px;
 }
 
-/* Desktop context menu (optional enhancement) */
-.desktop-context-menu {
-    position: absolute;
-    background: rgba(0, 0, 0, 0.9);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    padding: 8px 0;
-    min-width: 150px;
-    opacity: 0;
-    transform: scale(0.9);
-    transition: all 0.2s ease;
-    z-index: 100;
-}
-
-.desktop-context-menu.show {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.context-menu-item {
-    padding: 8px 16px;
-    color: white;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background 0.2s ease;
-}
-
-.context-menu-item:hover {
-    background: rgba(99, 102, 241, 0.3);
-}
-
-/* Time update animation */
-.time.updating {
-    animation: timeFlash 0.5s ease;
-}
-
-@keyframes timeFlash {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
-}
-
-/* App switching effects */
-.app-window.switching-out {
-    animation: switchOut 0.3s ease-out forwards;
-}
-
-.app-window.switching-in {
-    animation: switchIn 0.3s ease-out forwards;
-}
-
-@keyframes switchOut {
-    to {
-        opacity: 0;
-        transform: scale(0.95) translateX(-20px);
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .desktop-taskbar,
+    .app-window {
+        border-color: #ffffff;
+    }
+    
+    .app-icon,
+    .start-button {
+        border: 1px solid #ffffff;
+    }
+    
+    .window-header {
+        border-bottom-color: #000000;
     }
 }
 
-@keyframes switchIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95) translateX(20px);
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .app-window,
+    .app-icon,
+    .start-button,
+    .desktop-navigation .nav-arrow {
+        transition: none;
+        animation: none;
     }
-    to {
-        opacity: 1;
-        transform: scale(1) translateX(0);
+    
+    .desktop-frame:hover {
+        transform: none;
     }
-}
-
-/* Performance optimizations */
-.desktop-frame {
-    will-change: transform;
-    backface-visibility: hidden;
-}
-
-.app-window {
-    will-change: opacity, transform;
-    backface-visibility: hidden;
-}
-
-.screenshot {
-    will-change: opacity;
-    backface-visibility: hidden;
+    
+    .screenshot img {
+        transform: none;
+    }
 }
 
 /* Dark mode support for desktop */
@@ -803,51 +727,4 @@
 
 .desktop-frame.dark-mode .window-content {
     background: #1a202c;
-}
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-    .app-window,
-    .app-icon,
-    .start-button,
-    .nav-btn {
-        transition: none;
-        animation: none;
-    }
-    
-    .desktop-frame:hover {
-        transform: none;
-    }
-    
-    .screenshot img {
-        transform: none;
-    }
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-    .desktop-taskbar {
-        background: rgba(0, 0, 0, 0.95);
-        border-top-color: #ffffff;
-    }
-    
-    .app-icon,
-    .start-button {
-        border: 1px solid #ffffff;
-    }
-    
-    .window-header {
-        border-bottom-color: #000000;
-    }
-}
-
-/* Print styles (hide desktop mockup) */
-@media print {
-    .desktop-display {
-        display: none;
-    }
-    
-    .projects-container {
-        grid-template-columns: 1fr;
-    }
 }
