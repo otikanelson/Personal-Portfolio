@@ -1,18 +1,22 @@
 /* Other Projects Specific Styles */
 
-/* Desktop Display Container */
+/* Desktop Display Container - FIXED POSITIONING */
 .desktop-display {
-    position: sticky;
-    top: 140px;
-    height: calc(100vh - 280px);
+    position: fixed;
+    top: 50%;
+    right: max(40px, calc((100vw - 1400px) / 2));
+    transform: translateY(-50%);
+    width: 500px;
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 100;
 }
 
 .desktop-container {
     position: relative;
-    width: 500px;
+    width: 100%;
     height: 350px;
 }
 
@@ -30,18 +34,18 @@
     overflow: hidden;
     box-shadow: 
         0 0 0 2px rgba(255, 255, 255, 0.1),
-        0 15px 35px rgba(0, 0, 0, 0.2),
-        0 30px 60px rgba(0, 0, 0, 0.15);
+        0 20px 50px rgba(0, 0, 0, 0.25),
+        0 35px 80px rgba(0, 0, 0, 0.15);
     position: relative;
     transition: all 0.3s ease;
 }
 
 .desktop-frame:hover {
-    transform: translateY(-3px);
+    transform: translateY(-5px);
     box-shadow: 
         0 0 0 2px rgba(255, 255, 255, 0.15),
-        0 20px 45px rgba(0, 0, 0, 0.25),
-        0 35px 70px rgba(0, 0, 0, 0.2);
+        0 25px 60px rgba(0, 0, 0, 0.3),
+        0 40px 100px rgba(0, 0, 0, 0.2);
 }
 
 /* Desktop Taskbar */
@@ -425,6 +429,33 @@
     }
 }
 
+/* Enhanced browser button effects */
+.btn-close:hover {
+    background: #ff4037;
+    box-shadow: 0 0 10px rgba(255, 64, 55, 0.4);
+}
+
+.btn-minimize:hover {
+    background: #ffb012;
+    box-shadow: 0 0 10px rgba(255, 176, 18, 0.4);
+}
+
+.btn-maximize:hover {
+    background: #1fb928;
+    box-shadow: 0 0 10px rgba(31, 185, 40, 0.4);
+}
+
+/* Browser-specific animations */
+@keyframes fadeOut {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0.3; transform: scale(0.95); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0.3; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
 /* Error states for desktop screenshots */
 .screenshot.error {
     background: #f8f9fa;
@@ -442,31 +473,20 @@
     text-align: center;
 }
 
-/* Print styles for other projects */
-@media print {
-    .desktop-display,
-    .carousel-navigation,
-    .project-dots,
-    .desktop-navigation {
-        display: none;
-    }
-    
-    .projects-container {
-        grid-template-columns: 1fr;
-    }
-    
-    .project-card {
-        position: static;
-        transform: none;
-        page-break-inside: avoid;
-        margin-bottom: 20px;
+/* Responsive adjustments for other projects */
+@media (max-width: 1400px) {
+    .desktop-display {
+        right: 40px;
     }
 }
 
-/* Desktop responsive adjustments */
 @media (max-width: 1200px) {
-    .desktop-container {
+    .desktop-display {
         width: 450px;
+        right: 40px;
+    }
+    
+    .desktop-container {
         height: 310px;
     }
     
@@ -489,12 +509,17 @@
 @media (max-width: 1024px) {
     .desktop-display {
         position: static;
-        height: 400px;
-        margin-top: 30px;
+        transform: none;
+        width: 100%;
+        right: auto;
+        top: auto;
+        margin-top: 40px;
+        justify-content: center;
     }
     
     .desktop-container {
-        width: 500px;
+        width: 100%;
+        max-width: 500px;
         height: 320px;
     }
 }
@@ -727,4 +752,25 @@
 
 .desktop-frame.dark-mode .window-content {
     background: #1a202c;
+}
+
+/* Print styles for other projects */
+@media print {
+    .desktop-display,
+    .carousel-navigation,
+    .project-dots,
+    .desktop-navigation {
+        display: none;
+    }
+    
+    .projects-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .project-card {
+        position: static;
+        transform: none;
+        page-break-inside: avoid;
+        margin-bottom: 20px;
+    }
 }

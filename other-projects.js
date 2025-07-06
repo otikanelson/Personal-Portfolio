@@ -291,7 +291,7 @@ class OtherProjectsCarousel {
         this.isTransitioning = true;
         this.currentProject = index;
 
-        // Update 3D carousel positions
+        // Update 3D carousel positions - FIXED VERSION
         this.update3DCarousel();
         
         // Update project cards
@@ -324,7 +324,8 @@ class OtherProjectsCarousel {
             card.classList.add('transitioning');
             
             const offset = index - this.currentProject;
-            const translateY = offset * 120;
+            // Reduced translateY to minimize space issues (same fix as web projects)
+            const translateY = offset * 60; // Reduced from 120 to 60
             const translateZ = Math.abs(offset) * -150;
             const rotateX = Math.abs(offset) * -15;
             const zIndex = this.totalProjects - Math.abs(offset);
@@ -658,14 +659,19 @@ document.addEventListener('DOMContentLoaded', function() {
    • Touch: Swipe gestures supported
 
 ✨ Features:
-   • 3D carousel effect
-   • Desktop environment mockup
+   • 3D carousel effect with fixed positioning
+   • Desktop environment mockup with stable display
    • Interactive taskbar and windows
    • Smart interaction detection
    • No interruption during manual navigation
    • Responsive design
    • Accessibility support
    • Performance optimized
+
+🔧 Fixed Issues:
+   • Desktop display now completely stable (no scroll movement)
+   • Carousel spacing optimized to prevent overflow
+   • Enhanced visual polish and user experience
 `);
 });
 
