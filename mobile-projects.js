@@ -1,9 +1,10 @@
-// Projects Page JavaScript - No Auto-scroll Interruption
+// Mobile Projects JavaScript - PROPER HTML + JS STRUCTURE FIX
 
 class ProjectsCarousel {
     constructor() {
         this.currentProject = 0;
-        this.totalProjects = 2;
+        this.totalProjects = 3;
+        this.currentScreenshots = [0, 0, 0]; // Track current screenshot for each project
         this.isTransitioning = false;
         this.userIsInteracting = false;
         this.interactionTimeout = null;
@@ -15,15 +16,16 @@ class ProjectsCarousel {
         this.bindElements();
         this.bindEvents();
         this.setActiveProject(0);
+        this.initializeScreenshotIndicators();
         
-        console.log('📱 Mobile Projects Page Initialized');
+        console.log('📱 Mobile Projects Page Initialized (HTML+JS Structure)');
     }
 
     bindElements() {
         // Main elements
         this.carousel = document.getElementById('projectCarousel');
         this.projectCards = document.querySelectorAll('.project-card');
-        this.screenshots = document.querySelectorAll('.screenshot');
+        this.projectScreenshotGroups = document.querySelectorAll('.project-screenshots');
         this.navDots = document.querySelectorAll('.nav-dot');
         
         // Navigation buttons
@@ -32,19 +34,23 @@ class ProjectsCarousel {
         this.phonePrevBtn = document.getElementById('phonePrevBtn');
         this.phoneNextBtn = document.getElementById('phoneNextBtn');
         
+        // Phone specific elements
+        this.phoneNavigation = document.querySelector('.phone-navigation');
+        this.screenshotIndicators = document.querySelector('.screenshot-indicators');
+        
         // Container for interaction detection
         this.projectsContainer = document.querySelector('.projects-container');
         this.phoneContainer = document.querySelector('.phone-container');
     }
 
     bindEvents() {
-        // Carousel navigation
+        // Carousel navigation (changes projects)
         this.prevBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.prevProject()));
         this.nextBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.nextProject()));
         
-        // Phone navigation
-        this.phonePrevBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.prevProject()));
-        this.phoneNextBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.nextProject()));
+        // Phone navigation (cycles through screenshots of current project) - FIXED
+        this.phonePrevBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.prevScreenshot()));
+        this.phoneNextBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.nextScreenshot()));
         
         // Project card clicks
         this.projectCards.forEach((card, index) => {
@@ -79,13 +85,12 @@ class ProjectsCarousel {
         // Visibility change handling
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
-                this.userIsInteracting = true; // Prevent auto-scroll when tab is hidden
+                this.userIsInteracting = true;
             }
         });
     }
 
     bindMouseEvents() {
-        // Detect mouse interactions in the projects area
         const interactiveElements = [
             this.projectsContainer,
             this.phoneContainer,
@@ -94,18 +99,15 @@ class ProjectsCarousel {
         ].filter(Boolean);
 
         interactiveElements.forEach(element => {
-            // Mouse enter - user is potentially interacting
             element.addEventListener('mouseenter', () => {
                 this.userIsInteracting = true;
                 this.clearInteractionTimeout();
             });
             
-            // Mouse leave - start timeout to resume auto behavior
             element.addEventListener('mouseleave', () => {
                 this.setInteractionTimeout();
             });
             
-            // Any mouse movement within the area
             element.addEventListener('mousemove', () => {
                 this.userIsInteracting = true;
                 this.clearInteractionTimeout();
@@ -115,14 +117,12 @@ class ProjectsCarousel {
     }
 
     bindScrollEvents() {
-        // Detect scrolling within project cards
         this.projectCards.forEach(card => {
             card.addEventListener('scroll', () => {
                 this.handleUserInteraction();
             });
         });
         
-        // Detect page scrolling
         let scrollTimeout;
         window.addEventListener('scroll', () => {
             this.userIsInteracting = true;
@@ -151,33 +151,45 @@ class ProjectsCarousel {
             element.addEventListener('touchend', (e) => {
                 touchEndX = e.changedTouches[0].screenX;
                 touchEndY = e.changedTouches[0].screenY;
-                this.handleSwipe(touchStartX, touchStartY, touchEndX, touchEndY);
+                this.handleSwipeOnMockup(touchStartX, touchStartY, touchEndX, touchEndY, e.target);
             }, { passive: true });
         });
     }
 
-    handleSwipe(startX, startY, endX, endY) {
+    // Separate swipe handling for mockup vs carousel
+    handleSwipeOnMockup(startX, startY, endX, endY, target) {
         const swipeThreshold = 50;
         const diffX = startX - endX;
         const diffY = startY - endY;
 
-        // Determine if it's a horizontal or vertical swipe
+        // Check if swipe was on phone mockup
+        const isPhoneSwipe = target.closest('.phone-container');
+
         if (Math.abs(diffX) > Math.abs(diffY)) {
-            // Horizontal swipe
             if (Math.abs(diffX) > swipeThreshold) {
-                if (diffX > 0) {
-                    this.nextProject(); // Swipe left
+                if (isPhoneSwipe) {
+                    // Swipe on phone mockup - change screenshots
+                    if (diffX > 0) {
+                        this.nextScreenshot();
+                    } else {
+                        this.prevScreenshot();
+                    }
                 } else {
-                    this.prevProject(); // Swipe right
+                    // Swipe outside phone - change projects
+                    if (diffX > 0) {
+                        this.nextProject();
+                    } else {
+                        this.prevProject();
+                    }
                 }
             }
         } else {
-            // Vertical swipe
             if (Math.abs(diffY) > swipeThreshold) {
+                // Vertical swipes always change projects
                 if (diffY > 0) {
-                    this.nextProject(); // Swipe up
+                    this.nextProject();
                 } else {
-                    this.prevProject(); // Swipe down
+                    this.prevProject();
                 }
             }
         }
@@ -191,8 +203,7 @@ class ProjectsCarousel {
             callback();
         }
         
-        // Set a longer timeout after user interaction
-        this.setInteractionTimeout(5000); // 5 seconds instead of default 3
+        this.setInteractionTimeout(5000);
     }
 
     setInteractionTimeout(delay = 3000) {
@@ -210,7 +221,6 @@ class ProjectsCarousel {
     }
 
     shouldHandleKeyboard(e) {
-        // Don't handle keyboard if user is typing in an input
         const activeElement = document.activeElement;
         const inputElements = ['INPUT', 'TEXTAREA', 'SELECT'];
         return !inputElements.includes(activeElement.tagName);
@@ -219,16 +229,22 @@ class ProjectsCarousel {
     handleKeyboard(e) {
         switch(e.key) {
             case 'ArrowLeft':
-            case 'ArrowUp':
                 e.preventDefault();
-                this.handleUserInteraction(() => this.prevProject());
+                this.handleUserInteraction(() => this.prevScreenshot()); // Screenshot navigation
                 break;
             case 'ArrowRight':
+                e.preventDefault();
+                this.handleUserInteraction(() => this.nextScreenshot()); // Screenshot navigation
+                break;
+            case 'ArrowUp':
+                e.preventDefault();
+                this.handleUserInteraction(() => this.prevProject()); // Project navigation
+                break;
             case 'ArrowDown':
                 e.preventDefault();
-                this.handleUserInteraction(() => this.nextProject());
+                this.handleUserInteraction(() => this.nextProject()); // Project navigation
                 break;
-            case ' ': // Spacebar
+            case ' ':
                 e.preventDefault();
                 this.handleUserInteraction(() => this.nextProject());
                 break;
@@ -258,11 +274,17 @@ class ProjectsCarousel {
         // Update project cards
         this.updateProjectCards();
         
-        // Update screenshots
-        this.updateScreenshots();
+        // Update screenshot groups
+        this.updateScreenshotGroups();
         
         // Update navigation dots
         this.updateNavigationDots();
+        
+        // Update phone navigation visibility
+        this.updatePhoneNavigationVisibility();
+        
+        // Update screenshot indicators
+        this.updateScreenshotIndicators();
         
         // Smooth scroll to active card on mobile
         this.scrollToActiveCard();
@@ -270,21 +292,99 @@ class ProjectsCarousel {
         // Announce change for accessibility
         this.announceProjectChange();
 
-        // Reset transition flag
         setTimeout(() => {
             this.isTransitioning = false;
         }, 600);
     }
 
+    // Screenshot navigation methods
+    nextScreenshot() {
+        const currentProjectGroup = document.querySelector(`.project-screenshots[data-project="${this.currentProject}"]`);
+        if (!currentProjectGroup) return;
+        
+        const screenshots = currentProjectGroup.querySelectorAll('.screenshot');
+        if (screenshots.length <= 1) return; // No need to navigate if only one screenshot
+        
+        const currentScreenshot = this.currentScreenshots[this.currentProject];
+        const nextScreenshot = (currentScreenshot + 1) % screenshots.length;
+        
+        this.setActiveScreenshot(nextScreenshot);
+    }
+
+    prevScreenshot() {
+        const currentProjectGroup = document.querySelector(`.project-screenshots[data-project="${this.currentProject}"]`);
+        if (!currentProjectGroup) return;
+        
+        const screenshots = currentProjectGroup.querySelectorAll('.screenshot');
+        if (screenshots.length <= 1) return; // No need to navigate if only one screenshot
+        
+        const currentScreenshot = this.currentScreenshots[this.currentProject];
+        const prevScreenshot = (currentScreenshot - 1 + screenshots.length) % screenshots.length;
+        
+        this.setActiveScreenshot(prevScreenshot);
+    }
+
+    setActiveScreenshot(screenshotIndex) {
+        const currentProjectGroup = document.querySelector(`.project-screenshots[data-project="${this.currentProject}"]`);
+        if (!currentProjectGroup) return;
+        
+        const screenshots = currentProjectGroup.querySelectorAll('.screenshot');
+        
+        // Update screenshot visibility
+        screenshots.forEach((screenshot, index) => {
+            screenshot.classList.toggle('active', index === screenshotIndex);
+        });
+        
+        // Update current screenshot tracking
+        this.currentScreenshots[this.currentProject] = screenshotIndex;
+        
+        // Update screenshot indicators
+        this.updateScreenshotIndicators();
+    }
+
+    // Initialize screenshot indicators for all projects
+    initializeScreenshotIndicators() {
+        this.updateScreenshotIndicators();
+    }
+
+    updateScreenshotIndicators() {
+        if (!this.screenshotIndicators) return;
+        
+        const currentProjectGroup = document.querySelector(`.project-screenshots[data-project="${this.currentProject}"]`);
+        if (!currentProjectGroup) return;
+        
+        const screenshots = currentProjectGroup.querySelectorAll('.screenshot');
+        
+        // Clear existing indicators
+        this.screenshotIndicators.innerHTML = '';
+        
+        // Only show indicators if there are multiple screenshots
+        if (screenshots.length > 1) {
+            screenshots.forEach((_, index) => {
+                const indicator = document.createElement('button');
+                indicator.className = 'screenshot-dot';
+                indicator.classList.toggle('active', index === this.currentScreenshots[this.currentProject]);
+                indicator.setAttribute('data-screenshot', index);
+                indicator.title = `Screenshot ${index + 1}`;
+                
+                // Add click handler
+                indicator.addEventListener('click', () => {
+                    this.handleUserInteraction(() => this.setActiveScreenshot(index));
+                });
+                
+                this.screenshotIndicators.appendChild(indicator);
+            });
+        }
+    }
+
     update3DCarousel() {
         this.projectCards.forEach((card, index) => {
             card.classList.remove('transitioning');
-            // Force reflow
             card.offsetHeight;
             card.classList.add('transitioning');
             
             const offset = index - this.currentProject;
-            const translateY = offset * 120;
+            const translateY = offset * 60;
             const translateZ = Math.abs(offset) * -150;
             const rotateX = Math.abs(offset) * -15;
             const zIndex = this.totalProjects - Math.abs(offset);
@@ -305,9 +405,9 @@ class ProjectsCarousel {
         });
     }
 
-    updateScreenshots() {
-        this.screenshots.forEach((screenshot, index) => {
-            screenshot.classList.toggle('active', index === this.currentProject);
+    updateScreenshotGroups() {
+        this.projectScreenshotGroups.forEach((group, index) => {
+            group.classList.toggle('active', index === this.currentProject);
         });
     }
 
@@ -317,8 +417,23 @@ class ProjectsCarousel {
         });
     }
 
+    updatePhoneNavigationVisibility() {
+        if (!this.phoneNavigation) return;
+        
+        const currentProjectGroup = document.querySelector(`.project-screenshots[data-project="${this.currentProject}"]`);
+        if (!currentProjectGroup) return;
+        
+        const screenshots = currentProjectGroup.querySelectorAll('.screenshot');
+        
+        // Show/hide phone navigation based on screenshot count
+        if (screenshots.length > 1) {
+            this.phoneNavigation.style.display = 'flex';
+        } else {
+            this.phoneNavigation.style.display = 'none';
+        }
+    }
+
     scrollToActiveCard() {
-        // Only scroll on mobile/tablet viewports
         if (window.innerWidth <= 1024) {
             const activeCard = this.projectCards[this.currentProject];
             if (activeCard) {
@@ -334,10 +449,9 @@ class ProjectsCarousel {
 
     announceProjectChange() {
         const projectNames = [
-            'Fitness Tracker App',
-            'Train Booking System', 
-            'Weather Forecast App',
-            'E-Commerce Shopping App'
+            'FREBFIT - Fitness Application for FREBSON FITNESS',
+            'VOLAIR - React Native Cross-Platform App', 
+            'Train Booking System - NIIT Internship Project'
         ];
         
         const announcement = document.createElement('div');
@@ -376,7 +490,6 @@ class ProjectsCarousel {
         this.setActiveProject(prev);
     }
 
-    // Public methods for external access
     getCurrentProject() {
         return this.currentProject;
     }
@@ -385,7 +498,14 @@ class ProjectsCarousel {
         return this.totalProjects;
     }
 
-    // Method to programmatically set user interaction state
+    getCurrentScreenshot() {
+        return {
+            project: this.currentProject,
+            screenshot: this.currentScreenshots[this.currentProject],
+            total: document.querySelector(`.project-screenshots[data-project="${this.currentProject}"]`)?.querySelectorAll('.screenshot').length || 1
+        };
+    }
+
     setUserInteractionState(isInteracting) {
         this.userIsInteracting = isInteracting;
         if (isInteracting) {
@@ -415,7 +535,6 @@ class ImageLoader {
                 this.parentElement.classList.add('error');
                 console.warn('Failed to load screenshot:', this.src);
                 
-                // Create fallback content
                 const fallback = document.createElement('div');
                 fallback.style.cssText = `
                     position: absolute;
@@ -436,20 +555,17 @@ class ImageLoader {
 // Performance optimization utilities
 class PerformanceOptimizer {
     static optimize() {
-        // Add will-change property for better performance
         const animatedElements = document.querySelectorAll('.project-card, .screenshot, .nav-dot');
         animatedElements.forEach(element => {
             element.style.willChange = 'transform, opacity';
         });
         
-        // Remove will-change after initial animations
         setTimeout(() => {
             animatedElements.forEach(element => {
                 element.style.willChange = 'auto';
             });
         }, 2000);
         
-        // Preload next/previous images
         this.preloadImages();
     }
     
@@ -467,16 +583,10 @@ class PerformanceOptimizer {
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize the carousel
     window.projectsCarousel = new ProjectsCarousel();
-    
-    // Setup image error handling
     ImageLoader.setupErrorHandling();
-    
-    // Apply performance optimizations
     PerformanceOptimizer.optimize();
     
-    // Add intersection observer for performance
     if ('IntersectionObserver' in window) {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -490,27 +600,26 @@ document.addEventListener('DOMContentLoaded', function() {
             observer.observe(card);
         });
     }
-    
+
     console.log(`
 🚀 Mobile Projects Page Loaded Successfully!
-📱 Navigation Options:
-   • Click project cards to switch
-   • Use arrow buttons or navigation dots
-   • Keyboard: Arrow keys, Space, Home/End
-   • Touch: Swipe gestures supported
-   • Auto-scroll: Disabled during user interaction
+📱 Navigation Fixed (HTML+JS Structure):
+   • Side arrows: Change between projects
+   • Phone arrows: Cycle through screenshots of current project
+   • Dots below: Jump to specific projects
+   • Screenshot dots (when multiple): Jump to specific screenshots
+   • Keyboard: Left/Right = Screenshots, Up/Down = Projects
+   • Touch: Swipe on phone = Screenshots, Swipe outside = Projects
 
-✨ Features:
-   • 3D carousel effect
-   • Smart interaction detection
-   • No interruption during manual navigation
-   • Responsive design
-   • Accessibility support
-   • Performance optimized
+✨ Benefits of HTML+JS Structure:
+   • Clean HTML structure with proper project groupings
+   • JavaScript works with existing DOM elements
+   • Better SEO and accessibility
+   • Easier to add/remove screenshots
+   • More maintainable code structure
 `);
 });
 
-// Export for potential external use
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { ProjectsCarousel, ImageLoader, PerformanceOptimizer };
 }

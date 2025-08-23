@@ -1,19 +1,19 @@
-// Web Projects Page JavaScript - Same structure as mobile projects
+// Web Projects JavaScript - COMPLETE HTML+JS STRUCTURE FIX
 
 class WebProjectsCarousel {
     constructor() {
         this.currentProject = 0;
-        this.totalProjects = 4;
+        this.totalProjects = 3;
+        this.currentScreenshots = [0, 0, 0]; // Track current screenshot for each project
         this.isTransitioning = false;
         this.userIsInteracting = false;
         this.interactionTimeout = null;
         
         // URL mappings for different projects
         this.projectUrls = {
-            0: 'https://nelsonotika.dev',
-            1: 'https://nelsonotika.dev/shop',
-            2: 'https://nelsonotika.dev/celebration',
-            3: 'https://nelsonotika.dev/tasks'
+            0: 'https://darb-crowdfunding.vercel.app',
+            1: 'https://bizzbridge-marketplace.vercel.app',
+            2: 'https://nelsonotika.vercel.app'
         };
         
         this.init();
@@ -23,15 +23,16 @@ class WebProjectsCarousel {
         this.bindElements();
         this.bindEvents();
         this.setActiveProject(0);
+        this.initializeScreenshotIndicators();
         
-        console.log('🌐 Web Projects Page Initialized');
+        console.log('🌐 Web Projects Page Initialized (HTML+JS Structure)');
     }
 
     bindElements() {
         // Main elements
         this.carousel = document.getElementById('projectCarousel');
         this.projectCards = document.querySelectorAll('.project-card');
-        this.screenshots = document.querySelectorAll('.screenshot');
+        this.projectScreenshotGroups = document.querySelectorAll('.project-screenshots');
         this.navDots = document.querySelectorAll('.nav-dot');
         
         // Navigation buttons
@@ -45,6 +46,8 @@ class WebProjectsCarousel {
         this.browserFrame = document.querySelector('.browser-frame');
         this.browserButtons = document.querySelectorAll('.browser-buttons span');
         this.browserUrl = document.querySelector('.browser-url');
+        this.browserNavigation = document.querySelector('.browser-navigation');
+        this.screenshotIndicators = document.querySelector('.screenshot-indicators');
         
         // Container for interaction detection
         this.projectsContainer = document.querySelector('.projects-container');
@@ -52,13 +55,13 @@ class WebProjectsCarousel {
     }
 
     bindEvents() {
-        // Carousel navigation
+        // Carousel navigation (changes projects)
         this.prevBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.prevProject()));
         this.nextBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.nextProject()));
         
-        // Browser navigation
-        this.browserPrevBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.prevProject()));
-        this.browserNextBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.nextProject()));
+        // Browser navigation (cycles through screenshots of current project) - FIXED
+        this.browserPrevBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.prevScreenshot()));
+        this.browserNextBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.nextScreenshot()));
         
         // Project card clicks
         this.projectCards.forEach((card, index) => {
@@ -171,26 +174,41 @@ class WebProjectsCarousel {
             element.addEventListener('touchend', (e) => {
                 touchEndX = e.changedTouches[0].screenX;
                 touchEndY = e.changedTouches[0].screenY;
-                this.handleSwipe(touchStartX, touchStartY, touchEndX, touchEndY);
+                this.handleSwipeOnMockup(touchStartX, touchStartY, touchEndX, touchEndY, e.target);
             }, { passive: true });
         });
     }
 
-    handleSwipe(startX, startY, endX, endY) {
+    // Separate swipe handling for mockup vs carousel
+    handleSwipeOnMockup(startX, startY, endX, endY, target) {
         const swipeThreshold = 50;
         const diffX = startX - endX;
         const diffY = startY - endY;
 
+        // Check if swipe was on browser mockup
+        const isBrowserSwipe = target.closest('.browser-container');
+
         if (Math.abs(diffX) > Math.abs(diffY)) {
             if (Math.abs(diffX) > swipeThreshold) {
-                if (diffX > 0) {
-                    this.nextProject();
+                if (isBrowserSwipe) {
+                    // Swipe on browser mockup - change screenshots
+                    if (diffX > 0) {
+                        this.nextScreenshot();
+                    } else {
+                        this.prevScreenshot();
+                    }
                 } else {
-                    this.prevProject();
+                    // Swipe outside browser - change projects
+                    if (diffX > 0) {
+                        this.nextProject();
+                    } else {
+                        this.prevProject();
+                    }
                 }
             }
         } else {
             if (Math.abs(diffY) > swipeThreshold) {
+                // Vertical swipes always change projects
                 if (diffY > 0) {
                     this.nextProject();
                 } else {
@@ -234,14 +252,20 @@ class WebProjectsCarousel {
     handleKeyboard(e) {
         switch(e.key) {
             case 'ArrowLeft':
-            case 'ArrowUp':
                 e.preventDefault();
-                this.handleUserInteraction(() => this.prevProject());
+                this.handleUserInteraction(() => this.prevScreenshot()); // Screenshot navigation
                 break;
             case 'ArrowRight':
+                e.preventDefault();
+                this.handleUserInteraction(() => this.nextScreenshot()); // Screenshot navigation
+                break;
+            case 'ArrowUp':
+                e.preventDefault();
+                this.handleUserInteraction(() => this.prevProject()); // Project navigation
+                break;
             case 'ArrowDown':
                 e.preventDefault();
-                this.handleUserInteraction(() => this.nextProject());
+                this.handleUserInteraction(() => this.nextProject()); // Project navigation
                 break;
             case ' ':
                 e.preventDefault();
@@ -279,14 +303,20 @@ class WebProjectsCarousel {
         // Update project cards
         this.updateProjectCards();
         
-        // Update screenshots
-        this.updateScreenshots();
+        // Update screenshot groups
+        this.updateScreenshotGroups();
         
         // Update navigation dots
         this.updateNavigationDots();
         
         // Update browser URL
         this.updateBrowserUrl();
+        
+        // Update browser navigation visibility
+        this.updateBrowserNavigationVisibility();
+        
+        // Update screenshot indicators
+        this.updateScreenshotIndicators();
         
         // Smooth scroll to active card on mobile
         this.scrollToActiveCard();
@@ -299,6 +329,86 @@ class WebProjectsCarousel {
         }, 600);
     }
 
+    // Screenshot navigation methods
+    nextScreenshot() {
+        const currentProjectGroup = document.querySelector(`.project-screenshots[data-project="${this.currentProject}"]`);
+        if (!currentProjectGroup) return;
+        
+        const screenshots = currentProjectGroup.querySelectorAll('.screenshot');
+        if (screenshots.length <= 1) return; // No need to navigate if only one screenshot
+        
+        const currentScreenshot = this.currentScreenshots[this.currentProject];
+        const nextScreenshot = (currentScreenshot + 1) % screenshots.length;
+        
+        this.setActiveScreenshot(nextScreenshot);
+    }
+
+    prevScreenshot() {
+        const currentProjectGroup = document.querySelector(`.project-screenshots[data-project="${this.currentProject}"]`);
+        if (!currentProjectGroup) return;
+        
+        const screenshots = currentProjectGroup.querySelectorAll('.screenshot');
+        if (screenshots.length <= 1) return; // No need to navigate if only one screenshot
+        
+        const currentScreenshot = this.currentScreenshots[this.currentProject];
+        const prevScreenshot = (currentScreenshot - 1 + screenshots.length) % screenshots.length;
+        
+        this.setActiveScreenshot(prevScreenshot);
+    }
+
+    setActiveScreenshot(screenshotIndex) {
+        const currentProjectGroup = document.querySelector(`.project-screenshots[data-project="${this.currentProject}"]`);
+        if (!currentProjectGroup) return;
+        
+        const screenshots = currentProjectGroup.querySelectorAll('.screenshot');
+        
+        // Update screenshot visibility
+        screenshots.forEach((screenshot, index) => {
+            screenshot.classList.toggle('active', index === screenshotIndex);
+        });
+        
+        // Update current screenshot tracking
+        this.currentScreenshots[this.currentProject] = screenshotIndex;
+        
+        // Update screenshot indicators
+        this.updateScreenshotIndicators();
+    }
+
+    // Initialize screenshot indicators for all projects
+    initializeScreenshotIndicators() {
+        this.updateScreenshotIndicators();
+    }
+
+    updateScreenshotIndicators() {
+        if (!this.screenshotIndicators) return;
+        
+        const currentProjectGroup = document.querySelector(`.project-screenshots[data-project="${this.currentProject}"]`);
+        if (!currentProjectGroup) return;
+        
+        const screenshots = currentProjectGroup.querySelectorAll('.screenshot');
+        
+        // Clear existing indicators
+        this.screenshotIndicators.innerHTML = '';
+        
+        // Only show indicators if there are multiple screenshots
+        if (screenshots.length > 1) {
+            screenshots.forEach((_, index) => {
+                const indicator = document.createElement('button');
+                indicator.className = 'screenshot-dot';
+                indicator.classList.toggle('active', index === this.currentScreenshots[this.currentProject]);
+                indicator.setAttribute('data-screenshot', index);
+                indicator.title = `Screenshot ${index + 1}`;
+                
+                // Add click handler
+                indicator.addEventListener('click', () => {
+                    this.handleUserInteraction(() => this.setActiveScreenshot(index));
+                });
+                
+                this.screenshotIndicators.appendChild(indicator);
+            });
+        }
+    }
+
     update3DCarousel() {
         this.projectCards.forEach((card, index) => {
             card.classList.remove('transitioning');
@@ -306,8 +416,7 @@ class WebProjectsCarousel {
             card.classList.add('transitioning');
             
             const offset = index - this.currentProject;
-            // Reduced translateY multiplier from 120 to 60 to minimize space
-            const translateY = offset * 60; // Changed from 120
+            const translateY = offset * 60;
             const translateZ = Math.abs(offset) * -150;
             const rotateX = Math.abs(offset) * -15;
             const zIndex = this.totalProjects - Math.abs(offset);
@@ -328,9 +437,9 @@ class WebProjectsCarousel {
         });
     }
 
-    updateScreenshots() {
-        this.screenshots.forEach((screenshot, index) => {
-            screenshot.classList.toggle('active', index === this.currentProject);
+    updateScreenshotGroups() {
+        this.projectScreenshotGroups.forEach((group, index) => {
+            group.classList.toggle('active', index === this.currentProject);
         });
     }
 
@@ -352,6 +461,22 @@ class WebProjectsCarousel {
         }
     }
 
+    updateBrowserNavigationVisibility() {
+        if (!this.browserNavigation) return;
+        
+        const currentProjectGroup = document.querySelector(`.project-screenshots[data-project="${this.currentProject}"]`);
+        if (!currentProjectGroup) return;
+        
+        const screenshots = currentProjectGroup.querySelectorAll('.screenshot');
+        
+        // Show/hide browser navigation based on screenshot count
+        if (screenshots.length > 1) {
+            this.browserNavigation.style.display = 'flex';
+        } else {
+            this.browserNavigation.style.display = 'none';
+        }
+    }
+
     scrollToActiveCard() {
         if (window.innerWidth <= 1024) {
             const activeCard = this.projectCards[this.currentProject];
@@ -368,10 +493,9 @@ class WebProjectsCarousel {
 
     announceProjectChange() {
         const projectNames = [
-            'Personal Portfolio Website',
-            'E-commerce Platform', 
-            'Interactive Birthday Site',
-            'Task Management App'
+            'DARB - Crowdfunding Platform',
+            'BIZZBRIDGE - Artisan Marketplace', 
+            'Personal Portfolio Website'
         ];
         
         const announcement = document.createElement('div');
@@ -478,6 +602,14 @@ class WebProjectsCarousel {
         return this.totalProjects;
     }
 
+    getCurrentScreenshot() {
+        return {
+            project: this.currentProject,
+            screenshot: this.currentScreenshots[this.currentProject],
+            total: document.querySelector(`.project-screenshots[data-project="${this.currentProject}"]`)?.querySelectorAll('.screenshot').length || 1
+        };
+    }
+
     setUserInteractionState(isInteracting) {
         this.userIsInteracting = isInteracting;
         if (isInteracting) {
@@ -555,16 +687,10 @@ class WebPerformanceOptimizer {
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize the carousel
     window.webProjectsCarousel = new WebProjectsCarousel();
-    
-    // Setup image error handling
     WebImageLoader.setupErrorHandling();
-    
-    // Apply performance optimizations
     WebPerformanceOptimizer.optimize();
     
-    // Add intersection observer for performance
     if ('IntersectionObserver' in window) {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -581,25 +707,25 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log(`
 🚀 Web Projects Page Loaded Successfully!
-🌐 Navigation Options:
-   • Click project cards to switch
-   • Use arrow buttons or navigation dots
-   • Keyboard: Arrow keys, Space, Home/End, Cmd+R
-   • Touch: Swipe gestures supported
-   • Browser controls: Interactive buttons and URL bar
+🌐 Navigation Fixed (HTML+JS Structure):
+   • Side arrows: Change between projects
+   • Browser arrows: Cycle through screenshots of current project
+   • Dots below: Jump to specific projects
+   • Screenshot dots (when multiple): Jump to specific screenshots
+   • Keyboard: Left/Right = Screenshots, Up/Down = Projects
+   • Touch: Swipe on browser = Screenshots, Swipe outside = Projects
 
-✨ Features:
-   • 3D carousel effect
-   • Browser mockup with interactive elements
-   • Smart interaction detection
-   • No interruption during manual navigation
-   • Responsive design
-   • Accessibility support
-   • Performance optimized
+✨ Benefits of HTML+JS Structure:
+   • Clean HTML structure with proper project groupings
+   • JavaScript works with existing DOM elements
+   • Better SEO and accessibility
+   • Easier to add/remove screenshots
+   • More maintainable code structure
+   • Dynamic URL updates based on project
+   • Interactive browser controls
 `);
 });
 
-// Export for potential external use
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { WebProjectsCarousel, WebImageLoader, WebPerformanceOptimizer };
 }
