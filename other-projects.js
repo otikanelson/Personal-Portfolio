@@ -1,7 +1,10 @@
+// Other Projects JavaScript - COMPLETE HTML+JS STRUCTURE FIX
+
 class OtherProjectsCarousel {
     constructor() {
         this.currentProject = 0;
-        this.totalProjects = 4;
+        this.totalProjects = 2; // SCENORY and Paint Application
+        this.currentScreenshots = [0, 0]; // Track current screenshot for each project
         this.isTransitioning = false;
         this.userIsInteracting = false;
         this.interactionTimeout = null;
@@ -9,20 +12,12 @@ class OtherProjectsCarousel {
         // Application data for window titles and icons
         this.applicationData = {
             0: {
-                title: 'Paint Application',
-                icon: 'fas fa-paint-brush'
+                title: 'SCENORY - Storyboarding Tool',
+                icon: 'fas fa-film'
             },
             1: {
-                title: 'Puzzle Game',
-                icon: 'fas fa-puzzle-piece'
-            },
-            2: {
-                title: 'Inventory Management',
-                icon: 'fas fa-database'
-            },
-            3: {
-                title: 'Algorithm Visualizer',
-                icon: 'fas fa-project-diagram'
+                title: 'JavaFX Paint Application',
+                icon: 'fas fa-paint-brush'
             }
         };
         
@@ -34,15 +29,16 @@ class OtherProjectsCarousel {
         this.bindEvents();
         this.setActiveProject(0);
         this.initializeDesktopFeatures();
+        this.initializeScreenshotIndicators();
         
-        console.log('💻 Other Projects Page Initialized');
+        console.log('💻 Other Projects Page Initialized (HTML+JS Structure)');
     }
 
     bindElements() {
         // Main elements
         this.carousel = document.getElementById('projectCarousel');
         this.projectCards = document.querySelectorAll('.project-card');
-        this.screenshots = document.querySelectorAll('.screenshot');
+        this.projectScreenshotGroups = document.querySelectorAll('.project-screenshots');
         this.navDots = document.querySelectorAll('.nav-dot');
         
         // Navigation buttons
@@ -58,6 +54,8 @@ class OtherProjectsCarousel {
         this.startButton = document.querySelector('.start-button');
         this.windowControls = document.querySelectorAll('.window-controls span');
         this.timeDisplay = document.querySelector('.time');
+        this.desktopNavigation = document.querySelector('.desktop-navigation');
+        this.screenshotIndicators = document.querySelector('.screenshot-indicators');
         
         // Container for interaction detection
         this.projectsContainer = document.querySelector('.projects-container');
@@ -65,13 +63,13 @@ class OtherProjectsCarousel {
     }
 
     bindEvents() {
-        // Carousel navigation
+        // Carousel navigation (changes projects)
         this.prevBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.prevProject()));
         this.nextBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.nextProject()));
         
-        // Desktop navigation
-        this.desktopPrevBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.prevProject()));
-        this.desktopNextBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.nextProject()));
+        // Desktop navigation (cycles through screenshots of current project) - FIXED
+        this.desktopPrevBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.prevScreenshot()));
+        this.desktopNextBtn?.addEventListener('click', () => this.handleUserInteraction(() => this.nextScreenshot()));
         
         // Project card clicks
         this.projectCards.forEach((card, index) => {
@@ -192,26 +190,41 @@ class OtherProjectsCarousel {
             element.addEventListener('touchend', (e) => {
                 touchEndX = e.changedTouches[0].screenX;
                 touchEndY = e.changedTouches[0].screenY;
-                this.handleSwipe(touchStartX, touchStartY, touchEndX, touchEndY);
+                this.handleSwipeOnMockup(touchStartX, touchStartY, touchEndX, touchEndY, e.target);
             }, { passive: true });
         });
     }
 
-    handleSwipe(startX, startY, endX, endY) {
+    // Separate swipe handling for mockup vs carousel
+    handleSwipeOnMockup(startX, startY, endX, endY, target) {
         const swipeThreshold = 50;
         const diffX = startX - endX;
         const diffY = startY - endY;
 
+        // Check if swipe was on desktop mockup
+        const isDesktopSwipe = target.closest('.desktop-container');
+
         if (Math.abs(diffX) > Math.abs(diffY)) {
             if (Math.abs(diffX) > swipeThreshold) {
-                if (diffX > 0) {
-                    this.nextProject();
+                if (isDesktopSwipe) {
+                    // Swipe on desktop mockup - change screenshots
+                    if (diffX > 0) {
+                        this.nextScreenshot();
+                    } else {
+                        this.prevScreenshot();
+                    }
                 } else {
-                    this.prevProject();
+                    // Swipe outside desktop - change projects
+                    if (diffX > 0) {
+                        this.nextProject();
+                    } else {
+                        this.prevProject();
+                    }
                 }
             }
         } else {
             if (Math.abs(diffY) > swipeThreshold) {
+                // Vertical swipes always change projects
                 if (diffY > 0) {
                     this.nextProject();
                 } else {
@@ -255,14 +268,20 @@ class OtherProjectsCarousel {
     handleKeyboard(e) {
         switch(e.key) {
             case 'ArrowLeft':
-            case 'ArrowUp':
                 e.preventDefault();
-                this.handleUserInteraction(() => this.prevProject());
+                this.handleUserInteraction(() => this.prevScreenshot()); // Screenshot navigation
                 break;
             case 'ArrowRight':
+                e.preventDefault();
+                this.handleUserInteraction(() => this.nextScreenshot()); // Screenshot navigation
+                break;
+            case 'ArrowUp':
+                e.preventDefault();
+                this.handleUserInteraction(() => this.prevProject()); // Project navigation
+                break;
             case 'ArrowDown':
                 e.preventDefault();
-                this.handleUserInteraction(() => this.nextProject());
+                this.handleUserInteraction(() => this.nextProject()); // Project navigation
                 break;
             case ' ':
                 e.preventDefault();
@@ -291,7 +310,7 @@ class OtherProjectsCarousel {
         this.isTransitioning = true;
         this.currentProject = index;
 
-        // Update 3D carousel positions - FIXED VERSION
+        // Update 3D carousel positions
         this.update3DCarousel();
         
         // Update project cards
@@ -306,6 +325,12 @@ class OtherProjectsCarousel {
         // Update window title
         this.updateWindowTitle();
         
+        // Update desktop navigation visibility
+        this.updateDesktopNavigationVisibility();
+        
+        // Update screenshot indicators
+        this.updateScreenshotIndicators();
+        
         // Smooth scroll to active card on mobile
         this.scrollToActiveCard();
         
@@ -317,6 +342,102 @@ class OtherProjectsCarousel {
         }, 600);
     }
 
+    // Screenshot navigation methods
+    nextScreenshot() {
+        const currentProjectGroup = document.querySelector(`.project-screenshots[data-project="${this.currentProject}"]`);
+        if (!currentProjectGroup) return;
+        
+        const screenshots = currentProjectGroup.querySelectorAll('.screenshot');
+        if (screenshots.length <= 1) return; // No need to navigate if only one screenshot
+        
+        const currentScreenshot = this.currentScreenshots[this.currentProject];
+        const nextScreenshot = (currentScreenshot + 1) % screenshots.length;
+        
+        this.setActiveScreenshot(nextScreenshot);
+    }
+
+    prevScreenshot() {
+        const currentProjectGroup = document.querySelector(`.project-screenshots[data-project="${this.currentProject}"]`);
+        if (!currentProjectGroup) return;
+        
+        const screenshots = currentProjectGroup.querySelectorAll('.screenshot');
+        if (screenshots.length <= 1) return; // No need to navigate if only one screenshot
+        
+        const currentScreenshot = this.currentScreenshots[this.currentProject];
+        const prevScreenshot = (currentScreenshot - 1 + screenshots.length) % screenshots.length;
+        
+        this.setActiveScreenshot(prevScreenshot);
+    }
+
+    setActiveScreenshot(screenshotIndex) {
+        const currentProjectGroup = document.querySelector(`.project-screenshots[data-project="${this.currentProject}"]`);
+        if (!currentProjectGroup) return;
+        
+        const screenshots = currentProjectGroup.querySelectorAll('.screenshot');
+        
+        // Update screenshot visibility
+        screenshots.forEach((screenshot, index) => {
+            screenshot.classList.toggle('active', index === screenshotIndex);
+        });
+        
+        // Update current screenshot tracking
+        this.currentScreenshots[this.currentProject] = screenshotIndex;
+        
+        // Update screenshot indicators
+        this.updateScreenshotIndicators();
+    }
+
+    // Initialize screenshot indicators for all projects
+    initializeScreenshotIndicators() {
+        this.updateScreenshotIndicators();
+    }
+
+    updateScreenshotIndicators() {
+        if (!this.screenshotIndicators) return;
+        
+        const currentProjectGroup = document.querySelector(`.project-screenshots[data-project="${this.currentProject}"]`);
+        if (!currentProjectGroup) return;
+        
+        const screenshots = currentProjectGroup.querySelectorAll('.screenshot');
+        
+        // Clear existing indicators
+        this.screenshotIndicators.innerHTML = '';
+        
+        // Only show indicators if there are multiple screenshots
+        if (screenshots.length > 1) {
+            screenshots.forEach((_, index) => {
+                const indicator = document.createElement('button');
+                indicator.className = 'screenshot-dot';
+                indicator.classList.toggle('active', index === this.currentScreenshots[this.currentProject]);
+                indicator.setAttribute('data-screenshot', index);
+                indicator.title = `Screenshot ${index + 1}`;
+                
+                // Add click handler
+                indicator.addEventListener('click', () => {
+                    this.handleUserInteraction(() => this.setActiveScreenshot(index));
+                });
+                
+                this.screenshotIndicators.appendChild(indicator);
+            });
+        }
+    }
+
+    updateDesktopNavigationVisibility() {
+        if (!this.desktopNavigation) return;
+        
+        const currentProjectGroup = document.querySelector(`.project-screenshots[data-project="${this.currentProject}"]`);
+        if (!currentProjectGroup) return;
+        
+        const screenshots = currentProjectGroup.querySelectorAll('.screenshot');
+        
+        // Show/hide desktop navigation based on screenshot count
+        if (screenshots.length > 1) {
+            this.desktopNavigation.style.display = 'flex';
+        } else {
+            this.desktopNavigation.style.display = 'none';
+        }
+    }
+
     update3DCarousel() {
         this.projectCards.forEach((card, index) => {
             card.classList.remove('transitioning');
@@ -324,7 +445,6 @@ class OtherProjectsCarousel {
             card.classList.add('transitioning');
             
             const offset = index - this.currentProject;
-            // Reduced translateY to minimize space issues (same fix as web projects)
             const translateY = offset * 60; // Reduced from 120 to 60
             const translateZ = Math.abs(offset) * -150;
             const rotateX = Math.abs(offset) * -15;
@@ -347,9 +467,9 @@ class OtherProjectsCarousel {
     }
 
     updateDesktopDisplay() {
-        // Update app windows
-        this.appWindows.forEach((window, index) => {
-            window.classList.toggle('active', index === this.currentProject);
+        // Update project screenshot groups
+        this.projectScreenshotGroups.forEach((group, index) => {
+            group.classList.toggle('active', index === this.currentProject);
         });
         
         // Update app icons in taskbar
@@ -376,14 +496,6 @@ class OtherProjectsCarousel {
         if (activeWindow && appData) {
             const windowTitle = activeWindow.querySelector('.window-title');
             if (windowTitle) {
-                const icon = windowTitle.querySelector('i');
-                const textNodes = Array.from(windowTitle.childNodes).filter(node => node.nodeType === Node.TEXT_NODE);
-                
-                if (icon) {
-                    icon.className = appData.icon;
-                }
-                
-                // Update text content while preserving structure
                 windowTitle.innerHTML = `<i class="${appData.icon}"></i> ${appData.title}`;
             }
         }
@@ -405,10 +517,8 @@ class OtherProjectsCarousel {
 
     announceProjectChange() {
         const projectNames = [
-            'JavaFX Paint Application',
-            '2D Puzzle Game', 
-            'Inventory Management System',
-            'Algorithm Visualizer'
+            'SCENORY - Storyboarding Tool',
+            'JavaFX Paint Application'
         ];
         
         const announcement = document.createElement('div');
@@ -548,6 +658,14 @@ class OtherProjectsCarousel {
         return this.totalProjects;
     }
 
+    getCurrentScreenshot() {
+        return {
+            project: this.currentProject,
+            screenshot: this.currentScreenshots[this.currentProject],
+            total: document.querySelector(`.project-screenshots[data-project="${this.currentProject}"]`)?.querySelectorAll('.screenshot').length || 1
+        };
+    }
+
     setUserInteractionState(isInteracting) {
         this.userIsInteracting = isInteracting;
         if (isInteracting) {
@@ -625,16 +743,10 @@ class OtherPerformanceOptimizer {
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize the carousel
     window.otherProjectsCarousel = new OtherProjectsCarousel();
-    
-    // Setup image error handling
     OtherImageLoader.setupErrorHandling();
-    
-    // Apply performance optimizations
     OtherPerformanceOptimizer.optimize();
     
-    // Add intersection observer for performance
     if ('IntersectionObserver' in window) {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -651,31 +763,25 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log(`
 🚀 Other Projects Page Loaded Successfully!
-💻 Navigation Options:
-   • Click project cards to switch
-   • Use arrow buttons or navigation dots
-   • Click taskbar icons or window controls
-   • Keyboard: Arrow keys, Space, Home/End, F5
-   • Touch: Swipe gestures supported
+💻 Navigation Fixed (HTML+JS Structure):
+   • Side arrows: Change between projects
+   • Desktop arrows: Cycle through screenshots of current project
+   • Dots below: Jump to specific projects
+   • Screenshot dots (when multiple): Jump to specific screenshots
+   • Keyboard: Left/Right = Screenshots, Up/Down = Projects
+   • Touch: Swipe on desktop = Screenshots, Swipe outside = Projects
 
-✨ Features:
-   • 3D carousel effect with fixed positioning
-   • Desktop environment mockup with stable display
-   • Interactive taskbar and windows
-   • Smart interaction detection
-   • No interruption during manual navigation
-   • Responsive design
-   • Accessibility support
-   • Performance optimized
-
-🔧 Fixed Issues:
-   • Desktop display now completely stable (no scroll movement)
-   • Carousel spacing optimized to prevent overflow
-   • Enhanced visual polish and user experience
+✨ Benefits of HTML+JS Structure:
+   • Clean HTML structure with proper project groupings
+   • JavaScript works with existing DOM elements
+   • Better SEO and accessibility
+   • Easier to add/remove screenshots
+   • More maintainable code structure
+   • Interactive desktop environment
+   • Working taskbar and window controls
 `);
 });
 
-// Export for potential external use
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { OtherProjectsCarousel, OtherImageLoader, OtherPerformanceOptimizer };
 }

@@ -1,11 +1,82 @@
-/* Projects Page Styles */
+/* Mobile Projects Complete CSS - HTML+JS Structure */
 
-/* Back Navigation */
-.back-navigation {
-    position: fixed;
-    top: 30px;
-    left: 50px;
-    z-index: 999;
+/* Updated Navbar with Project Navigation */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.project-nav-left,
+.project-nav-right {
+    flex-shrink: 0;
+}
+
+.project-nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.project-nav-btn:hover {
+    background: rgba(99, 102, 241, 0.2);
+    border-color: rgba(99, 102, 241, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+}
+
+.project-nav-btn i {
+    font-size: 10px;
+}
+
+.nav-text {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Ensure main nav menu stays centered */
+.nav-menu {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .nav-text {
+        display: none;
+    }
+    
+    .project-nav-btn {
+        padding: 8px;
+        min-width: 32px;
+        justify-content: center;
+    }
+    
+    .project-nav-btn i {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .project-nav-left,
+    .project-nav-right {
+        display: none;
+    }
 }
 
 .back-btn {
@@ -80,7 +151,7 @@
 
 /* Main Container */
 .projects-container {
-    max-width: 1400px;
+    max-width: 1100px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 400px;
@@ -140,6 +211,16 @@
     background: rgba(99, 102, 241, 0.06);
     border-color: rgba(99, 102, 241, 0.2);
     transform: translateZ(20px) !important;
+}
+
+.project-card:hover {
+    transform: translateZ(30px) !important;
+    box-shadow: 0 30px 60px rgba(99, 102, 241, 0.2);
+}
+
+.project-card.active:hover {
+    transform: translateY(0px) translateZ(70px) rotateX(0deg) !important;
+    box-shadow: 0 35px 70px rgba(99, 102, 241, 0.25);
 }
 
 /* Card content styling */
@@ -227,7 +308,8 @@
     color: var(--text-primary);
 }
 
-.project-features h4 {
+.project-features h4,
+.tech-details h4 {
     color: var(--text-primary);
     margin-bottom: 15px;
     font-size: 1rem;
@@ -235,7 +317,8 @@
     transition: color 0.3s ease;
 }
 
-.project-card.active .project-features h4 {
+.project-card.active .project-features h4,
+.project-card.active .tech-details h4 {
     color: var(--primary-color);
 }
 
@@ -329,12 +412,18 @@
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 .carousel-btn:hover {
     background: var(--primary-color);
-    transform: scale(1.1);
-    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+    transform: scale(1.15);
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.5);
+}
+
+.carousel-btn:active {
+    transform: scale(1.05);
 }
 
 .carousel-btn i {
@@ -362,8 +451,9 @@
 }
 
 .phone-mockup {
+    top: 15%;
     width: 100%;
-    height: 100%;
+    height: 105%;
     position: relative;
 }
 
@@ -422,25 +512,43 @@
     position: relative;
 }
 
-/* Screenshots Container */
+/* Screenshots Container - NEW STRUCTURE */
 .screenshots-container {
     width: 100%;
     height: 100%;
     position: relative;
 }
 
-.screenshot {
+.project-screenshots {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     opacity: 0;
-    transition: opacity 0.4s ease;
+    visibility: hidden;
+    transition: all 0.4s ease;
 }
 
-.screenshot.active {
+.project-screenshots.active {
     opacity: 1;
+    visibility: visible;
+}
+
+.project-screenshots .screenshot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+
+.project-screenshots .screenshot.active {
+    opacity: 1;
+    visibility: visible;
 }
 
 .screenshot img {
@@ -455,7 +563,7 @@
     transform: scale(1.02);
 }
 
-/* Arrow Navigation */
+/* Arrow Navigation - Enhanced */
 .phone-navigation {
     position: absolute;
     top: 50%;
@@ -475,6 +583,11 @@
     opacity: 1;
 }
 
+/* Phone navigation visibility based on screenshot count */
+.phone-navigation[style*="display: none"] {
+    display: none !important;
+}
+
 .nav-arrow {
     width: 40px;
     height: 40px;
@@ -490,6 +603,8 @@
     transition: all 0.3s ease;
     pointer-events: all;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
 }
 
 .nav-arrow:hover {
@@ -498,8 +613,92 @@
     box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
 }
 
+.nav-arrow:active {
+    transform: scale(0.95);
+}
+
+.nav-arrow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.nav-arrow:hover::before {
+    left: 100%;
+}
+
 .nav-arrow i {
     font-size: 0.9rem;
+}
+
+/* Screenshot Indicators - NEW */
+.screenshot-indicators {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 15;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.phone-screen:hover .screenshot-indicators {
+    opacity: 1;
+}
+
+.screenshot-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.screenshot-dot.active {
+    background: var(--primary-color);
+    transform: scale(1.3);
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.6);
+}
+
+.screenshot-dot:hover {
+    background: var(--primary-color);
+    opacity: 0.8;
+    transform: scale(1.1);
+}
+
+.screenshot-dot:active {
+    transform: scale(0.95);
+}
+
+.screenshot-dot::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-1);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.screenshot-dot:hover::before {
+    opacity: 0.3;
+}
+
+.screenshot-dot.active::before {
+    opacity: 1;
 }
 
 /* Project Navigation Dots */
@@ -520,6 +719,8 @@
     background: rgba(255, 255, 255, 0.3);
     cursor: pointer;
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 .nav-dot.active {
@@ -531,6 +732,50 @@
 .nav-dot:hover {
     background: var(--primary-color);
     opacity: 0.8;
+}
+
+.nav-dot:active {
+    transform: scale(0.95);
+}
+
+.nav-dot::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-1);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.nav-dot:hover::before {
+    opacity: 0.3;
+}
+
+.nav-dot.active::before {
+    opacity: 1;
+}
+
+/* Loading states for screenshots */
+.screenshot.loading {
+    background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 50%, #f0f0f0 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+.screenshot.loading img {
+    opacity: 0.3;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
 }
 
 /* Scrollbar styling for project cards */
@@ -546,6 +791,37 @@
 .project-card::-webkit-scrollbar-thumb {
     background: var(--gradient-1);
     border-radius: 2px;
+}
+
+/* Accessibility improvements */
+.nav-arrow:focus-visible,
+.carousel-btn:focus-visible,
+.nav-dot:focus-visible,
+.screenshot-dot:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Screen reader only content */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Animation classes */
+.carousel-rotating {
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card.transitioning {
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Responsive Design */
@@ -666,6 +942,25 @@
     .phone-frame {
         padding: 18px;
     }
+    
+    .screenshot-indicators {
+        bottom: 10px;
+        gap: 6px;
+    }
+    
+    .screenshot-dot {
+        width: 6px;
+        height: 6px;
+    }
+    
+    .phone-navigation .nav-arrow {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .phone-navigation .nav-arrow i {
+        font-size: 0.8rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -713,40 +1008,38 @@
         width: 8px;
         height: 8px;
     }
-}
-
-/* Animation classes */
-.carousel-rotating {
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.project-card.transitioning {
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Loading states */
-.screenshot.loading {
-    background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 50%, #f0f0f0 100%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
-}
-
-@keyframes shimmer {
-    0% {
-        background-position: -200% 0;
+    
+    .screenshot-indicators {
+        bottom: 8px;
+        gap: 4px;
     }
-    100% {
-        background-position: 200% 0;
+    
+    .screenshot-dot {
+        width: 5px;
+        height: 5px;
+    }
+    
+    .phone-navigation .nav-arrow {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .phone-navigation .nav-arrow i {
+        font-size: 0.7rem;
     }
 }
 
-/* Focus states for accessibility */
-.carousel-btn:focus,
-.nav-arrow:focus,
-.nav-dot:focus,
-.learn-more-btn:focus {
-    outline: 2px solid var(--primary-color);
-    outline-offset: 2px;
+/* Dark mode support for new elements */
+@media (prefers-color-scheme: dark) {
+    .screenshot-dot {
+        background: rgba(255, 255, 255, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .screenshot-dot.active {
+        background: var(--primary-color);
+        border-color: var(--primary-color);
+    }
 }
 
 /* High contrast mode support */
@@ -756,8 +1049,14 @@
         border-color: #ffffff;
     }
     
-    .nav-dot {
+    .nav-dot,
+    .screenshot-dot {
         border: 1px solid #ffffff;
+    }
+    
+    .screenshot-indicators,
+    .phone-navigation {
+        opacity: 1; /* Always visible in high contrast */
     }
 }
 
@@ -765,7 +1064,10 @@
 @media (prefers-reduced-motion: reduce) {
     .project-card,
     .carousel-3d,
-    .screenshot,
+    .project-screenshots,
+    .project-screenshots .screenshot,
+    .screenshot-indicators,
+    .screenshot-dot,
     .nav-arrow,
     .carousel-btn {
         transition: none;
@@ -779,6 +1081,17 @@
     .screenshot img {
         transform: none;
     }
+    
+    .phone-navigation .nav-arrow::before,
+    .nav-dot::before,
+    .screenshot-dot::before {
+        transition: none;
+    }
+    
+    .screenshot.loading {
+        animation: none;
+        background: #f0f0f0;
+    }
 }
 
 /* Print styles */
@@ -786,7 +1099,8 @@
     .phone-display,
     .carousel-navigation,
     .project-dots,
-    .phone-navigation {
+    .phone-navigation,
+    .screenshot-indicators {
         display: none;
     }
     
@@ -799,5 +1113,17 @@
         transform: none;
         page-break-inside: avoid;
         margin-bottom: 20px;
+    }
+    
+    .project-screenshots {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    .project-screenshots .screenshot {
+        opacity: 1 !important;
+        visibility: visible !important;
+        position: relative !important;
+        margin-bottom: 10px;
     }
 }

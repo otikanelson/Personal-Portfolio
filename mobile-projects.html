@@ -3,107 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobile App Projects | Nelson Otika</title>
+    <title>Mobile App Projects | Otika Nelson Somto</title>
     <link rel="shortcut icon" type="image/png" href="images/Browser_Logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="projects.css">
+    <link rel="stylesheet" href="mobile-projects.css">
 </head>
 <body>
+
+    <!-- Navigation with Project Page Buttons -->
+    <nav class="navbar">
+        <!-- Left Project Navigation -->
+        <div class="project-nav-left">
+            <a href="other-projects.html" class="project-nav-btn" title="Previous: Desktop Applications">
+                <i class="fas fa-chevron-left"></i>
+                <span class="nav-text">Desktop</span>
+            </a>
+        </div>
+        
+        <!-- Main Navigation -->
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="index.html#about" class="nav-link">About</a></li>
+            <li><img src="images/Logo.png" alt="Logo" class="nav-logo"></li>
+            <li><a href="index.html#portfolio" class="nav-link active">Work</a></li>
+            <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+        </ul>
+        
+        <!-- Right Project Navigation -->
+        <div class="project-nav-right">
+            <a href="web-projects.html" class="project-nav-btn" title="Next: Web Development">
+                <span class="nav-text">Web</span>
+                <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+    </nav>
+
 
     <!-- Mobile Projects Section -->
     <section class="projects-section">
         <!-- Page Header -->
         <div class="page-header">
             <h1 class="page-title">Mobile App Development</h1>
-            <p class="page-subtitle">Native Android applications built with modern technologies</p>
+            <p class="page-subtitle">Native Android & React Native applications with modern architecture and clean design</p>
         </div>
-
-    <!-- Back Button -->
-    <div class="back-navigation">
-        <a href="index.html#portfolio" class="back-btn">
-            <i class="fas fa-arrow-left"></i>
-            Back to Portfolio
-        </a>
-    </div>
 
         <div class="projects-container">
             <!-- Left Side - 3D Carousel -->
             <div class="projects-carousel-container">
                 <div class="carousel-3d" id="projectCarousel">
-                    <!-- Project 1 - Fitness Tracker -->
+                    <!-- Project 1 - FREBFIT Fitness App -->
                     <div class="project-card active" data-project="0">
                         <div class="project-header">
                             <div class="project-icon">
                                 <i class="fas fa-dumbbell"></i>
                             </div>
                             <div class="project-meta">
-                                <h3 class="project-title">Fitness Tracker App</h3>
+                                <h3 class="project-title">FREBFIT - Fitness Application</h3>
                                 <div class="project-tags">
-                                    <span class="tag">Kotlin</span>
+                                    <span class="tag">Java</span>
                                     <span class="tag">Android Studio</span>
-                                    <span class="tag">SQLite</span>
+                                    <span class="tag">UI/UX</span>
+                                    <span class="tag">Material Design</span>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="project-description">
-                            <p>A comprehensive fitness tracking application that helps users monitor their workout routines, set fitness goals, and track progress over time. Features a clean material design interface with smooth animations and intuitive navigation.</p>
+                            <p>A comprehensive mobile fitness application developed using Java and Android Studio, originally planned for FREBSON FITNESS gym. Features category-based workout selection, trainer search functionality, and intuitive user interfaces designed to enhance workout selection, fitness guidance, and trainer employment.</p>
                             
                             <div class="project-features">
                                 <h4>Key Features:</h4>
                                 <ul>
-                                    <li>Workout logging and tracking</li>
-                                    <li>Progress visualization with charts</li>
-                                    <li>Custom workout plans</li>
-                                    <li>Nutrition tracking integration</li>
-                                    <li>Social sharing capabilities</li>
+                                    <li>Category-based workout selection system</li>
+                                    <li>Trainer search and employment features</li>
+                                    <li>Interactive clickable image buttons</li>
+                                    <li>Detailed workout descriptions and guidance</li>
+                                    <li>Survey features for user engagement</li>
+                                    <li>Intuitive UI for enhanced user experience</li>
                                 </ul>
                             </div>
+
+                            <div class="tech-details">
+                                <h4>Technical Implementation:</h4>
+                                <p>Built with Java and Android Studio during my learning phase, this exploration-based project helped me get familiar with mobile development fundamentals. Implemented interactive UI features including  an array of simple fitness tracking tools, an interactive Survey flow, and workout categories while strengthening my own understanding of Android development principles.</p>
+                            </div>
                             
-                            <a href="#" class="learn-more-btn">
-                                Learn More
-                                <i class="fas fa-external-link-alt"></i>
+                            <a href="https://github.com/otikanelson" class="learn-more-btn" target="_blank" rel="noopener noreferrer">
+                                View on GitHub
+                                <i class="fab fa-github"></i>
                             </a>
                         </div>
                     </div>
 
-                    <!-- Project 2 - Train Booking -->
+                    <!-- Project 2 - VOLAIR React Native App -->
                     <div class="project-card" data-project="1">
+                        <div class="project-header">
+                            <div class="project-icon">
+                                <i class="fab fa-react"></i>
+                            </div>
+                            <div class="project-meta">
+                                <h3 class="project-title">VOLAIR - React Native Application</h3>
+                                <div class="project-tags">
+                                    <span class="tag">React Native</span>
+                                    <span class="tag">TypeScript</span>
+                                    <span class="tag">Expo</span>
+                                    <span class="tag">Cross-Platform</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="project-description">
+                            <p>Currently collaborating with a team of senior developers to build a cross-platform mobile application using React Native and TypeScript. This ongoing project represents my transition back to mobile development and showcases modern mobile development practices through team collaboration.</p>
+                            
+                            <div class="project-features">
+                                <h4>Key Features:</h4>
+                                <ul>
+                                    <li>Cross-platform compatibility (iOS & Android)</li>
+                                    <li>TypeScript for type safety and maintainability</li>
+                                    <li>Modern React Native architecture</li>
+                                    <li>Expo framework integration</li>
+                                    <li>Clean code architecture and best practices</li>
+                                    <li>Advanced RN workflows and patterns</li>
+                                </ul>
+                            </div>
+
+                            <div class="tech-details">
+                                <h4>Development Process:</h4>
+                                <p>Contributing to real-world mobile development while expanding cross-platform expertise. Working alongside experienced developers, participating in feature implementation, testing, and maintaining clean architecture design while learning advanced React Native workflows and industry best practices.</p>
+                            </div>
+                            
+                            <a href="#contact" class="learn-more-btn">
+                                Contact for Details
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 3 - Train Booking System -->
+                    <div class="project-card" data-project="2">
                         <div class="project-header">
                             <div class="project-icon">
                                 <i class="fas fa-train"></i>
                             </div>
                             <div class="project-meta">
-                                <h3 class="project-title">Train Booking System</h3>
+                                <h3 class="project-title">Train Booking System UI</h3>
                                 <div class="project-tags">
+                                    <span class="tag">Android Studio</span>
                                     <span class="tag">Java</span>
-                                    <span class="tag">Android SDK</span>
-                                    <span class="tag">Firebase</span>
+                                    <span class="tag">UI Design</span>
+                                    <span class="tag">NIIT Project</span>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="project-description">
-                            <p>An Android-based train booking application prototype that simulates the complete booking experience. Includes seat selection, fare calculation, and a mock payment gateway integration.</p>
+                            <p>Developed during my Mobile Application Development internship at NIIT Festac (January - July 2024). This Android application UI focuses on train booking functionality with intuitive search and booking features designed to improve ease of travel planning for potential users.</p>
                             
                             <div class="project-features">
                                 <h4>Key Features:</h4>
                                 <ul>
-                                    <li>Interactive seat selection</li>
-                                    <li>Real-time fare calculation</li>
-                                    <li>Multiple payment options</li>
-                                    <li>Booking history and management</li>
-                                    <li>Route planning and scheduling</li>
+                                    <li>Intuitive search functionality for train routes</li>
+                                    <li>Streamlined booking process flow</li>
+                                    <li>User-friendly interface design</li>
+                                    <li>Travel planning optimization features</li>
+                                    <li>Modern Android UI components</li>
+                                    <li>Responsive design for different screen sizes</li>
                                 </ul>
                             </div>
+
+                            <div class="tech-details">
+                                <h4>Professional Development:</h4>
+                                <p>This project was part of my internship at NIIT Festac where I gained hands-on experience with Git, collaborative development, and code reviews. Participated in team meetings and provided feedback to enhance the quality of mobile applications and overall project efficiency while strengthening understanding of SDLC principles.</p>
+                            </div>
                             
-                            <a href="#" class="learn-more-btn">
-                                Learn More
-                                <i class="fas fa-external-link-alt"></i>
+                            <a href="https://github.com/otikanelson" class="learn-more-btn" target="_blank" rel="noopener noreferrer">
+                                View on GitHub
+                                <i class="fab fa-github"></i>
                             </a>
                         </div>
                     </div>
@@ -126,26 +205,46 @@
                     <div class="phone-mockup">
                         <div class="phone-frame">
                             <div class="phone-screen">
-                                <!-- Screenshots Container -->
+                                <!-- Screenshots Container - RESTRUCTURED FOR MULTIPLE SCREENSHOTS PER PROJECT -->
                                 <div class="screenshots-container">
-                                    <!-- Screenshot 1 -->
-                                    <div class="screenshot active">
-                                        <img src="images/Frebfit_1.jpg" alt="Fitness App Home">
+                                    <!-- Project 0 - FREBFIT Screenshots -->
+                                    <div class="project-screenshots active" data-project="0">
+                                        <div class="screenshot active">
+                                            <img src="images/Frebfit_1.png" alt="FREBFIT Main Interface">
+                                        </div>
+                                        <div class="screenshot">
+                                            <img src="images/Frebfit_2.png" alt="FREBFIT Workout Selection">
+                                        </div>
                                     </div>
-                                    <!-- Screenshot 2 -->
-                                    <div class="screenshot">
-                                        <img src="images/Train_1.jpg" alt="Train Booking Home">
+                                    
+                                    <!-- Project 1 - VOLAIR Screenshots -->
+                                    <div class="project-screenshots" data-project="1">
+                                        <div class="screenshot active">
+                                            <img src="images/Volair_1.jpg" alt="VOLAIR React Native App">
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Project 2 - Train Booking Screenshots -->
+                                    <div class="project-screenshots" data-project="2">
+                                        <div class="screenshot active">
+                                            <img src="images/Grim_1.jpg" alt="Train Booking Interface">
+                                        </div>
                                     </div>
                                 </div>
 
-                                <!-- Arrow Navigation -->
+                                <!-- Arrow Navigation - NOW FOR SCREENSHOTS WITHIN CURRENT PROJECT -->
                                 <div class="phone-navigation">
-                                    <button class="nav-arrow" id="phonePrevBtn">
+                                    <button class="nav-arrow" id="phonePrevBtn" title="Previous Screenshot">
                                         <i class="fas fa-chevron-left"></i>
                                     </button>
-                                    <button class="nav-arrow" id="phoneNextBtn">
+                                    <button class="nav-arrow" id="phoneNextBtn" title="Next Screenshot">
                                         <i class="fas fa-chevron-right"></i>
                                     </button>
+                                </div>
+                                
+                                <!-- Screenshot Indicators -->
+                                <div class="screenshot-indicators">
+                                    <!-- Will be populated by JavaScript based on current project -->
                                 </div>
                             </div>
                         </div>
@@ -156,12 +255,25 @@
 
         <!-- Project Navigation Dots -->
         <div class="project-dots">
-            <button class="nav-dot active" data-project="0"></button>
-            <button class="nav-dot" data-project="1"></button>
+            <button class="nav-dot active" data-project="0" title="FREBFIT Fitness App"></button>
+            <button class="nav-dot" data-project="1" title="VOLAIR React Native App"></button>
+            <button class="nav-dot" data-project="2" title="Train Booking System"></button>
         </div>
     </section>
 
+    <!-- Contact CTA Section -->
+    <section class="contact-cta" style="padding: 60px 20px; text-align: center; background: var(--card-bg);">
+        <h2 style="color: var(--text-primary); margin-bottom: 20px; font-family: 'Playfair Display', serif;">Interested in Mobile Development?</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
+            I'm currently collaborating on React Native projects and always open to discussing mobile development opportunities. With experience in both native Android and cross-platform development, let's connect and build something amazing together!
+        </p>
+        <a href="index.html#contact" class="btn btn-primary">
+            Get In Touch
+            <i class="fas fa-arrow-right"></i>
+        </a>
+    </section>
+
     <script src="script.js"></script>
-    <script src="projects.js"></script>
+    <script src="mobile-projects.js"></script>
 </body>
 </html>
