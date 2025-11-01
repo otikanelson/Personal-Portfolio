@@ -3,8 +3,8 @@
 class ProjectsCarousel {
     constructor() {
         this.currentProject = 0;
-        this.totalProjects = 3;
-        this.currentScreenshots = [0, 0, 0]; // Track current screenshot for each project
+        this.totalProjects = 4;
+        this.currentScreenshots = [0, 0, 0, 0]; // Track current screenshot for each project
         this.isTransitioning = false;
         this.userIsInteracting = false;
         this.interactionTimeout = null;
@@ -18,7 +18,6 @@ class ProjectsCarousel {
         this.setActiveProject(0);
         this.initializeScreenshotIndicators();
         
-        console.log('📱 Mobile Projects Page Initialized (HTML+JS Structure)');
     }
 
     bindElements() {
@@ -545,7 +544,7 @@ class ImageLoader {
                     color: #666;
                     font-size: 14px;
                 `;
-                fallback.innerHTML = '📱<br>Preview<br>Unavailable';
+                fallback.innerHTML = 'ðŸ“±<br>Preview<br>Unavailable';
                 this.parentElement.appendChild(fallback);
             });
         });
@@ -600,24 +599,6 @@ document.addEventListener('DOMContentLoaded', function() {
             observer.observe(card);
         });
     }
-
-    console.log(`
-🚀 Mobile Projects Page Loaded Successfully!
-📱 Navigation Fixed (HTML+JS Structure):
-   • Side arrows: Change between projects
-   • Phone arrows: Cycle through screenshots of current project
-   • Dots below: Jump to specific projects
-   • Screenshot dots (when multiple): Jump to specific screenshots
-   • Keyboard: Left/Right = Screenshots, Up/Down = Projects
-   • Touch: Swipe on phone = Screenshots, Swipe outside = Projects
-
-✨ Benefits of HTML+JS Structure:
-   • Clean HTML structure with proper project groupings
-   • JavaScript works with existing DOM elements
-   • Better SEO and accessibility
-   • Easier to add/remove screenshots
-   • More maintainable code structure
-`);
 });
 
 if (typeof module !== 'undefined' && module.exports) {
