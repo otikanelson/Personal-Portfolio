@@ -3,8 +3,8 @@
 class WebProjectsCarousel {
     constructor() {
         this.currentProject = 0;
-        this.totalProjects = 3;
-        this.currentScreenshots = [0, 0, 0]; // Track current screenshot for each project
+        this.totalProjects = 4;
+        this.currentScreenshots = [0, 0, 0, 0]; // Track current screenshot for each project
         this.isTransitioning = false;
         this.userIsInteracting = false;
         this.interactionTimeout = null;
@@ -13,7 +13,8 @@ class WebProjectsCarousel {
         this.projectUrls = {
             0: 'https://darb-crowdfunding.vercel.app',
             1: 'https://bizzbridge-marketplace.vercel.app',
-            2: 'https://nelsonotika.vercel.app'
+            2: 'https://nelsonotika.vercel.app',
+            3: 'https://ajosavings.vercel.app'
         };
         
         this.init();
@@ -25,7 +26,6 @@ class WebProjectsCarousel {
         this.setActiveProject(0);
         this.initializeScreenshotIndicators();
         
-        console.log('🌐 Web Projects Page Initialized (HTML+JS Structure)');
     }
 
     bindElements() {
@@ -495,7 +495,9 @@ class WebProjectsCarousel {
         const projectNames = [
             'DARB - Crowdfunding Platform',
             'BIZZBRIDGE - Artisan Marketplace', 
-            'Personal Portfolio Website'
+            'Personal Portfolio Website',
+            'Ajosavings Website'
+
         ];
         
         const announcement = document.createElement('div');
@@ -649,7 +651,7 @@ class WebImageLoader {
                     color: #666;
                     font-size: 14px;
                 `;
-                fallback.innerHTML = '🌐<br>Website<br>Preview<br>Unavailable';
+                fallback.innerHTML = 'ðŸŒ<br>Website<br>Preview<br>Unavailable';
                 this.parentElement.appendChild(fallback);
             });
         });
@@ -704,26 +706,6 @@ document.addEventListener('DOMContentLoaded', function() {
             observer.observe(card);
         });
     }
-    
-    console.log(`
-🚀 Web Projects Page Loaded Successfully!
-🌐 Navigation Fixed (HTML+JS Structure):
-   • Side arrows: Change between projects
-   • Browser arrows: Cycle through screenshots of current project
-   • Dots below: Jump to specific projects
-   • Screenshot dots (when multiple): Jump to specific screenshots
-   • Keyboard: Left/Right = Screenshots, Up/Down = Projects
-   • Touch: Swipe on browser = Screenshots, Swipe outside = Projects
-
-✨ Benefits of HTML+JS Structure:
-   • Clean HTML structure with proper project groupings
-   • JavaScript works with existing DOM elements
-   • Better SEO and accessibility
-   • Easier to add/remove screenshots
-   • More maintainable code structure
-   • Dynamic URL updates based on project
-   • Interactive browser controls
-`);
 });
 
 if (typeof module !== 'undefined' && module.exports) {
