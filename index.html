@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -20,6 +21,7 @@
             <li><img src="images/Logo.png" alt="Logo" class="nav-logo"></li>
             <li><a href="#about" class="nav-link">About</a></li>
             <li><a href="#contact" class="nav-link">Contact</a></li>
+            <li><a href="https://drive.google.com/drive/folders/1_PRJsUyyVbCnhK2Y_D75CgdQ4Yf0Y7KM" class="nav-link nav-resume" target="_blank" rel="noopener">Resume</a></li>
         </ul>
     </nav>
 
@@ -32,22 +34,19 @@
         <div class="hero-container">
             <div class="hero-content">
                 <div class="hero-badge">
-                    <!-- <span>âœ¨</span> -->
-                    <span>Software Engineer & Mobile Developer</span>
+                    <span>Available for opportunities</span>
                 </div>
-                <h1 class="hero-title">Otika Nelson Somto</h1>
+                <h1 class="hero-title">Nelson Otika</h1>
                 <p class="hero-subtitle">
-                    Mobile Development Engineer at RavixTech, specializing in React Native and TypeScript. 
-                    Building mobile-first solutions with a nationwide team while creating 
-                    scalable, user-friendly applications with clean architecture and modern technologies.
+                    I build mobile-first products that people actually enjoy using. Currently at RavixTech as a Mobile Development Engineer — React Native, TypeScript, and clean architecture.
                 </p>
                 <div class="hero-cta">
-                    <a href="/mobile-projects.html" class="btn btn-primary">
-                        View My Work
+                    <a href="#portfolio" class="btn btn-primary">
+                        See My Work
                         <i class="fas fa-arrow-right"></i>
                     </a>
-                    <a href="#contact" class="btn btn-secondary">
-                        Let's Connect
+                    <a href="mailto:otikanelson29@gmail.com" class="btn btn-secondary">
+                        Hire Me
                         <i class="fas fa-message"></i>
                     </a>
                 </div>
@@ -65,280 +64,577 @@
         </div>
     </section>
 
-        <!-- Portfolio Section -->
+    <!-- Portfolio Section -->
     <section id="portfolio" class="portfolio-section">
         <div class="section-header">
             <h2 class="section-title">Featured Projects</h2>
-            <p class="section-subtitle">
-                Explore my latest projects across mobile, web, and desktop development
-            </p>
+            <p class="section-subtitle">Hover a category to explore — hover a project for details</p>
         </div>
-        
-        <div class="portfolio-categories">
-            <!-- Mobile App Development Card -->
-            <div class="category-card" data-category="mobile" onclick="navigateToCategory('mobile')">
-                <div class="category-header">
-                    <div class="category-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3 class="category-title">Mobile Applications</h3>
-                    <p class="category-description">Native Android & React Native applications with modern architecture</p>
-                </div>
-                
-                <div class="category-content">
-                    <div class="project-previews">
-                        <div class="project-preview">
-                            <div class="preview-thumbnail">
-                                <img src="images/Frebfit_2.png" alt="FREBFIT Fitness App">
-                            </div>
-                            <div class="preview-info">
-                                <h4>FREBFIT - Fitness Application</h4>
-                                <p>Java & Android Studio fitness app with workout selection, trainer search, and intuitive UI design for FREBSON FITNESS gym</p>
-                            </div>
-                        </div>
-                        
-                        <div class="project-preview">
-                            <div class="preview-thumbnail">
-                                <img src="images/Volair_1.jpg" alt="VOLAIR App">
-                            </div>
-                            <div class="preview-info">
-                                <h4>VOLAIR - React Native App</h4>
-                                <p>Cross-platform mobile application built with React Native & TypeScript, collaborating with senior developers</p>
-                            </div>
-                        </div>
 
-
-                        <div class="project-preview">
-                            <div class="preview-thumbnail">
-                                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.2)); border-radius: 8px;">
-                                    <i class="fas fa-brain" style="font-size: 3rem; color: rgba(139, 92, 246, 0.8);"></i>
-                                </div>
-                            </div>
-                            <div class="preview-info">
-                                <h4>DUO Recall Library</h4>
-                                <p>Duolingo-inspired flashcard app with spaced repetition, progress tracking, and gamification for effective learning</p>
-                            </div>
-                        </div>
-                        <div class="project-preview">
-                            <div class="preview-thumbnail">
-                                <img src="images/Grim_1.jpg" alt="Train Booking App">
-                            </div>
-                            <div class="preview-info">
-                                <h4>Train Booking System</h4>
-                                <p>Android app UI with search and booking features for enhanced travel planning experience</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="view-all-btn">
-                        <span>View All Mobile Projects</span>
-                        <i class="fas fa-arrow-right"></i>
+        <!-- ── MOBILE ROW ── (hover to expand, hover tile for detail) -->
+        <div class="portfolio-row mobile-row" data-row="mobile">
+            <div class="portfolio-row-header">
+                <div class="portfolio-row-title">
+                    <div class="row-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <div class="row-label">
+                        <h3>Mobile Applications</h3>
+                        <p>Native Android & React Native — hover to explore</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Web Development Card -->
-            <div class="category-card" data-category="web" onclick="navigateToCategory('web')">
-                <div class="category-header">
-                    <div class="category-icon">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <h3 class="category-title">Web Development</h3>
-                    <p class="category-description">Full-stack web applications with React.js, Node.js & modern frameworks</p>
-                </div>
-                
-                <div class="category-content">
-                    <div class="project-previews">
-                        <div class="project-preview">
-                            <div class="preview-thumbnail">
-                                <img src="images/Darb_1.png" alt="DARB Networks">
-                            </div>
-                            <div class="preview-info">
-                                <h4>DARB - Crowdfunding Platform</h4>
-                                <p>Full-stack React.js platform for Nigerian startups with campaign management, secure payments, and investment processing</p>
-                            </div>
-                        </div>
-                        
-                        <div class="project-preview">
-                            <div class="preview-thumbnail">
-                                <img src="images/BizBridge_1.png" alt="BIZZBRIDGE Platform">
-                            </div>
-                            <div class="preview-info">
-                                <h4>BIZZBRIDGE - Artisan Marketplace</h4>
-                                <p>React & MongoDB platform connecting Nigerian artisans with customers, featuring location-based filtering and booking workflows</p>
-                            </div>
-                        </div>
-                        
+            <div class="row-stage">
+                <div class="project-strip">
 
-                        <div class="project-preview">
-                            <div class="preview-thumbnail">
-                                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(59, 130, 246, 0.2)); border-radius: 8px;">
-                                    <i class="fas fa-piggy-bank" style="font-size: 3rem; color: rgba(34, 197, 94, 0.8);"></i>
-                                </div>
-                            </div>
-                            <div class="preview-info">
-                                <h4>AjoSavings - Cooperative Platform</h4>
-                                <p>Codefest Africa 2025 project modernizing traditional African thrift systems with blockchain-inspired transparency and automated rotations</p>
-                            </div>
-                        </div>
-                        <div class="project-preview">
-                            <div class="preview-thumbnail">
-                                <img src="images/Portfolio_1.png" alt="Portfolio Website">
-                            </div>
-                            <div class="preview-info">
-                                <h4>Portfolio & Interactive Sites</h4>
-                                <p>Responsive portfolio and birthday celebration websites with clean layouts and interactive elements</p>
+                    <div class="app-tile" data-project="frebfit">
+                        <img src="images/Frebfit Logo.png" alt="FREBFIT" class="app-tile-banner app-tile-logo">
+                        <div class="app-tile-body">
+                            <div class="app-tile-name">FREBFIT</div>
+                            <div class="app-tile-tags">
+                                <span class="app-tag">Java</span>
+                                <span class="app-tag">Android</span>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="view-all-btn">
-                        <span>View All Web Projects</span>
-                        <i class="fas fa-arrow-right"></i>
+
+                    <div class="app-tile" data-project="volair">
+                        <img src="images/Volair Logo.png" alt="VOLAIR" class="app-tile-banner app-tile-logo">
+                        <div class="app-tile-body">
+                            <div class="app-tile-name">VOLAIR</div>
+                            <div class="app-tile-tags">
+                                <span class="app-tag">React Native</span>
+                                <span class="app-tag">TypeScript</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="app-tile" data-project="duorecall">
+                        <img src="images/Recall Logo.png" alt="DUO Recall" class="app-tile-banner app-tile-logo">
+                        <div class="app-tile-body">
+                            <div class="app-tile-name">DUO Recall</div>
+                            <div class="app-tile-tags">
+                                <span class="app-tag">React Native</span>
+                                <span class="app-tag">Expo</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="app-tile" data-project="trainbooking">
+                        <img src="images/Grim Logo.png" alt="Train Booking" class="app-tile-banner app-tile-logo">
+                        <div class="app-tile-body">
+                            <div class="app-tile-name">GRIM</div>
+                            <div class="app-tile-tags">
+                                <span class="app-tag">Java</span>
+                                <span class="app-tag">Android</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- /.project-strip -->
+
+                <!-- Detail panel — populated on tile hover -->
+                <div class="project-detail-panel">
+                    <div class="detail-header">
+                        <div class="detail-icon-wrap">
+                            <img class="detail-icon" src="" alt="">
+                        </div>
+                        <div class="detail-meta">
+                            <h2 class="detail-name"></h2>
+                            <p class="detail-subtitle"></p>
+                            <div class="detail-stats">
+                                <span class="detail-stat"><i class="fas fa-star"></i> <span class="d-rating"></span></span>
+                                <span class="detail-stat"><i class="fas fa-download"></i> <span class="d-downloads"></span></span>
+                                <span class="detail-stat"><i class="fas fa-tag"></i> <span class="d-category"></span></span>
+                            </div>
+                            <div class="detail-tags"></div>
+                        </div>
+                    </div>
+                    <div class="detail-actions">
+                        <a class="btn btn-primary detail-github" href="#" target="_blank" rel="noopener">
+                            <i class="fab fa-github"></i> View on GitHub
+                        </a>
+                        <button class="btn btn-download detail-download-btn">
+                            <i class="fas fa-download"></i> Download APK
+                        </button>
+                    </div>
+                    <p class="detail-description"></p>
+                    <div class="detail-screenshots">
+                        <div class="screenshots-strip"></div>
+                    </div>
+                </div><!-- /.project-detail-panel -->
+
+            </div><!-- /.row-stage -->
+        </div><!-- /.mobile-row -->
+
+        <!-- ── WEB ROW ── -->
+        <div class="portfolio-row web-row" data-row="web">
+            <div class="portfolio-row-header">
+                <div class="portfolio-row-title">
+                    <div class="row-icon" style="background:linear-gradient(135deg,#06b6d4,#0891b2)"><i class="fas fa-globe"></i></div>
+                    <div class="row-label">
+                        <h3>Web Development</h3>
+                        <p>Full-stack React.js & Node.js apps — hover to preview</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Desktop Applications Card -->
-            <div class="category-card" data-category="other" onclick="navigateToCategory('other')">
-                <div class="category-header">
-                    <div class="category-icon">
-                        <i class="fas fa-desktop"></i>
+            <div class="web-stage">
+
+                <div class="web-tile" data-github="https://github.com/otikanelson/Darb-Networks" data-vercel="https://darb-networks.vercel.app/dashboard">
+                    <div class="web-tile-preview">
+                        <div class="web-carousel-track">
+                            <img src="images/Darb_1.png" alt="DARB" class="web-carousel-slide active">
+                            <img src="images/Darb_2.png" alt="DARB" class="web-carousel-slide">
+                            <img src="images/Darb_3.png" alt="DARB" class="web-carousel-slide">
+                            <img src="images/Darb_4.png" alt="DARB" class="web-carousel-slide">
+                            <img src="images/Darb_5.png" alt="DARB" class="web-carousel-slide">
+                            <img src="images/Darb_6.png" alt="DARB" class="web-carousel-slide">
+                            <img src="images/Darb_7.png" alt="DARB" class="web-carousel-slide">
+                        </div>
+                        <div class="web-carousel-dots"></div>
                     </div>
-                    <h3 class="category-title">Desktop Applications</h3>
-                    <p class="category-description">JavaFX applications and desktop tools with professional-grade features</p>
+                    <img src="images/Darb Logo.png" alt="DARB logo" class="web-tile-logo">
+                    <span class="web-tile-label">DARB</span>
+                    <div class="web-tile-info">
+                        <h4>DARB</h4>
+                        <p>Full-stack crowdfunding platform for African startups — campaign management, secure payments, and investor dashboards.</p>
+                        <div class="web-tile-tags">
+                            <span class="app-tag">React.js</span><span class="app-tag">Node.js</span><span class="app-tag">MongoDB</span>
+                        </div>
+                        <div class="web-tile-actions">
+                            <a class="btn btn-primary" href="https://github.com/otikanelson/Darb-Networks" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                            <a class="btn btn-vercel" href="https://darb-networks.vercel.app" target="_blank" rel="noopener">
+                                <i class="fas fa-external-link-alt"></i> Live Site
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="category-content">
-                    <div class="project-previews">
-                        <div class="project-preview">
-                            <div class="preview-thumbnail">
-                                <img src="images/Scenory_1.png" alt="SCENORY Application">
-                            </div>
-                            <div class="preview-info">
-                                <h4>SCENORY - Storyboarding Tool</h4>
-                                <p>Professional JavaFX application with drawing tools, zoom/pan canvas, drag-and-drop panels, and MySQL persistence</p>
+
+                <div class="web-tile" data-github="https://github.com/otikanelson/Biz-Bridge-Marketplace" data-vercel="https://biz-bridge-marketplace.vercel.app/">
+                    <div class="web-tile-preview">
+                        <div class="web-carousel-track">
+                            <img src="images/BizBridge_1.png" alt="BIZZBRIDGE" class="web-carousel-slide active">
+                            <img src="images/BizBridge_2.png" alt="BIZZBRIDGE" class="web-carousel-slide">
+                            <img src="images/BizBridge_3.png" alt="BIZZBRIDGE" class="web-carousel-slide">
+                            <img src="images/BizBridge_4.png" alt="BIZZBRIDGE" class="web-carousel-slide">
+                            <img src="images/BizBridge_5.png" alt="BIZZBRIDGE" class="web-carousel-slide">
+                        </div>
+                        <div class="web-carousel-dots"></div>
+                    </div>
+                    <img src="images/Bizzbridge Logo.png" alt="BIZZBRIDGE logo" class="web-tile-logo">
+                    <span class="web-tile-label">BIZZBRIDGE</span>
+                    <div class="web-tile-info">
+                        <h4>BIZZBRIDGE</h4>
+                        <p>Artisan marketplace connecting Nigerian craftspeople with customers. Built for a student client who scored 83% (distinction) on their final project.</p>
+                        <div class="web-tile-tags">
+                            <span class="app-tag">React</span><span class="app-tag">Node.js</span><span class="app-tag">MongoDB</span>
+                        </div>
+                        <div class="web-tile-actions">
+                            <a class="btn btn-primary" href="https://github.com/otikanelson/Biz-Bridge-Marketplace" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                            <a class="btn btn-vercel" href="https://biz-bridge-marketplace.vercel.app/" target="_blank" rel="noopener">
+                                <i class="fas fa-external-link-alt"></i> Live Site
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="web-tile" data-github="https://github.com/otikanelson/Ajosave" data-vercel="https://ajosavings.vercel.app/">
+                    <div class="web-tile-preview">
+                        <div class="web-carousel-track">
+                            <img src="images/Ajosave_1.png" alt="AjoSavings" class="web-carousel-slide active">
+                            <img src="images/Ajosave_2.png" alt="AjoSavings" class="web-carousel-slide">
+                            <img src="images/Ajosave_3.png" alt="AjoSavings" class="web-carousel-slide">
+                            <img src="images/Ajosave_4.png" alt="AjoSavings" class="web-carousel-slide">
+                            <img src="images/Ajosave_5.png" alt="AjoSavings" class="web-carousel-slide">
+                            <img src="images/Ajosave_6.png" alt="AjoSavings" class="web-carousel-slide">
+                            <img src="images/Ajosave_7.png" alt="AjoSavings" class="web-carousel-slide">
+                        </div>
+                        <div class="web-carousel-dots"></div>
+                    </div>
+                    <img src="images/Ajosave Logo.png" alt="AjoSavings logo" class="web-tile-logo">
+                    <span class="web-tile-label">AjoSavings</span>
+                    <div class="web-tile-info">
+                        <h4>AjoSavings</h4>
+                        <p>Cooperative savings platform built for Codefest Africa 2025 hackathon — modernises the traditional Ajo thrift system with automated rotations.</p>
+                        <div class="web-tile-tags">
+                            <span class="app-tag">React</span><span class="app-tag">Node.js</span><span class="app-tag">Hackathon</span>
+                        </div>
+                        <div class="web-tile-actions">
+                            <a class="btn btn-primary" href="https://github.com/otikanelson/Ajosave" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                            <a class="btn btn-vercel" href="https://ajosavings.vercel.app/" target="_blank" rel="noopener">
+                                <i class="fas fa-external-link-alt"></i> Live Site
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div><!-- /.web-stage -->
+        </div>
+
+        <!-- ── DESKTOP ROW ── -->
+        <div class="portfolio-row desktop-row" data-row="desktop">
+            <div class="portfolio-row-header">
+                <div class="portfolio-row-title">
+                    <div class="row-icon" style="background:linear-gradient(135deg,#ec4899,#be185d)"><i class="fas fa-desktop"></i></div>
+                    <div class="row-label">
+                        <h3>Desktop Applications</h3>
+                        <p>JavaFX professional-grade tools</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="desktop-showcase">
+                <!-- Laptop Interface -->
+                <div class="laptop-container">
+                    <div class="laptop-screen">
+                        <div class="laptop-bezel">
+                            <div class="laptop-camera"></div>
+                        </div>
+                        <div class="laptop-display">
+                            <!-- Carousel -->
+                            <div class="desktop-carousel">
+                                <div class="carousel-track">
+                                    <img src="images/Scenory_1.png" alt="SCENORY Screenshot 1" class="carousel-slide active">
+                                    <img src="images/Scenory_2.png" alt="SCENORY Screenshot 2" class="carousel-slide">
+                                    <img src="images/Scenory_3.png" alt="SCENORY Screenshot 3" class="carousel-slide">
+                                    <img src="images/Scenory_4.png" alt="SCENORY Screenshot 4" class="carousel-slide">
+                                    <img src="images/Scenory_5.png" alt="SCENORY Screenshot 5" class="carousel-slide">
+                                </div>
+                                <button class="carousel-btn prev-btn" aria-label="Previous slide">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button class="carousel-btn next-btn" aria-label="Next slide">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                                <div class="carousel-dots"></div>
                             </div>
                         </div>
                     </div>
+                    <div class="laptop-base">
+                        <div class="laptop-keyboard"></div>
+                        <div class="laptop-trackpad"></div>
+                    </div>
+                </div>
+
+                <!-- Project Details -->
+                <div class="desktop-project-details">
+                    <div class="desktop-detail-header">
+                        <img src="images/Scenory_1.png" alt="SCENORY" class="desktop-project-icon">
+                        <div class="desktop-project-meta">
+                            <h3 class="desktop-project-name">SCENORY</h3>
+                            <p class="desktop-project-subtitle">Inventory Management System</p>
+                        </div>
+                    </div>
                     
-                    <div class="view-all-btn">
-                        <span>View Desktop Projects</span>
-                        <i class="fas fa-arrow-right"></i>
+                    <div class="desktop-project-tags">
+                        <span class="app-tag">JavaFX</span>
+                        <span class="app-tag">MySQL</span>
+                        <span class="app-tag">MVC Architecture</span>
+                        <span class="app-tag">Desktop</span>
+                    </div>
+                    
+                    <p class="desktop-project-description">
+                        Professional inventory management system built with JavaFX and MySQL. Features include 
+                        real-time stock tracking, supplier management, sales analytics, and automated reporting. 
+                        Implements clean MVC architecture with a polished UI/UX design for business operations.
+                    </p>
+                    
+                    <div class="desktop-project-features">
+                        <h4>Key Features</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Real-time inventory tracking</li>
+                            <li><i class="fas fa-check-circle"></i> Supplier & customer management</li>
+                            <li><i class="fas fa-check-circle"></i> Sales analytics dashboard</li>
+                            <li><i class="fas fa-check-circle"></i> Automated report generation</li>
+                            <li><i class="fas fa-check-circle"></i> Multi-user authentication</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="desktop-project-actions">
+                        <a href="https://github.com/otikanelson" class="btn btn-primary" target="_blank" rel="noopener">
+                            <i class="fab fa-github"></i> View on GitHub
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
+
     </section>
 
     <!-- Skills Section -->
     <section class="skills-section">
         <div class="section-header">
-            <h2 class="section-title">Technology Stack</h2>
-            <p class="section-subtitle">
-                A comprehensive toolkit of modern technologies and frameworks I use to bring ideas to life
-            </p>
+            <h2 class="section-title">Skills & Expertise</h2>
+            <p class="section-subtitle">Technologies and tools I use to build exceptional products</p>
         </div>
-        <div class="skills-container">
-            <div class="skills-track">
-                <div class="skill-card">
-                    <i class="fab fa-java skill-icon"></i>
-                    <span class="skill-name">Java</span>
+        
+        <div class="skills-container-new">
+            <!-- Mobile Development -->
+            <div class="skill-category" data-category="mobile">
+                <div class="skill-category-header">
+                    <div class="category-icon-wrapper">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="category-info">
+                        <h3>Mobile Development</h3>
+                        <p>Cross-platform & native Android apps</p>
+                    </div>
+                    <div class="category-badge">6 skills</div>
                 </div>
-                <div class="skill-card">
-                    <i class="fab fa-android skill-icon"></i>
-                    <span class="skill-name">Kotlin</span>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-react skill-icon"></i>
-                    <span class="skill-name">React.js</span>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-react skill-icon"></i>
-                    <span class="skill-name">React Native</span>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-node-js skill-icon"></i>
-                    <span class="skill-name">Node.js</span>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-js-square skill-icon"></i>
-                    <span class="skill-name">TypeScript</span>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-html5 skill-icon"></i>
-                    <span class="skill-name">HTML5</span>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-css3-alt skill-icon"></i>
-                    <span class="skill-name">CSS3</span>
-                </div>
-                <div class="skill-card">
-                    <i class="fas fa-database skill-icon"></i>
-                    <span class="skill-name">SQL</span>
-                </div>
-                <div class="skill-card">
-                    <i class="fas fa-database skill-icon"></i>
-                    <span class="skill-name">MongoDB</span>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-git-alt skill-icon"></i>
-                    <span class="skill-name">Git</span>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-figma skill-icon"></i>
-                    <span class="skill-name">Figma</span>
+                <div class="skill-category-content">
+                    <div class="skill-item">
+                        <div class="skill-item-header">
+                            <span class="skill-name">React Native</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-item-header">
+                            <span class="skill-name">TypeScript</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-item-header">
+                            <span class="skill-name">Java</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-item-header">
+                            <span class="skill-name">Kotlin</span>
+                            <span class="skill-level">Intermediate</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 70%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-item-header">
+                            <span class="skill-name">Expo</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 88%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-item-header">
+                            <span class="skill-name">Android Studio</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 82%"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- Duplicate for seamless scrolling -->
-            <div class="skills-track">
-                <div class="skill-card">
-                    <i class="fab fa-java skill-icon"></i>
-                    <span class="skill-name">Java</span>
+
+            <!-- Web Development -->
+            <div class="skill-category" data-category="web">
+                <div class="skill-category-header">
+                    <div class="category-icon-wrapper" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="category-info">
+                        <h3>Web Development</h3>
+                        <p>Full-stack JavaScript & modern frameworks</p>
+                    </div>
+                    <div class="category-badge">7 skills</div>
                 </div>
-                <div class="skill-card">
-                    <i class="fab fa-android skill-icon"></i>
-                    <span class="skill-name">Kotlin</span>
+                <div class="skill-category-content">
+                    <div class="skill-item">
+                        <div class="skill-item-header">
+                            <span class="skill-name">React.js</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 92%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-item-header">
+                            <span class="skill-name">Node.js</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-item-header">
+                            <span class="skill-name">Express.js</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 83%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-item-header">
+                            <span class="skill-name">Next.js</span>
+                            <span class="skill-level">Intermediate</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-item-header">
+                            <span class="skill-name">HTML5 & CSS3</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-item-header">
+                            <span class="skill-name">JavaScript</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-item-header">
+                            <span class="skill-name">Nest.js</span>
+                            <span class="skill-level">Intermediate</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 72%"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="skill-card">
-                    <i class="fab fa-react skill-icon"></i>
-                    <span class="skill-name">React.js</span>
+            </div>
+
+            <!-- Database & Backend -->
+            <div class="skill-category" data-category="backend">
+                <div class="skill-category-header">
+                    <div class="category-icon-wrapper" style="background: linear-gradient(135deg, #10b981, #059669);">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="category-info">
+                        <h3>Database & Backend</h3>
+                        <p>Data management & API development</p>
+                    </div>
+                    <div class="category-badge">4 skills</div>
                 </div>
-                <div class="skill-card">
-                    <i class="fab fa-react skill-icon"></i>
-                    <span class="skill-name">React Native</span>
+                <div class="skill-category-content">
+                    <div class="skill-item">
+                        <div class="skill-item-header">
+                            <span class="skill-name">MongoDB</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-item-header">
+                            <span class="skill-name">MySQL</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 82%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-item-header">
+                            <span class="skill-name">REST APIs</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-item-header">
+                            <span class="skill-name">JWT Authentication</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 88%"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="skill-card">
-                    <i class="fab fa-node-js skill-icon"></i>
-                    <span class="skill-name">Node.js</span>
+            </div>
+
+            <!-- Tools & Design -->
+            <div class="skill-category" data-category="tools">
+                <div class="skill-category-header">
+                    <div class="category-icon-wrapper" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="category-info">
+                        <h3>Tools & Design</h3>
+                        <p>Development tools & design software</p>
+                    </div>
+                    <div class="category-badge">5 skills</div>
                 </div>
-                <div class="skill-card">
-                    <i class="fab fa-js-square skill-icon"></i>
-                    <span class="skill-name">TypeScript</span>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-html5 skill-icon"></i>
-                    <span class="skill-name">HTML5</span>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-css3-alt skill-icon"></i>
-                    <span class="skill-name">CSS3</span>
-                </div>
-                <div class="skill-card">
-                    <i class="fas fa-database skill-icon"></i>
-                    <span class="skill-name">SQL</span>
-                </div>
-                <div class="skill-card">
-                    <i class="fas fa-database skill-icon"></i>
-                    <span class="skill-name">MongoDB</span>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-git-alt skill-icon"></i>
-                    <span class="skill-name">Git</span>
-                </div>
-                <div class="skill-card">
-                    <i class="fab fa-figma skill-icon"></i>
-                    <span class="skill-name">Figma</span>
+                <div class="skill-category-content">
+                    <div class="skill-item">
+                        <div class="skill-item-header">
+                            <span class="skill-name">Git & GitHub</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 92%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-item-header">
+                            <span class="skill-name">Figma</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-item-header">
+                            <span class="skill-name">Postman</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-item-header">
+                            <span class="skill-name">Adobe Illustrator</span>
+                            <span class="skill-level">Intermediate</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-item-header">
+                            <span class="skill-name">VS Code</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -351,9 +647,9 @@
                 <h2>About Me</h2>
                 <p class="about-text">
                     I'm Otika Nelson Somto, a Mobile Development Engineer at RavixTech and Software Engineering graduate 
-                    from Babcock University with a strong foundation in mobile and web development. My journey in tech 
+                    from Babcock University with a strong foundation in mobile development. My journey in tech 
                     has been marked by hands-on experience, from interning at NIIT to freelancing and now working with 
-                    a nationwide team on React Native projects. I'm driven by a passion for creating scalable, 
+                    a nationwide startup team on Software projects. I'm driven by a passion for creating scalable, 
                     user-friendly applications that balance performance and maintainability.
                 </p>
                 
@@ -480,55 +776,30 @@
                 <div class="stats-grid">
                     <div class="stat-card">
                         <h3>3+</h3>
-                        <p>Years Experience</p>
+                        <p>Years Building</p>
                     </div>
                     <div class="stat-card">
-                        <h3>15+</h3>
-                        <p>Projects Completed</p>
+                        <h3>10+</h3>
+                        <p>Projects Shipped</p>
                     </div>
-                    <div class="stats-card">
+                    <div class="stat-card">
                         <h3>3.74</h3>
-                        <p>GPA Achievement</p>
+                        <p>GPA — Babcock University</p>
                     </div>
                     <div class="stat-card">
-                        <h3>100%</h3>
-                        <p>Client Satisfaction</p>
+                        <h3>5+</h3>
+                        <p>Clients Served</p>
                     </div>
                 </div>
+
+                <div class="certs-section">
+                    <p class="certs-label"><i class="fas fa-certificate"></i> Certifications</p>
+                    <div class="certs-grid" id="certsGrid"></div>
+                </div>
             </div>
         </div>
     </section>
 
-
-    <!-- Extracurricular Activities Section -->
-    <section id="extracurricular" class="about-section" style="padding: 80px 5%; background: var(--bg-color);">
-        <div class="section-header" style="margin-bottom: 60px;">
-            <h2 class="section-title">Community & Leadership</h2>
-            <p class="section-subtitle">
-                Active participation in coding communities and tech organizations
-            </p>
-        </div>
-        
-        <div class="activities-container" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-            <div class="activity-card" style="background: var(--card-bg); padding: 2rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);">
-                <div class="activity-icon" style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
-                    <i class="fas fa-code" style="font-size: 1.8rem; color: white;"></i>
-                </div>
-                <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.3rem;">Babcock University Coding Club</h3>
-                <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.9rem;">2021 - Present</p>
-                <p style="color: var(--text-primary); line-height: 1.6;">Engaged proactively in periodic coding events. Contributed actively to collaborative side projects and coordinated various coding and technology events on campus.</p>
-            </div>
-            
-            <div class="activity-card" style="background: var(--card-bg); padding: 2rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);">
-                <div class="activity-icon" style="width: 60px; height: 60px; background: linear-gradient(135deg, #f89820, #c74634); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
-                    <i class="fab fa-java" style="font-size: 1.8rem; color: white;"></i>
-                </div>
-                <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.3rem;">Java Republic Club</h3>
-                <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.9rem;">2022 - Present</p>
-                <p style="color: var(--text-primary); line-height: 1.6;">Active member focused on Java development, participating in workshops, coding sessions, and knowledge sharing activities within the programming community.</p>
-            </div>
-        </div>
-    </section>
 
     <!-- Contact Section -->
     <section id="contact" class="contact-section">
@@ -570,7 +841,7 @@
                 </div>
                 
                 <div style="margin-top: 40px;">
-                    <a href="https://drive.google.com/file/d/1oXB0HtCCcr2OnIOETjz5iBeOVGFZvU8z/view?usp=sharing" 
+                    <a href="https://drive.google.com/drive/folders/1_PRJsUyyVbCnhK2Y_D75CgdQ4Yf0Y7KM" 
                     class="btn btn-primary" 
                     target="_blank" 
                     rel="noopener noreferrer"
@@ -582,37 +853,416 @@
             </div>
             
             <div class="contact-form">
-                <form>
+                <form id="contactForm">
                     <div class="form-group">
-                        <input type="text" class="form-input" placeholder="Your Name" required>
+                        <input type="text" id="from_name" class="form-input" placeholder="Your Name" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" class="form-input" placeholder="Your Email" required>
+                        <input type="email" id="from_email" class="form-input" placeholder="Your Email" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-input" placeholder="Subject" required>
+                        <input type="text" id="subject" class="form-input" placeholder="Subject" required>
                     </div>
                     <div class="form-group">
-                        <textarea class="form-input" placeholder="Your Message" required></textarea>
+                        <textarea id="message" class="form-input" placeholder="Your Message" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <button type="submit" class="btn btn-primary" id="submitBtn" style="width: 100%;">
                         Send Message
                         <i class="fas fa-paper-plane"></i>
                     </button>
+                    <p class="form-status" id="formStatus"></p>
                 </form>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer style="background: var(--card-bg); padding: 40px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
-        <p style="color: var(--text-secondary); margin: 0;">
-            © 2025 Otika Nelson Somto. Made with 
-            <i class="fas fa-heart" style="color: var(--primary-color); margin: 0 5px;"></i> 
-            and passion for great software
-        </p>
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-left">
+                <span class="footer-name">Nelson Otika</span>
+                <span class="footer-role">Mobile Development Engineer</span>
+            </div>
+            <div class="footer-links">
+                <a href="#hero">Home</a>
+                <a href="#portfolio">Work</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-right">
+                <span>© 2025 Nelson Otika</span>
+            </div>
+        </div>
     </footer>
 
+    <!-- APK Warning Modal -->
+    <div class="apk-modal-overlay" id="apkModal" role="dialog" aria-modal="true" aria-labelledby="apkModalTitle">
+        <div class="apk-modal">
+            <div class="apk-modal-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3 id="apkModalTitle">Before you download</h3>
+            <p>
+                This APK is not published on the Google Play Store and will likely trigger a 
+                <strong>Google Play Protect</strong> warning on your device. This is expected — 
+                it does <em>not</em> mean the app is harmful.
+            </p>
+            <p>
+                These apps are personal projects built for portfolio purposes. They have not been 
+                submitted for Play Store review solely due to the cost of a developer account. 
+                The APK contains no malware, spyware, or any malicious code of any kind.
+            </p>
+            <p class="apk-modal-note">
+                <i class="fas fa-info-circle"></i>
+                To install, you may need to enable <strong>"Install from unknown sources"</strong> 
+                in your Android settings.
+            </p>
+            <div class="apk-modal-actions">
+                <button class="btn btn-secondary apk-cancel-btn">Cancel</button>
+                <a class="btn btn-download apk-confirm-btn" href="#" download>
+                    <i class="fas fa-download"></i> I understand, download anyway
+                </a>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
-</body>
-</html>
+    <script>
+    // ─── PROJECT DATA ────────────────────────────────────────────
+    const PROJECTS = {
+        frebfit: {
+            name: 'FREBFIT',
+            subtitle: 'Fitness Application — FREBSON FITNESS',
+            description: 'Built for FREBSON FITNESS gym — features workout selection, trainer search, and survey flows. Developed during my NIIT internship as a hands-on Android project.',
+            rating: '4.8', downloads: '500+', category: 'Health & Fitness',
+            tags: ['Java', 'Android Studio', 'Material Design', 'UI/UX'],
+            github: 'https://github.com/otikanelson',
+            apk: '#',
+            icon: 'images/Frebfit Logo.png',
+            screenshots: ['images/Frebfit_1.png','images/Frebfit_2.png','images/Frebfit_3.png','images/Frebfit_4.png']
+        },
+        volair: {
+            name: 'VOLAIR',
+            subtitle: 'Private Jet Booking — React Native',
+            description: 'Private jet booking app built collaboratively with senior developers at RavixTech. Contributed UI implementation and integration workflows using React Native and TypeScript.',
+            rating: '4.9', downloads: '1K+', category: 'Travel',
+            tags: ['React Native', 'TypeScript', 'Expo', 'REST API'],
+            github: 'https://github.com/otikanelson',
+            apk: '#',
+            icon: 'images/Volair Logo.png',
+            screenshots: ['images/Volair_1.png','images/Volair_2.png','images/Volair_3.png','images/Volair_4.png','images/Volair_5.png','images/Volair_6.png','images/Volair_7.png']
+        },
+        duorecall: {
+            name: 'DUO Recall',
+            subtitle: 'Flashcard Learning — Spaced Repetition',
+            description: 'Designed and built independently — a Duolingo-inspired flashcard app with spaced repetition, streaks, and gamification. Showcases product thinking and self-directed development.',
+            rating: '4.7', downloads: '300+', category: 'Education',
+            tags: ['React Native', 'Expo', 'AsyncStorage', 'Gamification'],
+            github: 'https://github.com/otikanelson',
+            apk: '#',
+            icon: 'images/Recall Logo.png',
+            screenshots: ['images/DuoRecall_1.jpeg','images/DuoRecall_2.jpeg','images/DuoRecall_3.jpeg','images/DuoRecall_4.jpeg','images/DuoRecall_5.jpeg','images/DuoRecall_6.jpeg','images/DuoRecall_7.jpeg']
+        },
+        trainbooking: {
+            name: 'GRIM',
+            subtitle: 'Android UI — Travel Planning',
+            description: 'Android UI project built during my NIIT internship. Demonstrates native Android layout skills, search flows, and booking confirmation screens.',
+            rating: '4.5', downloads: '200+', category: 'Travel',
+            tags: ['Java', 'Android Studio', 'XML Layouts', 'Material Design'],
+            github: 'https://github.com/otikanelson',
+            apk: '#',
+            icon: 'images/Grim Logo.png',
+            screenshots: ['images/Grim_1.jpg','images/Grim_2.jpg','images/Grim_3.jpg','images/Grim_4.jpg']
+        }
+    };
+
+    function populatePanel(panel, projectId) {
+        const p = PROJECTS[projectId];
+        if (!p) return;
+        panel.querySelector('.detail-icon').src = p.icon;
+        panel.querySelector('.detail-icon').alt = p.name;
+        panel.querySelector('.detail-name').textContent = p.name;
+        panel.querySelector('.detail-subtitle').textContent = p.subtitle;
+        panel.querySelector('.d-rating').textContent = p.rating;
+        panel.querySelector('.d-downloads').textContent = p.downloads;
+        panel.querySelector('.d-category').textContent = p.category;
+        panel.querySelector('.detail-description').textContent = p.description;
+        panel.querySelector('.detail-github').href = p.github;
+        panel.querySelector('.detail-tags').innerHTML =
+            p.tags.map(t => `<span class="app-tag">${t}</span>`).join('');
+        panel.querySelector('.screenshots-strip').innerHTML =
+            p.screenshots.map(src =>
+                `<img class="screenshot-img" src="${src}" alt="${p.name}" loading="lazy">`
+            ).join('');
+
+        // Download button — show only if APK exists
+        const dlBtn = panel.querySelector('.detail-download-btn');
+        if (p.apk) {
+            dlBtn.style.display = 'inline-flex';
+            dlBtn.dataset.apk = p.apk;
+            dlBtn.dataset.name = p.name;
+        } else {
+            dlBtn.style.display = 'none';
+        }
+    }
+
+    // ─── CERTIFICATIONS ─────────────────────────────────────────
+    const certImages = [
+        { src: 'images/certifications/Cisco.webp',          title: 'Cisco — Introduction to Cybersecurity' },
+        { src: 'images/certifications/Cisco (2).webp',      title: 'Cisco — Networking Basics' },
+        { src: 'images/certifications/Cisco (3).webp',      title: 'Cisco — Network Technician' },
+        { src: 'images/certifications/Cisco (4).webp',      title: 'Cisco — Networking Devices & Initial Config' },
+        { src: 'images/certifications/Cisco (5).webp',      title: 'Cisco — Network Support & Security' },
+        { src: 'images/certifications/Bsc.png',             title: 'BSc Software Engineering — Babcock University' },
+        { src: 'images/certifications/CPN.png',             title: 'CPN — Computer Professionals (Nigeria)' },
+        { src: 'images/certifications/New Horizon.png',     title: 'New Horizons — IT Training' },
+        { src: 'images/certifications/NIIT.png',            title: 'NIIT — Mobile App Development' },
+    ];
+    // Fisher-Yates shuffle
+    for (let i = certImages.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [certImages[i], certImages[j]] = [certImages[j], certImages[i]];
+    }
+    const certsGrid = document.getElementById('certsGrid');
+    certImages.forEach(({ src, title }) => {
+        const card = document.createElement('div');
+        card.className = 'cert-card';
+        card.innerHTML = `
+            <img src="${src}" alt="${title}" class="cert-img" loading="lazy">
+            <span class="cert-title">${title}</span>
+        `;
+        certsGrid.appendChild(card);
+    });
+
+    // ─── APK MODAL ───────────────────────────────────────────────
+    const modal = document.getElementById('apkModal');
+    const confirmBtn = modal.querySelector('.apk-confirm-btn');
+    const cancelBtn  = modal.querySelector('.apk-cancel-btn');
+
+    function openApkModal(apkHref, appName) {
+        confirmBtn.href = apkHref;
+        confirmBtn.setAttribute('download', `${appName}.apk`);
+        modal.classList.add('visible');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeApkModal() {
+        modal.classList.remove('visible');
+        document.body.style.overflow = '';
+    }
+
+    cancelBtn.addEventListener('click', closeApkModal);
+    modal.addEventListener('click', e => { if (e.target === modal) closeApkModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeApkModal(); });
+
+    // Delegate download button clicks inside the mobile row
+    document.querySelector('.mobile-row').addEventListener('click', e => {
+        const btn = e.target.closest('.detail-download-btn');
+        if (!btn) return;
+        e.preventDefault();
+        openApkModal(btn.dataset.apk, btn.dataset.name);
+    });
+
+    // ─── MOBILE ROW — hover-driven ───────────────────────────────
+    const mobileRow = document.querySelector('.mobile-row');
+    if (mobileRow) {
+        const stage   = mobileRow.querySelector('.row-stage');
+        const panel   = mobileRow.querySelector('.project-detail-panel');
+        const tiles   = mobileRow.querySelectorAll('.app-tile');
+        let leaveTimer = null;
+
+        // Tile mouseenter → focus it, show panel
+        tiles.forEach(tile => {
+            tile.addEventListener('mouseenter', () => {
+                clearTimeout(leaveTimer);
+
+                // unfocus others
+                tiles.forEach(t => t.classList.remove('is-focused'));
+                tile.classList.add('is-focused');
+                mobileRow.classList.add('tile-focused');
+
+                populatePanel(panel, tile.dataset.project);
+            });
+        });
+
+        // Row mouseleave → collapse everything after a short grace period
+        mobileRow.addEventListener('mouseleave', () => {
+            leaveTimer = setTimeout(() => {
+                tiles.forEach(t => t.classList.remove('is-focused'));
+                mobileRow.classList.remove('tile-focused');
+            }, 300);
+        });
+
+        // Re-entering the row cancels the collapse
+        mobileRow.addEventListener('mouseenter', () => {
+            clearTimeout(leaveTimer);
+        });
+    }
+
+    // ─── CONTACT FORM (EmailJS) ──────────────────────────────────
+    (function() {
+        emailjs.init('YOUR_PUBLIC_KEY'); // replace with real key
+    })();
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        const status = document.getElementById('formStatus');
+        btn.disabled = true;
+        btn.innerHTML = 'Sending… <i class="fas fa-spinner fa-spin"></i>';
+        status.textContent = '';
+        status.className = 'form-status';
+
+        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+            from_name:  document.getElementById('from_name').value,
+            from_email: document.getElementById('from_email').value,
+            subject:    document.getElementById('subject').value,
+            message:    document.getElementById('message').value,
+        }).then(() => {
+            status.textContent = 'Message sent! I\'ll get back to you soon.';
+            status.className = 'form-status success';
+            this.reset();
+            btn.disabled = false;
+            btn.innerHTML = 'Send Message <i class="fas fa-paper-plane"></i>';
+        }).catch(() => {
+            status.textContent = 'Something went wrong. Please email me directly.';
+            status.className = 'form-status error';
+            btn.disabled = false;
+            btn.innerHTML = 'Send Message <i class="fas fa-paper-plane"></i>';
+        });
+    });
+
+    // ─── WEB TILE CAROUSELS ──────────────────────────────────────
+    document.querySelectorAll('.web-tile').forEach(tile => {
+        const preview = tile.querySelector('.web-tile-preview');
+        const slides = preview.querySelectorAll('.web-carousel-slide');
+        const dotsContainer = preview.querySelector('.web-carousel-dots');
+        
+        if (slides.length <= 1) return; // Skip if only one image
+        
+        let currentSlide = 0;
+        let autoplayInterval;
+        
+        // Create dots
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.className = 'web-carousel-dot';
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', (e) => {
+                e.stopPropagation();
+                goToSlide(index);
+            });
+            dotsContainer.appendChild(dot);
+        });
+        
+        const dots = dotsContainer.querySelectorAll('.web-carousel-dot');
+        
+        function goToSlide(index) {
+            slides[currentSlide].classList.remove('active');
+            dots[currentSlide].classList.remove('active');
+            
+            currentSlide = index;
+            
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+        
+        function nextSlide() {
+            const next = (currentSlide + 1) % slides.length;
+            goToSlide(next);
+        }
+        
+        function startAutoplay() {
+            autoplayInterval = setInterval(nextSlide, 3000);
+        }
+        
+        function stopAutoplay() {
+            clearInterval(autoplayInterval);
+        }
+        
+        // Start autoplay on hover
+        tile.addEventListener('mouseenter', startAutoplay);
+        tile.addEventListener('mouseleave', () => {
+            stopAutoplay();
+            goToSlide(0); // Reset to first slide
+        });
+    });
+
+    // ─── DESKTOP CAROUSEL ────────────────────────────────────────
+    (function() {
+        const carousel = document.querySelector('.desktop-carousel');
+        if (!carousel) return;
+
+        const slides = carousel.querySelectorAll('.carousel-slide');
+        const dotsContainer = carousel.querySelector('.carousel-dots');
+        const prevBtn = carousel.querySelector('.prev-btn');
+        const nextBtn = carousel.querySelector('.next-btn');
+        
+        let currentSlide = 0;
+        let autoplayInterval;
+
+        // Create dots
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.className = 'carousel-dot';
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(index));
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = dotsContainer.querySelectorAll('.carousel-dot');
+
+        function goToSlide(index) {
+            slides[currentSlide].classList.remove('active');
+            dots[currentSlide].classList.remove('active');
+            
+            currentSlide = index;
+            
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+            
+            resetAutoplay();
+        }
+
+        function nextSlide() {
+            const next = (currentSlide + 1) % slides.length;
+            goToSlide(next);
+        }
+
+        function prevSlide() {
+            const prev = (currentSlide - 1 + slides.length) % slides.length;
+            goToSlide(prev);
+        }
+
+        function startAutoplay() {
+            autoplayInterval = setInterval(nextSlide, 4000);
+        }
+
+        function stopAutoplay() {
+            clearInterval(autoplayInterval);
+        }
+
+        function resetAutoplay() {
+            stopAutoplay();
+            startAutoplay();
+        }
+
+        // Event listeners
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+        
+        // Pause on hover
+        carousel.addEventListener('mouseenter', stopAutoplay);
+        carousel.addEventListener('mouseleave', startAutoplay);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!carousel.matches(':hover')) return;
+            if (e.key === 'ArrowLeft') prevSlide();
+            if (e.key === 'ArrowRight') nextSlide();
+        });
+
+        // Start autoplay
+        startAutoplay();
+    })();
+    </script>

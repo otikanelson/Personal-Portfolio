@@ -93,19 +93,42 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Mobile menu toggle functionality
     const menuToggle = document.querySelector('.menu-toggle');
-    if (menuToggle) {
-        menuToggle.addEventListener('click', function() {
-            // Toggle mobile menu (you can expand this for full mobile menu)
-            const navbar = document.querySelector('.navbar');
-            if (navbar.style.display === 'none' || navbar.style.display === '') {
-                navbar.style.display = 'block';
-                navbar.style.position = 'fixed';
-                navbar.style.top = '60px';
-                navbar.style.left = '50%';
-                navbar.style.transform = 'translateX(-50%)';
+    const navbar = document.querySelector('.navbar');
+    
+    if (menuToggle && navbar) {
+        menuToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            navbar.classList.toggle('mobile-open');
+            
+            // Update icon
+            const icon = this.querySelector('i');
+            if (navbar.classList.contains('mobile-open')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
             } else {
-                navbar.style.display = 'none';
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
             }
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!navbar.contains(e.target) && !menuToggle.contains(e.target)) {
+                navbar.classList.remove('mobile-open');
+                const icon = menuToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Close menu when clicking a nav link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                navbar.classList.remove('mobile-open');
+                const icon = menuToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
         });
     }
 
@@ -192,20 +215,25 @@ document.addEventListener('DOMContentLoaded', function() {
     // Skills animation counter
     function animateCounters() {
         const counters = document.querySelectorAll('.stat-card h3');
-        
+
         counters.forEach(counter => {
-            const target = parseInt(counter.textContent.replace(/\D/g, ''));
-            const suffix = counter.textContent.replace(/\d/g, '');
+            const raw = counter.textContent.trim();
+            const numMatch = raw.match(/[\d.]+/);
+            if (!numMatch) return;
+            const target = parseFloat(numMatch[0]);
+            const isDecimal = numMatch[0].includes('.');
+            const decimals = isDecimal ? (numMatch[0].split('.')[1] || '').length : 0;
+            const suffix = raw.replace(/[\d.]+/, '');
             let current = 0;
-            const increment = target / 100;
-            
+            const increment = target / 80;
+
             const timer = setInterval(() => {
                 current += increment;
                 if (current >= target) {
-                    counter.textContent = target + suffix;
+                    counter.textContent = target.toFixed(decimals) + suffix;
                     clearInterval(timer);
                 } else {
-                    counter.textContent = Math.floor(current) + suffix;
+                    counter.textContent = current.toFixed(decimals) + suffix;
                 }
             }, 20);
         });
@@ -276,27 +304,9 @@ document.addEventListener('mousemove', function(e) {
 */
 
 // Portfolio category navigation
+// navigateToCategory — now scrolls to the portfolio section
 function navigateToCategory(category) {
-    // Add a subtle animation before navigation
-    const card = document.querySelector(`[data-category="${category}"]`);
-    card.style.transform = 'scale(0.95)';
-    
-    setTimeout(() => {
-        // Navigate to the specific category page
-        switch(category) {
-            case 'mobile':
-                window.location.href = 'mobile-projects.html';
-                break;
-            case 'web':
-                window.location.href = 'web-projects.html';
-                break;
-            case 'other':
-                window.location.href = 'other-projects.html';
-                break;
-            default:
-                console.log('Unknown category:', category);
-        }
-    }, 150);
+    document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' });
 }
 
 // Enhanced portfolio card interactions
