@@ -1,0 +1,15 @@
+# APK files
+*.apk
+
+# Large binary files
+*.zip
+*.rar
+*.7z
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
