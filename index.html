@@ -1147,6 +1147,7 @@
     const cancelBtn  = modal.querySelector('.apk-cancel-btn');
 
     function openApkModal(apkHref, appName) {
+        console.log('Opening modal with APK URL:', apkHref);
         confirmBtn.href = apkHref;
         confirmBtn.dataset.downloadUrl = apkHref;
         modal.classList.add('visible');
@@ -1161,12 +1162,18 @@
     cancelBtn.addEventListener('click', closeApkModal);
     confirmBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        const downloadUrl = confirmBtn.dataset.downloadUrl;
-        if (downloadUrl && downloadUrl !== '#') {
+        e.stopPropagation();
+        const downloadUrl = confirmBtn.dataset.downloadUrl || confirmBtn.href;
+        console.log('Download button clicked, URL:', downloadUrl);
+        if (downloadUrl && downloadUrl !== '#' && downloadUrl !== window.location.href + '#') {
             // Open download in new tab
-            window.open(downloadUrl, '_blank');
+            console.log('Opening URL in new tab...');
+            const newWindow = window.open(downloadUrl, '_blank', 'noopener,noreferrer');
+            console.log('Window opened:', newWindow);
             // Close modal after opening
             setTimeout(closeApkModal, 300);
+        } else {
+            console.error('No valid download URL found:', downloadUrl);
         }
     });
     modal.addEventListener('click', e => { if (e.target === modal) closeApkModal(); });
