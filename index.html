@@ -1148,6 +1148,7 @@
 
     function openApkModal(apkHref, appName) {
         confirmBtn.href = apkHref;
+        confirmBtn.dataset.downloadUrl = apkHref;
         modal.classList.add('visible');
         document.body.style.overflow = 'hidden';
     }
@@ -1158,9 +1159,15 @@
     }
 
     cancelBtn.addEventListener('click', closeApkModal);
-    confirmBtn.addEventListener('click', () => {
-        // Close modal after a short delay to allow download to start
-        setTimeout(closeApkModal, 500);
+    confirmBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const downloadUrl = confirmBtn.dataset.downloadUrl;
+        if (downloadUrl && downloadUrl !== '#') {
+            // Open download in new tab
+            window.open(downloadUrl, '_blank');
+            // Close modal after opening
+            setTimeout(closeApkModal, 300);
+        }
     });
     modal.addEventListener('click', e => { if (e.target === modal) closeApkModal(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeApkModal(); });
