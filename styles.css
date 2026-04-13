@@ -673,7 +673,7 @@ body > * { position: relative; z-index: 1; }
 /* ── Shared row wrapper — flush, no card ── */
 .portfolio-row {
     max-width: 1300px;
-    margin: 0 auto 120px;
+    margin: 0 auto 60px;
     border: none;
     border-radius: 0;
     background: transparent;
@@ -717,15 +717,16 @@ body > * { position: relative; z-index: 1; }
     scrollbar-width: thin;
     scrollbar-color: var(--border) transparent;
     align-items: flex-start;
+    flex-wrap: nowrap;
 }
 .project-strip::-webkit-scrollbar { height: 4px; }
 .project-strip::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 .app-tile {
     flex-shrink: 0;
-    width: 180px;
+    width: 140px;
     background: transparent;
     border: 1px solid var(--border);
-    border-radius: 18px;
+    border-radius: 16px;
     overflow: hidden;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.25s ease;
@@ -738,7 +739,7 @@ body > * { position: relative; z-index: 1; }
 }
 
 .app-tile-banner {
-    width: 100%; height: 110px;
+    width: 100%; height: 85px;
     object-fit: cover; display: block;
     background: var(--card-hover);
 }
@@ -750,28 +751,28 @@ body > * { position: relative; z-index: 1; }
 }
 
 .app-tile-banner-placeholder {
-    width: 100%; height: 110px;
+    width: 100%; height: 85px;
     display: flex; align-items: center; justify-content: center;
     background: rgba(124,58,237,0.08);
 }
 .app-tile-banner-placeholder i {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     background: var(--gradient-1);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-.app-tile-body { padding: 12px; }
+.app-tile-body { padding: 10px; }
 .app-tile-name {
-    font-size: 0.88rem; font-weight: 700;
-    color: var(--text-primary); margin-bottom: 6px;
+    font-size: 0.78rem; font-weight: 700;
+    color: var(--text-primary); margin-bottom: 5px;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.app-tile-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+.app-tile-tags { display: flex; gap: 4px; flex-wrap: wrap; }
 .app-tag {
-    font-size: 0.62rem; font-weight: 600;
-    padding: 2px 7px; border-radius: 20px;
+    font-size: 0.58rem; font-weight: 600;
+    padding: 2px 6px; border-radius: 20px;
     background: rgba(124,58,237,0.15);
     color: var(--primary-light);
     border: 1px solid rgba(124,58,237,0.25);
@@ -786,23 +787,22 @@ body > * { position: relative; z-index: 1; }
 .mobile-row .row-stage {
     display: flex;
     align-items: stretch;
-    max-height: 220px;
+    min-height: auto;
+    max-height: none;
     overflow: hidden;
     border-radius: 20px;
     background: transparent;
-    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-                box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease;
 }
 
 /* Expand when row is hovered */
 .mobile-row:hover .row-stage {
-    max-height: 720px;
     box-shadow: none;
 }
 
 /* Strip — starts full width, shrinks when a tile is focused */
 .mobile-row .project-strip {
-    padding: 20px 20px 20px 24px;
+    padding: 16px;
     flex-direction: row;
     flex-shrink: 0;
     width: 100%;
@@ -810,6 +810,8 @@ body > * { position: relative; z-index: 1; }
     overflow-y: hidden;
     overflow-x: auto;
     align-items: flex-start;
+    flex-wrap: nowrap;
+    min-height: auto;
 }
 
 .mobile-row.tile-focused .project-strip {
@@ -865,17 +867,13 @@ body > * { position: relative; z-index: 1; }
 
 /* ── Detail panel ── */
 .mobile-row .project-detail-panel {
+    display: none;
     flex: 1;
     min-width: 0;
     background: transparent;
     border-left: 1px solid var(--border);
     padding: 24px 28px;
     overflow-y: auto;
-    /* hidden until tile focused */
-    opacity: 0;
-    transform: translateX(24px);
-    pointer-events: none;
-    transition: opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE/Edge */
 }
@@ -885,9 +883,7 @@ body > * { position: relative; z-index: 1; }
 }
 
 .mobile-row.tile-focused .project-detail-panel {
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: all;
+    display: block;
 }
 
 .detail-header {
@@ -1203,6 +1199,57 @@ body > * { position: relative; z-index: 1; }
     border-color: rgba(255,255,255,0.4);
     transform: translateY(-2px);
 }
+
+/* ─── WEB TILE CAROUSEL ──────────────────────────────────────── */
+.web-tile-carousel-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.web-carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.web-carousel-slide.active {
+    opacity: 1;
+}
+
+.web-carousel-dots {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.web-carousel-dot {
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.web-carousel-dot.active {
+    background: var(--primary-color);
+    width: 24px;
+    border-radius: 4px;
+}
+
+.web-carousel-dot:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
 .btn-download {
     background: rgba(1, 135, 95, 0.15);
     color: #34d399;
@@ -1509,8 +1556,8 @@ body > * { position: relative; z-index: 1; }
     background: var(--dark-surface);
     border: 1px solid var(--border-bright);
     border-radius: 24px;
-    padding: 40px;
-    max-width: 520px;
+    padding: 28px;
+    max-width: 480px;
     width: 100%;
     transform: translateY(20px) scale(0.97);
     transition: transform 0.3s ease;
@@ -1521,35 +1568,35 @@ body > * { position: relative; z-index: 1; }
 }
 
 .apk-modal-icon {
-    width: 56px;
-    height: 56px;
+    width: 48px;
+    height: 48px;
     background: rgba(249, 115, 22, 0.15);
     border: 1px solid rgba(249, 115, 22, 0.4);
     border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 
 .apk-modal-icon i {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     color: #fb923c;
 }
 
 .apk-modal h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 16px;
+    margin-bottom: 12px;
 }
 
 .apk-modal p {
-    font-size: 0.9rem;
+    font-size: 0.82rem;
     color: var(--text-secondary);
-    line-height: 1.7;
-    margin-bottom: 14px;
+    line-height: 1.6;
+    margin-bottom: 10px;
 }
 
 .apk-modal p strong { color: var(--text-primary); }
@@ -1559,11 +1606,12 @@ body > * { position: relative; z-index: 1; }
     background: rgba(124, 58, 237, 0.08);
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 12px 16px;
-    font-size: 0.85rem !important;
+    padding: 10px 12px;
+    font-size: 0.78rem !important;
     display: flex;
-    gap: 10px;
+    gap: 8px;
     align-items: flex-start;
+    margin-bottom: 8px;
 }
 
 .apk-modal-note i {
@@ -1572,14 +1620,46 @@ body > * { position: relative; z-index: 1; }
     flex-shrink: 0;
 }
 
+.apk-modal-contact {
+    background: rgba(34, 197, 94, 0.08);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 0.78rem !important;
+    margin-top: 8px;
+}
+
+.apk-modal-contact i {
+    color: #22c55e;
+    margin-right: 6px;
+}
+
+.apk-modal-contact a {
+    color: var(--primary-light);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.apk-modal-contact a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
 .apk-modal-actions {
     display: flex;
     gap: 12px;
-    margin-top: 24px;
+    margin-top: 18px;
     flex-wrap: wrap;
 }
 
-.apk-modal-actions .btn { flex: 1; justify-content: center; }
+.apk-modal-actions .btn { 
+    flex: 1; 
+    justify-content: center;
+    padding: 10px 12px;
+    font-size: 0.65rem;
+    gap: 6px;
+}
 
 /* ─── ABOUT ──────────────────────────────────────────────────── */
 .about-section {

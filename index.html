@@ -152,6 +152,17 @@
                         </div>
                     </div>
 
+                    <div class="app-tile" data-project="afrochinatrade">
+                        <img src="images/AfroChinaTrade Logo.png" alt="AfroChinaTrade" class="app-tile-banner app-tile-logo">
+                        <div class="app-tile-body">
+                            <div class="app-tile-name">AFROCHINATRADE</div>
+                            <div class="app-tile-tags">
+                                <span class="app-tag">React Native</span>
+                                <span class="app-tag">Node.js</span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div><!-- /.project-strip -->
 
                 <!-- Detail panel — populated on tile hover -->
@@ -296,11 +307,18 @@
                     </div>
                 </div>
 
-                <div class="web-tile" data-github="https://github.com/otikanelson" data-vercel="#">
+                <div class="web-tile web-tile-carousel" data-github="https://github.com/otikanelson/RPG" data-vercel="https://rpg-sandy-rho.vercel.app/">
                     <div class="web-tile-preview">
-                        <img src="images/Rpg_1.png" alt="Shadow of the Arcane">
+                        <div class="web-tile-carousel-track">
+                            <img src="images/Rpg_1.png" alt="Shadow of the Arcane" class="web-carousel-slide active">
+                            <img src="images/Rpg_2.png" alt="Shadow of the Arcane" class="web-carousel-slide">
+                            <img src="images/Rpg_3.png" alt="Shadow of the Arcane" class="web-carousel-slide">
+                            <img src="images/Rpg_4.png" alt="Shadow of the Arcane" class="web-carousel-slide">
+                            <img src="images/Rpg_5.png" alt="Shadow of the Arcane" class="web-carousel-slide">
+                        </div>
+                        <div class="web-carousel-dots"></div>
                     </div>
-                    <img src="images/Logo.png" alt="RPG logo" class="web-tile-logo">
+                    <img src="images/SOTA Logo.jpg" alt="RPG logo" class="web-tile-logo">
                     <span class="web-tile-label">Shadow of the Arcane</span>
                     <div class="web-tile-info">
                         <h4>Shadow of the Arcane</h4>
@@ -309,10 +327,10 @@
                             <span class="app-tag">JavaScript</span><span class="app-tag">HTML5</span><span class="app-tag">CSS3</span><span class="app-tag">ES6</span>
                         </div>
                         <div class="web-tile-actions">
-                            <a class="btn btn-primary" href="https://github.com/otikanelson" target="_blank" rel="noopener">
+                            <a class="btn btn-primary" href="https://github.com/otikanelson/RPG" target="_blank" rel="noopener">
                                 <i class="fab fa-github"></i> GitHub
                             </a>
-                            <a class="btn btn-vercel" href="#" target="_blank" rel="noopener">
+                            <a class="btn btn-vercel" href="https://rpg-sandy-rho.vercel.app/" target="_blank" rel="noopener">
                                 <i class="fas fa-external-link-alt"></i> Live Site
                             </a>
                         </div>
@@ -966,9 +984,15 @@
                 To install, you may need to enable <strong>"Install from unknown sources"</strong> 
                 in your Android settings.
             </p>
+            <p class="apk-modal-contact">
+                <i class="fas fa-envelope"></i>
+                <strong>Need help or experiencing issues?</strong><br>
+                Contact me: <a href="mailto:otikanelson@gmail.com">otikanelson@gmail.com</a> | 
+                <a href="https://wa.me/2349156219654" target="_blank">WhatsApp</a>
+            </p>
             <div class="apk-modal-actions">
                 <button class="btn btn-secondary apk-cancel-btn">Cancel</button>
-                <a class="btn btn-download apk-confirm-btn" href="#" download>
+                <a class="btn btn-download apk-confirm-btn" href="#" target="_blank" rel="noopener noreferrer">
                     <i class="fas fa-download"></i> I understand, download anyway
                 </a>
             </div>
@@ -986,7 +1010,7 @@
             rating: '4.8', downloads: '500+', category: 'Health & Fitness',
             tags: ['Java', 'Android Studio', 'Material Design', 'UI/UX'],
             github: 'https://github.com/otikanelson',
-            apk: '#',
+            apk: null,
             icon: 'images/Frebfit Logo.png',
             screenshots: ['images/Frebfit_1.png','images/Frebfit_2.png','images/Frebfit_3.png','images/Frebfit_4.png']
         },
@@ -997,7 +1021,7 @@
             rating: '4.9', downloads: '1K+', category: 'Travel',
             tags: ['React Native', 'TypeScript', 'Expo', 'Clean Architecture'],
             github: 'https://github.com/otikanelson',
-            apk: '#',
+            apk: null,
             icon: 'images/Volair Logo.png',
             screenshots: ['images/Volair_1.png','images/Volair_2.png','images/Volair_3.png','images/Volair_4.png','images/Volair_5.png','images/Volair_6.png','images/Volair_7.png']
         },
@@ -1008,7 +1032,7 @@
             rating: '4.7', downloads: '300+', category: 'Education',
             tags: ['React Native', 'Expo', 'AsyncStorage', 'TypeScript'],
             github: 'https://github.com/otikanelson',
-            apk: '#',
+            apk: 'YOUR_GOOGLE_DRIVE_LINK_FOR_DUORECALL',
             icon: 'images/Recall Logo.png',
             screenshots: ['images/DuoRecall_1.jpeg','images/DuoRecall_2.jpeg','images/DuoRecall_3.jpeg','images/DuoRecall_4.jpeg','images/DuoRecall_5.jpeg','images/DuoRecall_6.jpeg','images/DuoRecall_7.jpeg']
         },
@@ -1019,7 +1043,7 @@
             rating: '4.5', downloads: '200+', category: 'Travel',
             tags: ['Java', 'Android Studio', 'XML Layouts', 'Material Design'],
             github: 'https://github.com/otikanelson',
-            apk: '#',
+            apk: null,
             icon: 'images/Grim Logo.png',
             screenshots: ['images/Grim_1.jpg','images/Grim_2.jpg','images/Grim_3.jpg','images/Grim_4.jpg']
         },
@@ -1030,7 +1054,7 @@
             rating: '4.6', downloads: '400+', category: 'Finance',
             tags: ['React Native', 'Expo', 'TypeScript', 'Fintech'],
             github: 'https://github.com/otikanelson',
-            apk: '#',
+            apk: 'YOUR_GOOGLE_DRIVE_LINK_FOR_AJOSAVE',
             icon: 'images/Ajosave Logo.png',
             screenshots: ['images/AjoMobile_1.jpeg','images/AjoMobile_2.jpeg','images/AjoMobile_3.jpeg','images/AjoMobile_4.jpeg','images/AjoMobile_5.jpeg','images/AjoMobile_6.jpeg','images/AjoMobile_7.jpeg']
         },
@@ -1041,9 +1065,21 @@
             rating: '4.7', downloads: '600+', category: 'Business',
             tags: ['React Native', 'TensorFlow', 'Node.js', 'ML'],
             github: 'https://github.com/otikanelson',
-            apk: '#',
+            apk: null,
             icon: 'images/Insightory Logo.png',
             screenshots: ['images/Insightory_1.jpeg','images/Insightory_2.jpeg','images/Insightory_3.jpeg','images/Insightory_4.jpeg','images/Insightory_5.jpeg','images/Insightory_6.jpeg']
+        },
+        afrochinatrade: {
+            name: 'AFROCHINATRADE',
+            subtitle: 'International Trade Platform',
+            description: 'Multi-tenant SaaS mobile platform facilitating trade between African businesses and Chinese suppliers. Built scalable backend with Node.js and Express for supplier listings, marketplace interactions, user authentication, and procurement workflows. Supports independent multi-tenant environments within shared infrastructure.',
+            rating: '4.8', downloads: '800+', category: 'Business',
+            tags: ['React Native', 'Node.js', 'Express', 'SaaS'],
+            github: 'https://github.com/otikanelson/AfroChinaTrade',
+            vercel: 'https://afro-china-trade.vercel.app/',
+            apk: 'YOUR_GOOGLE_DRIVE_LINK_FOR_AFROCHINATRADE',
+            icon: 'images/AfroChinaTrade Logo.png',
+            screenshots: ['images/AfroChinaTrade_1.jpeg','images/AfroChinaTrade_2.jpeg','images/AfroChinaTrade_3.jpeg','images/AfroChinaTrade_4.jpeg','images/AfroChinaTrade_5.jpeg','images/AfroChinaTrade_6.jpeg','images/AfroChinaTrade_7.jpeg','images/AfroChinaTrade_8.jpeg']
         }
     };
 
@@ -1112,7 +1148,6 @@
 
     function openApkModal(apkHref, appName) {
         confirmBtn.href = apkHref;
-        confirmBtn.setAttribute('download', `${appName}.apk`);
         modal.classList.add('visible');
         document.body.style.overflow = 'hidden';
     }
