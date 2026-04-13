@@ -1158,6 +1158,10 @@
     }
 
     cancelBtn.addEventListener('click', closeApkModal);
+    confirmBtn.addEventListener('click', () => {
+        // Close modal after a short delay to allow download to start
+        setTimeout(closeApkModal, 500);
+    });
     modal.addEventListener('click', e => { if (e.target === modal) closeApkModal(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeApkModal(); });
 
