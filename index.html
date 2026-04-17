@@ -86,46 +86,14 @@
             <div class="row-stage">
                 <div class="project-strip">
 
-                    <div class="app-tile" data-project="frebfit">
-                        <img src="images/Frebfit Logo.png" alt="FREBFIT" class="app-tile-banner app-tile-logo">
+                    <!-- Featured Projects -->
+                    <div class="app-tile" data-project="afrochinatrade">
+                        <img src="images/AfroChinaTrade Logo.png" alt="AfroChinaTrade" class="app-tile-banner app-tile-logo">
                         <div class="app-tile-body">
-                            <div class="app-tile-name">FREBFIT</div>
-                            <div class="app-tile-tags">
-                                <span class="app-tag">Java</span>
-                                <span class="app-tag">Android</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="app-tile" data-project="volair">
-                        <img src="images/Volair Logo.png" alt="VOLAIR" class="app-tile-banner app-tile-logo">
-                        <div class="app-tile-body">
-                            <div class="app-tile-name">VOLAIR</div>
+                            <div class="app-tile-name">AFROCHINATRADE</div>
                             <div class="app-tile-tags">
                                 <span class="app-tag">React Native</span>
-                                <span class="app-tag">TypeScript</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="app-tile" data-project="duorecall">
-                        <img src="images/Recall Logo.png" alt="DUO Recall" class="app-tile-banner app-tile-logo">
-                        <div class="app-tile-body">
-                            <div class="app-tile-name">DUO Recall</div>
-                            <div class="app-tile-tags">
-                                <span class="app-tag">React Native</span>
-                                <span class="app-tag">Expo</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="app-tile" data-project="trainbooking">
-                        <img src="images/Grim Logo.png" alt="Train Booking" class="app-tile-banner app-tile-logo">
-                        <div class="app-tile-body">
-                            <div class="app-tile-name">GRIM</div>
-                            <div class="app-tile-tags">
-                                <span class="app-tag">Java</span>
-                                <span class="app-tag">Android</span>
+                                <span class="app-tag">Node.js</span>
                             </div>
                         </div>
                     </div>
@@ -141,24 +109,67 @@
                         </div>
                     </div>
 
-                    <div class="app-tile" data-project="insightory">
+                    <div class="app-tile" data-project="duorecall">
+                        <img src="images/Recall Logo.png" alt="DUO Recall" class="app-tile-banner app-tile-logo">
+                        <div class="app-tile-body">
+                            <div class="app-tile-name">DUO Recall</div>
+                            <div class="app-tile-tags">
+                                <span class="app-tag">React Native</span>
+                                <span class="app-tag">Expo</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- View More Button -->
+                    <div class="app-tile view-more-tile" id="viewMoreMobile">
+                        <div class="view-more-content">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>View More</span>
+                            <p>4 more projects</p>
+                        </div>
+                    </div>
+
+                    <!-- Additional Projects (hidden initially) -->
+                    <div class="app-tile additional-project" data-project="volair" style="display: none;">
+                        <img src="images/Volair Logo.png" alt="VOLAIR" class="app-tile-banner app-tile-logo">
+                        <div class="app-tile-body">
+                            <div class="app-tile-name">VOLAIR</div>
+                            <div class="app-tile-tags">
+                                <span class="app-tag">React Native</span>
+                                <span class="app-tag">TypeScript</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="app-tile additional-project" data-project="frebfit" style="display: none;">
+                        <img src="images/Frebfit Logo.png" alt="FREBFIT" class="app-tile-banner app-tile-logo">
+                        <div class="app-tile-body">
+                            <div class="app-tile-name">FREBFIT</div>
+                            <div class="app-tile-tags">
+                                <span class="app-tag">Java</span>
+                                <span class="app-tag">Android</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="app-tile additional-project" data-project="trainbooking" style="display: none;">
+                        <img src="images/Grim Logo.png" alt="Train Booking" class="app-tile-banner app-tile-logo">
+                        <div class="app-tile-body">
+                            <div class="app-tile-name">GRIM</div>
+                            <div class="app-tile-tags">
+                                <span class="app-tag">Java</span>
+                                <span class="app-tag">Android</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="app-tile additional-project" data-project="insightory" style="display: none;">
                         <img src="images/Insightory Logo.png" alt="Insightory" class="app-tile-banner app-tile-logo">
                         <div class="app-tile-body">
                             <div class="app-tile-name">INSIGHTORY</div>
                             <div class="app-tile-tags">
                                 <span class="app-tag">React Native</span>
                                 <span class="app-tag">TensorFlow</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="app-tile" data-project="afrochinatrade">
-                        <img src="images/AfroChinaTrade Logo.png" alt="AfroChinaTrade" class="app-tile-banner app-tile-logo">
-                        <div class="app-tile-body">
-                            <div class="app-tile-name">AFROCHINATRADE</div>
-                            <div class="app-tile-tags">
-                                <span class="app-tag">React Native</span>
-                                <span class="app-tag">Node.js</span>
                             </div>
                         </div>
                     </div>
@@ -1187,16 +1198,39 @@
         openApkModal(btn.dataset.apk, btn.dataset.name);
     });
 
+    // ─── VIEW MORE MOBILE PROJECTS ───────────────────────────────
+    const viewMoreBtn = document.getElementById('viewMoreMobile');
+    if (viewMoreBtn) {
+        viewMoreBtn.addEventListener('click', () => {
+            mobileRow.classList.add('expanded');
+            // Re-query tiles after expansion to include new ones in hover logic
+            const allTiles = mobileRow.querySelectorAll('.app-tile:not(.view-more-tile)');
+            allTiles.forEach(tile => {
+                if (!tile.dataset.hasListener) {
+                    tile.addEventListener('mouseenter', () => {
+                        clearTimeout(leaveTimer);
+                        allTiles.forEach(t => t.classList.remove('is-focused'));
+                        tile.classList.add('is-focused');
+                        mobileRow.classList.add('tile-focused');
+                        populatePanel(panel, tile.dataset.project);
+                    });
+                    tile.dataset.hasListener = 'true';
+                }
+            });
+        });
+    }
+
     // ─── MOBILE ROW — hover-driven ───────────────────────────────
     const mobileRow = document.querySelector('.mobile-row');
     if (mobileRow) {
         const stage   = mobileRow.querySelector('.row-stage');
         const panel   = mobileRow.querySelector('.project-detail-panel');
-        const tiles   = mobileRow.querySelectorAll('.app-tile');
+        const tiles   = mobileRow.querySelectorAll('.app-tile:not(.view-more-tile)');
         let leaveTimer = null;
 
         // Tile mouseenter → focus it, show panel
         tiles.forEach(tile => {
+            tile.dataset.hasListener = 'true';
             tile.addEventListener('mouseenter', () => {
                 clearTimeout(leaveTimer);
 
