@@ -303,7 +303,7 @@ body > * { position: relative; z-index: 1; }
 
 .floating-image {
     width: 130%;
-    height: 140%;
+    height: 130%;
     border-radius: 42% 58% 55% 45%;
     object-fit: contain;
     animation: float 7s ease-in-out infinite;
