@@ -123,9 +123,11 @@
                     <!-- View More Button -->
                     <div class="app-tile view-more-tile" id="viewMoreMobile">
                         <div class="view-more-content">
-                            <i class="fas fa-plus-circle"></i>
-                            <span>View More</span>
-                            <p>4 more projects</p>
+                            <i class="fas fa-plus-circle view-more-icon"></i>
+                            <i class="fas fa-minus-circle view-less-icon" style="display: none;"></i>
+                            <span class="view-more-text">View More</span>
+                            <span class="view-less-text" style="display: none;">View Less</span>
+                            <p class="view-more-count">4 more projects</p>
                         </div>
                     </div>
 
@@ -1010,6 +1012,22 @@
         </div>
     </div>
 
+    <!-- Image Lightbox Modal -->
+    <div class="image-lightbox-overlay" id="imageLightbox" role="dialog" aria-modal="true">
+        <div class="image-lightbox-container">
+            <button class="lightbox-close" aria-label="Close image">
+                <i class="fas fa-times"></i>
+            </button>
+            <img class="lightbox-image" src="" alt="">
+            <button class="lightbox-nav lightbox-prev" aria-label="Previous image">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="lightbox-nav lightbox-next" aria-label="Next image">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
     <script src="script.js"></script>
     <script>
     // ─── PROJECT DATA ────────────────────────────────────────────
@@ -1142,13 +1160,17 @@
         [certImages[i], certImages[j]] = [certImages[j], certImages[i]];
     }
     const certsGrid = document.getElementById('certsGrid');
-    certImages.forEach(({ src, title }) => {
+    certImages.forEach(({ src, title }, index) => {
         const card = document.createElement('div');
         card.className = 'cert-card';
         card.innerHTML = `
             <img src="${src}" alt="${title}" class="cert-img" loading="lazy">
             <span class="cert-title">${title}</span>
         `;
+        card.addEventListener('click', () => {
+            const certSrcs = certImages.map(c => c.src);
+            openLightbox(certSrcs, index);
+        });
         certsGrid.appendChild(card);
     });
 
@@ -1202,21 +1224,34 @@
     const viewMoreBtn = document.getElementById('viewMoreMobile');
     if (viewMoreBtn) {
         viewMoreBtn.addEventListener('click', () => {
-            mobileRow.classList.add('expanded');
-            // Re-query tiles after expansion to include new ones in hover logic
-            const allTiles = mobileRow.querySelectorAll('.app-tile:not(.view-more-tile)');
-            allTiles.forEach(tile => {
-                if (!tile.dataset.hasListener) {
-                    tile.addEventListener('mouseenter', () => {
-                        clearTimeout(leaveTimer);
-                        allTiles.forEach(t => t.classList.remove('is-focused'));
-                        tile.classList.add('is-focused');
-                        mobileRow.classList.add('tile-focused');
-                        populatePanel(panel, tile.dataset.project);
-                    });
-                    tile.dataset.hasListener = 'true';
-                }
-            });
+            const isExpanded = mobileRow.classList.contains('expanded');
+            
+            if (isExpanded) {
+                // Collapse
+                mobileRow.classList.remove('expanded');
+                // Hide additional projects
+                const additionalProjects = mobileRow.querySelectorAll('.additional-project');
+                additionalProjects.forEach(proj => {
+                    proj.style.display = 'none';
+                });
+            } else {
+                // Expand
+                mobileRow.classList.add('expanded');
+                // Re-query tiles after expansion to include new ones in hover logic
+                const allTiles = mobileRow.querySelectorAll('.app-tile:not(.view-more-tile)');
+                allTiles.forEach(tile => {
+                    if (!tile.dataset.hasListener) {
+                        tile.addEventListener('mouseenter', () => {
+                            clearTimeout(leaveTimer);
+                            allTiles.forEach(t => t.classList.remove('is-focused'));
+                            tile.classList.add('is-focused');
+                            mobileRow.classList.add('tile-focused');
+                            populatePanel(panel, tile.dataset.project);
+                        });
+                        tile.dataset.hasListener = 'true';
+                    }
+                });
+            }
         });
     }
 
@@ -1256,6 +1291,65 @@
             clearTimeout(leaveTimer);
         });
     }
+
+    // ─── IMAGE LIGHTBOX ──────────────────────────────────────────
+    const lightboxOverlay = document.getElementById('imageLightbox');
+    const lightboxImage = lightboxOverlay.querySelector('.lightbox-image');
+    const lightboxClose = lightboxOverlay.querySelector('.lightbox-close');
+    const lightboxPrev = lightboxOverlay.querySelector('.lightbox-prev');
+    const lightboxNext = lightboxOverlay.querySelector('.lightbox-next');
+    let currentImageIndex = 0;
+    let currentProjectImages = [];
+
+    function openLightbox(images, index) {
+        currentProjectImages = images;
+        currentImageIndex = index;
+        lightboxImage.src = images[index];
+        lightboxOverlay.classList.add('visible');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        lightboxOverlay.classList.remove('visible');
+        document.body.style.overflow = '';
+    }
+
+    function showImage(index) {
+        if (index < 0) {
+            currentImageIndex = currentProjectImages.length - 1;
+        } else if (index >= currentProjectImages.length) {
+            currentImageIndex = 0;
+        } else {
+            currentImageIndex = index;
+        }
+        lightboxImage.src = currentProjectImages[currentImageIndex];
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxPrev.addEventListener('click', () => showImage(currentImageIndex - 1));
+    lightboxNext.addEventListener('click', () => showImage(currentImageIndex + 1));
+    lightboxOverlay.addEventListener('click', (e) => {
+        if (e.target === lightboxOverlay) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (!lightboxOverlay.classList.contains('visible')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') showImage(currentImageIndex - 1);
+        if (e.key === 'ArrowRight') showImage(currentImageIndex + 1);
+    });
+
+    // Add click handlers to detail panel screenshots
+    document.addEventListener('click', (e) => {
+        const screenshotImg = e.target.closest('.screenshot-img');
+        if (!screenshotImg) return;
+        
+        const panel = screenshotImg.closest('.project-detail-panel');
+        const allScreenshots = panel.querySelectorAll('.screenshot-img');
+        const images = Array.from(allScreenshots).map(img => img.src);
+        const index = Array.from(allScreenshots).indexOf(screenshotImg);
+        
+        openLightbox(images, index);
+    });
 
     // ─── CONTACT FORM (EmailJS) ──────────────────────────────────
     (function() {
