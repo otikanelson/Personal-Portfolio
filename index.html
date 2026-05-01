@@ -1092,7 +1092,7 @@
             rating: '4.7', downloads: '600+', category: 'Business',
             tags: ['React Native', 'TensorFlow', 'Node.js', 'ML'],
             github: 'https://github.com/otikanelson',
-            apk: null,
+            apk: 'https://play.google.com/store/apps/details?id=com.son_the_nel.Inventory',
             icon: 'images/Insightory Logo.png',
             screenshots: ['images/Insightory_1.jpeg','images/Insightory_2.jpeg','images/Insightory_3.jpeg','images/Insightory_4.jpeg','images/Insightory_5.jpeg','images/Insightory_6.jpeg']
         },
@@ -1146,6 +1146,12 @@
             dlBtn.style.display = 'inline-flex';
             dlBtn.dataset.apk = p.apk;
             dlBtn.dataset.name = p.name;
+            // Update label based on whether it's a Play Store link
+            if (p.apk.includes('play.google.com')) {
+                dlBtn.innerHTML = '<i class="fab fa-google-play"></i> View on Play Store';
+            } else {
+                dlBtn.innerHTML = '<i class="fas fa-download"></i> Download APK';
+            }
         } else {
             dlBtn.style.display = 'none';
         }
@@ -1225,7 +1231,13 @@
         const btn = e.target.closest('.detail-download-btn');
         if (!btn) return;
         e.preventDefault();
-        openApkModal(btn.dataset.apk, btn.dataset.name);
+        const apkUrl = btn.dataset.apk;
+        // If the app is on the Play Store, open it directly — no warning needed
+        if (apkUrl && apkUrl.includes('play.google.com')) {
+            window.open(apkUrl, '_blank', 'noopener,noreferrer');
+        } else {
+            openApkModal(apkUrl, btn.dataset.name);
+        }
     });
 
     // ─── VIEW MORE MOBILE PROJECTS ───────────────────────────────
