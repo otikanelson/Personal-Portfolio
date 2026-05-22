@@ -7,7 +7,7 @@
     cursor.className = 'figma-cursor';
     cursor.innerHTML = `
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 3L10.07 19.97L12.58 12.58L19.97 10.07L3 3Z" fill="white" stroke="black" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M3 3L10.07 19.97L12.58 12.58L19.97 10.07L3 3Z" fill="black" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
         </svg>
     `;
     document.body.appendChild(cursor);
@@ -25,23 +25,16 @@
         mouseY = e.clientY;
     });
 
-    // Ultra smooth cursor animation with velocity-based easing
+    // Simple, direct cursor animation without bounce
     function animateCursor() {
         const dx = mouseX - cursorX;
         const dy = mouseY - cursorY;
         
-        // Smooth easing with bounce
-        const ease = 0.15;
-        const friction = 0.45;
+        // Direct lerp interpolation - no velocity, no bounce
+        const ease = 0.2;
         
-        velocityX += dx * ease;
-        velocityY += dy * ease;
-        
-        velocityX *= friction;
-        velocityY *= friction;
-        
-        cursorX += velocityX;
-        cursorY += velocityY;
+        cursorX += dx * ease;
+        cursorY += dy * ease;
         
         // Use transform for better performance (GPU acceleration)
         cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;

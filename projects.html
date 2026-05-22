@@ -33,26 +33,24 @@
         <div class="projects-hero-content">
             <h1 class="projects-hero-title">All Projects</h1>
             <p class="projects-hero-subtitle">A comprehensive showcase of my mobile, web, and desktop applications</p>
+            
+            <!-- Filter Tabs -->
+            <div class="project-filters" id="projectFilters">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-th"></i> All Projects
+                </button>
+                <button class="filter-btn" data-filter="mobile">
+                    <i class="fas fa-mobile-alt"></i> Mobile
+                </button>
+                <button class="filter-btn" data-filter="web">
+                    <i class="fas fa-globe"></i> Web
+                </button>
+                <button class="filter-btn" data-filter="desktop">
+                    <i class="fas fa-desktop"></i> Desktop
+                </button>
+            </div>
         </div>
     </section>
-
-    <!-- Sticky Filter Tabs -->
-    <div class="project-filters-sticky">
-        <div class="project-filters">
-            <button class="filter-btn active" data-filter="all">
-                <i class="fas fa-th"></i> All Projects
-            </button>
-            <button class="filter-btn" data-filter="mobile">
-                <i class="fas fa-mobile-alt"></i> Mobile
-            </button>
-            <button class="filter-btn" data-filter="web">
-                <i class="fas fa-globe"></i> Web
-            </button>
-            <button class="filter-btn" data-filter="desktop">
-                <i class="fas fa-desktop"></i> Desktop
-            </button>
-        </div>
-    </div>
 
     <!-- Projects Grid -->
     <section class="projects-grid-section">
@@ -123,7 +121,7 @@
                             <a href="https://github.com/otikanelson/DuoRecall" class="project-action-btn" target="_blank" rel="noopener" title="View on GitHub">
                                 <i class="fab fa-github"></i>
                             </a>
-                            <a href="https://drive.google.com/uc?export=download&id=11GdhZ9x9XOSt90QG-FYUjJg0kO6SZctP" class="project-action-btn" target="_blank" rel="noopener" title="Download APK">
+                            <a href="https://drive.google.com/file/d/1C0Bod4CrO2ppkKc9EBZsSmCKYLP_mFHp/view?usp=sharing" class="project-action-btn" target="_blank" rel="noopener" title="Download APK">
                                 <i class="fas fa-download"></i>
                             </a>
                         </div>
@@ -436,6 +434,7 @@
         // Project filtering
         const filterBtns = document.querySelectorAll('.filter-btn');
         const projectCards = document.querySelectorAll('.project-card');
+        const projectFilters = document.getElementById('projectFilters');
 
         function filterProjects(filter) {
             // Update active button
@@ -464,6 +463,47 @@
                 window.location.hash = filter === 'all' ? '' : `${filter}-filter`;
             });
         });
+
+        // Sticky filter behavior - create a clone approach
+        let stickyFilters = null;
+        
+        function handleScroll() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 400) {
+                if (!stickyFilters) {
+                    // Create sticky clone
+                    stickyFilters = projectFilters.cloneNode(true);
+                    stickyFilters.id = 'stickyFilters';
+                    stickyFilters.classList.add('sticky');
+                    document.body.appendChild(stickyFilters);
+                    
+                    // Add event listeners to cloned buttons
+                    const stickyBtns = stickyFilters.querySelectorAll('.filter-btn');
+                    stickyBtns.forEach((btn, index) => {
+                        btn.addEventListener('click', () => {
+                            const filter = btn.dataset.filter;
+                            filterProjects(filter);
+                            // Update both original and sticky buttons
+                            filterBtns.forEach(b => b.classList.remove('active'));
+                            stickyBtns.forEach(b => b.classList.remove('active'));
+                            btn.classList.add('active');
+                            filterBtns[index].classList.add('active');
+                        });
+                    });
+                }
+                console.log('Showing sticky filters');
+            } else {
+                if (stickyFilters) {
+                    document.body.removeChild(stickyFilters);
+                    stickyFilters = null;
+                }
+                console.log('Hiding sticky filters');
+            }
+        }
+
+        // Add scroll listener
+        window.addEventListener('scroll', handleScroll);
 
         // Check URL hash on page load
         window.addEventListener('DOMContentLoaded', () => {
