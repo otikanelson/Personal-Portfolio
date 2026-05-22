@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Nelson Otika</title>
+    <link rel="shortcut icon" type="image/png" href="images/Browser_Logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <ul class="nav-menu">
+            <li><a href="index.html#hero" class="nav-link">Home</a></li>
+            <li><a href="index.html#portfolio" class="nav-link">Work</a></li>
+            <li><a href="projects.html" class="nav-link active">Projects</a></li>
+            <li><a href="index.html#about" class="nav-link">About</a></li>
+            <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+            <li><a href="https://drive.google.com/drive/folders/1_PRJsUyyVbCnhK2Y_D75CgdQ4Yf0Y7KM" class="nav-link nav-resume" target="_blank" rel="noopener">Resume <i class="fas fa-download"></i></a></li>
+        </ul>
+    </nav>
+
+    <button class="menu-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Projects Hero -->
+    <section class="projects-hero">
+        <div class="projects-hero-content">
+            <h1 class="projects-hero-title">All Projects</h1>
+            <p class="projects-hero-subtitle">A comprehensive showcase of my mobile, web, and desktop applications</p>
+            
+            <!-- Filter Tabs -->
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-th"></i> All Projects
+                </button>
+                <button class="filter-btn" data-filter="mobile">
+                    <i class="fas fa-mobile-alt"></i> Mobile
+                </button>
+                <button class="filter-btn" data-filter="web">
+                    <i class="fas fa-globe"></i> Web
+                </button>
+                <button class="filter-btn" data-filter="desktop">
+                    <i class="fas fa-desktop"></i> Desktop
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="projects-grid-section">
+        <div class="projects-container">
+            
+            <!-- Mobile Projects -->
+            <div class="project-card" data-category="mobile">
+                <div class="project-card-image">
+                    <img src="images/AfroChinaTrade Logo.png" alt="AfroChinaTrade">
+                    <div class="project-card-overlay">
+                        <div class="project-card-actions">
+                            <a href="https://github.com/otikanelson" class="project-action-btn" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <button class="project-action-btn">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card-content">
+                    <div class="project-card-header">
+                        <h3 class="project-card-title">AfroChinaTrade</h3>
+                        <span class="project-category-badge mobile">Mobile</span>
+                    </div>
+                    <p class="project-card-description">Cross-border trade platform connecting African and Chinese businesses with real-time messaging, product listings, and secure transactions.</p>
+                    <div class="project-card-tags">
+                        <span class="app-tag">React Native</span>
+                        <span class="app-tag">Node.js</span>
+                        <span class="app-tag">MongoDB</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="mobile">
+                <div class="project-card-image">
+                    <img src="images/Ajosave Logo.png" alt="AjoSave">
+                    <div class="project-card-overlay">
+                        <div class="project-card-actions">
+                            <a href="https://github.com/otikanelson" class="project-action-btn" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <button class="project-action-btn">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card-content">
+                    <div class="project-card-header">
+                        <h3 class="project-card-title">AjoSave</h3>
+                        <span class="project-category-badge mobile">Mobile</span>
+                    </div>
+                    <p class="project-card-description">Mobile savings app with group contribution cycles, automated payouts, and microloans qualification for African communities.</p>
+                    <div class="project-card-tags">
+                        <span class="app-tag">React Native</span>
+                        <span class="app-tag">Expo</span>
+                        <span class="app-tag">Firebase</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="mobile">
+                <div class="project-card-image">
+                    <img src="images/Recall Logo.png" alt="DUO Recall">
+                    <div class="project-card-overlay">
+                        <div class="project-card-actions">
+                            <a href="https://github.com/otikanelson" class="project-action-btn" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <button class="project-action-btn">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card-content">
+                    <div class="project-card-header">
+                        <h3 class="project-card-title">DUO Recall</h3>
+                        <span class="project-category-badge mobile">Mobile</span>
+                    </div>
+                    <p class="project-card-description">Smart reminder and task management app with AI-powered scheduling and location-based notifications.</p>
+                    <div class="project-card-tags">
+                        <span class="app-tag">React Native</span>
+                        <span class="app-tag">Expo</span>
+                        <span class="app-tag">SQLite</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="mobile">
+                <div class="project-card-image">
+                    <img src="images/Volair Logo.png" alt="VOLAIR">
+                    <div class="project-card-overlay">
+                        <div class="project-card-actions">
+                            <a href="https://github.com/otikanelson" class="project-action-btn" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <button class="project-action-btn">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card-content">
+                    <div class="project-card-header">
+                        <h3 class="project-card-title">VOLAIR</h3>
+                        <span class="project-category-badge mobile">Mobile</span>
+                    </div>
+                    <p class="project-card-description">Flight booking and travel management app with real-time flight tracking and itinerary planning.</p>
+                    <div class="project-card-tags">
+                        <span class="app-tag">React Native</span>
+                        <span class="app-tag">TypeScript</span>
+                        <span class="app-tag">REST API</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="mobile">
+                <div class="project-card-image">
+                    <img src="images/Insightory Logo.png" alt="Insightory">
+                    <div class="project-card-overlay">
+                        <div class="project-card-actions">
+                            <a href="https://github.com/otikanelson" class="project-action-btn" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <button class="project-action-btn">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card-content">
+                    <div class="project-card-header">
+                        <h3 class="project-card-title">INSIGHTORY</h3>
+                        <span class="project-category-badge mobile">Mobile</span>
+                    </div>
+                    <p class="project-card-description">AI-powered inventory management system with image recognition and predictive analytics for stock optimization.</p>
+                    <div class="project-card-tags">
+                        <span class="app-tag">React Native</span>
+                        <span class="app-tag">TensorFlow</span>
+                        <span class="app-tag">Python</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="mobile">
+                <div class="project-card-image">
+                    <img src="images/Frebfit Logo.png" alt="FREBFIT">
+                    <div class="project-card-overlay">
+                        <div class="project-card-actions">
+                            <a href="https://github.com/otikanelson" class="project-action-btn" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <button class="project-action-btn">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card-content">
+                    <div class="project-card-header">
+                        <h3 class="project-card-title">FREBFIT</h3>
+                        <span class="project-category-badge mobile">Mobile</span>
+                    </div>
+                    <p class="project-card-description">Fitness tracking app with workout plans, nutrition tracking, and progress analytics built with native Android.</p>
+                    <div class="project-card-tags">
+                        <span class="app-tag">Java</span>
+                        <span class="app-tag">Android</span>
+                        <span class="app-tag">SQLite</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="mobile">
+                <div class="project-card-image">
+                    <img src="images/Grim Logo.png" alt="GRIM">
+                    <div class="project-card-overlay">
+                        <div class="project-card-actions">
+                            <a href="https://github.com/otikanelson" class="project-action-btn" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <button class="project-action-btn">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card-content">
+                    <div class="project-card-header">
+                        <h3 class="project-card-title">GRIM</h3>
+                        <span class="project-category-badge mobile">Mobile</span>
+                    </div>
+                    <p class="project-card-description">Train booking system with seat selection, real-time availability, and digital ticket management.</p>
+                    <div class="project-card-tags">
+                        <span class="app-tag">Java</span>
+                        <span class="app-tag">Android</span>
+                        <span class="app-tag">Firebase</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="mobile">
+                <div class="project-card-image">
+                    <img src="images/CFC Logo.jpeg" alt="CFC Wallet">
+                    <div class="project-card-overlay">
+                        <div class="project-card-actions">
+                            <a href="https://github.com/otikanelson" class="project-action-btn" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <button class="project-action-btn">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card-content">
+                    <div class="project-card-header">
+                        <h3 class="project-card-title">CFC Wallet</h3>
+                        <span class="project-category-badge mobile">Mobile</span>
+                    </div>
+                    <p class="project-card-description">Digital wallet app with peer-to-peer transfers, bill payments, and transaction history tracking.</p>
+                    <div class="project-card-tags">
+                        <span class="app-tag">React Native</span>
+                        <span class="app-tag">Expo</span>
+                        <span class="app-tag">Node.js</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Web Projects -->
+            <div class="project-card" data-category="web">
+                <div class="project-card-image">
+                    <img src="images/Darb_1.png" alt="DARB">
+                    <div class="project-card-overlay">
+                        <div class="project-card-actions">
+                            <a href="https://github.com/otikanelson/Darb-Networks" class="project-action-btn" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://darb-networks.vercel.app" class="project-action-btn" target="_blank" rel="noopener">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card-content">
+                    <div class="project-card-header">
+                        <h3 class="project-card-title">DARB</h3>
+                        <span class="project-category-badge web">Web</span>
+                    </div>
+                    <p class="project-card-description">Full-stack crowdfunding platform with campaign management, contribution tracking, secure payments, and data visualization dashboard.</p>
+                    <div class="project-card-tags">
+                        <span class="app-tag">React.js</span>
+                        <span class="app-tag">Tailwind</span>
+                        <span class="app-tag">Vite</span>
+                        <span class="app-tag">Node.js</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="web">
+                <div class="project-card-image">
+                    <img src="images/BizBridge_1.png" alt="BIZZBRIDGE">
+                    <div class="project-card-overlay">
+                        <div class="project-card-actions">
+                            <a href="https://github.com/otikanelson/Biz-Bridge-Marketplace" class="project-action-btn" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://biz-bridge-marketplace.vercel.app/" class="project-action-btn" target="_blank" rel="noopener">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card-content">
+                    <div class="project-card-header">
+                        <h3 class="project-card-title">BIZZBRIDGE</h3>
+                        <span class="project-category-badge web">Web</span>
+                    </div>
+                    <p class="project-card-description">Platform connecting Nigerian artisans with customers across 26+ craft categories with advanced search and booking management.</p>
+                    <div class="project-card-tags">
+                        <span class="app-tag">React</span>
+                        <span class="app-tag">Node.js</span>
+                        <span class="app-tag">MongoDB</span>
+                        <span class="app-tag">Express</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="web">
+                <div class="project-card-image">
+                    <img src="images/Ajosave_1.png" alt="AjoSavings">
+                    <div class="project-card-overlay">
+                        <div class="project-card-actions">
+                            <a href="https://github.com/otikanelson/Ajosave" class="project-action-btn" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://ajosavings.vercel.app/" class="project-action-btn" target="_blank" rel="noopener">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card-content">
+                    <div class="project-card-header">
+                        <h3 class="project-card-title">AjoSavings</h3>
+                        <span class="project-category-badge web">Web</span>
+                    </div>
+                    <p class="project-card-description">Digital platform inspired by Africa's traditional thrift system with automated contribution cycles and blockchain-inspired security.</p>
+                    <div class="project-card-tags">
+                        <span class="app-tag">React</span>
+                        <span class="app-tag">Node.js</span>
+                        <span class="app-tag">MongoDB</span>
+                        <span class="app-tag">Tailwind</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="web">
+                <div class="project-card-image">
+                    <img src="images/Rpg_1.png" alt="Shadow of the Arcane">
+                    <div class="project-card-overlay">
+                        <div class="project-card-actions">
+                            <a href="https://github.com/otikanelson/RPG" class="project-action-btn" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://rpg-sandy-rho.vercel.app/" class="project-action-btn" target="_blank" rel="noopener">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card-content">
+                    <div class="project-card-header">
+                        <h3 class="project-card-title">Shadow of the Arcane</h3>
+                        <span class="project-category-badge web">Web</span>
+                    </div>
+                    <p class="project-card-description">Interactive story-driven RPG web game with branching narratives, turn-based combat, and dynamic AI behavior.</p>
+                    <div class="project-card-tags">
+                        <span class="app-tag">JavaScript</span>
+                        <span class="app-tag">HTML5</span>
+                        <span class="app-tag">CSS3</span>
+                        <span class="app-tag">ES6</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desktop Projects -->
+            <div class="project-card" data-category="desktop">
+                <div class="project-card-image">
+                    <img src="images/Scenory_1.png" alt="SCENORY">
+                    <div class="project-card-overlay">
+                        <div class="project-card-actions">
+                            <a href="https://github.com/otikanelson" class="project-action-btn" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card-content">
+                    <div class="project-card-header">
+                        <h3 class="project-card-title">SCENORY</h3>
+                        <span class="project-category-badge desktop">Desktop</span>
+                    </div>
+                    <p class="project-card-description">Professional storyboarding and art application with zoom/pan canvas, drawing tools, and MySQL persistence using MVC architecture.</p>
+                    <div class="project-card-tags">
+                        <span class="app-tag">JavaFX</span>
+                        <span class="app-tag">MySQL</span>
+                        <span class="app-tag">MVC</span>
+                        <span class="app-tag">IntelliJ</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="projects-footer">
+        <p>&copy; 2026 Nelson Otika. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="https://github.com/otikanelson" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/nelson-otika" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:otikanelson29@gmail.com"><i class="fas fa-envelope"></i></a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Project filtering
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        function filterProjects(filter) {
+            // Update active button
+            filterBtns.forEach(b => b.classList.remove('active'));
+            const activeBtn = document.querySelector(`.filter-btn[data-filter="${filter}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            // Filter projects
+            projectCards.forEach(card => {
+                if (filter === 'all' || card.dataset.category === filter) {
+                    card.style.display = 'block';
+                    setTimeout(() => card.style.opacity = '1', 10);
+                } else {
+                    card.style.opacity = '0';
+                    setTimeout(() => card.style.display = 'none', 300);
+                }
+            });
+        }
+
+        // Handle filter button clicks
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.dataset.filter;
+                filterProjects(filter);
+                // Update URL hash
+                window.location.hash = filter === 'all' ? '' : `${filter}-filter`;
+            });
+        });
+
+        // Check URL hash on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash.replace('#', '').replace('-filter', '');
+            if (hash && ['mobile', 'web', 'desktop'].includes(hash)) {
+                filterProjects(hash);
+            }
+        });
+    </script>
+</body>
+</html>
