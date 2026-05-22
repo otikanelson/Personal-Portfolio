@@ -3826,7 +3826,7 @@ html {
 .filter-btn {
     padding: 12px 24px;
     border-radius: 50px;
-    background: rgba(255, 255, 255, 0.05);
+    background: transparent;
     color: var(--text-secondary);
     border: 1px solid var(--border);
     font-weight: 600;
