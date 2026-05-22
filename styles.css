@@ -3800,15 +3800,17 @@ html {
 
 /* Sticky Project Filters */
 .project-filters-sticky {
-    position: sticky;
+    position: fixed;
     top: 60px;
+    left: 0;
+    right: 0;
     z-index: 999;
     background: rgba(10, 10, 20, 0.95);
     backdrop-filter: blur(24px);
     border-bottom: 1px solid var(--border);
     padding: 16px 40px;
-    margin-bottom: 40px;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
 }
 
 /* Project Filters */
@@ -3856,7 +3858,7 @@ html {
 
 /* Projects Grid */
 .projects-grid-section {
-    padding: 60px 40px 100px;
+    padding: 120px 40px 100px;
     background: var(--dark-bg);
 }
 
