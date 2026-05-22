@@ -3766,11 +3766,11 @@ html {
 
 /* Projects Hero */
 .projects-hero {
-    min-height: 50vh;
+    min-height: 40vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 120px 40px 60px;
+    padding: 120px 40px 40px;
     position: relative;
 }
 
@@ -3794,8 +3794,21 @@ html {
 .projects-hero-subtitle {
     font-size: 1.15rem;
     color: var(--text-secondary);
-    margin-bottom: 40px;
+    margin-bottom: 0;
     line-height: 1.6;
+}
+
+/* Sticky Project Filters */
+.project-filters-sticky {
+    position: sticky;
+    top: 60px;
+    z-index: 999;
+    background: rgba(10, 10, 20, 0.95);
+    backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
 }
 
 /* Project Filters */
@@ -3804,7 +3817,8 @@ html {
     gap: 12px;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 40px;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .filter-btn {

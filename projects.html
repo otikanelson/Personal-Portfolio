@@ -33,24 +33,26 @@
         <div class="projects-hero-content">
             <h1 class="projects-hero-title">All Projects</h1>
             <p class="projects-hero-subtitle">A comprehensive showcase of my mobile, web, and desktop applications</p>
-            
-            <!-- Filter Tabs -->
-            <div class="project-filters">
-                <button class="filter-btn active" data-filter="all">
-                    <i class="fas fa-th"></i> All Projects
-                </button>
-                <button class="filter-btn" data-filter="mobile">
-                    <i class="fas fa-mobile-alt"></i> Mobile
-                </button>
-                <button class="filter-btn" data-filter="web">
-                    <i class="fas fa-globe"></i> Web
-                </button>
-                <button class="filter-btn" data-filter="desktop">
-                    <i class="fas fa-desktop"></i> Desktop
-                </button>
-            </div>
         </div>
     </section>
+
+    <!-- Sticky Filter Tabs -->
+    <div class="project-filters-sticky">
+        <div class="project-filters">
+            <button class="filter-btn active" data-filter="all">
+                <i class="fas fa-th"></i> All Projects
+            </button>
+            <button class="filter-btn" data-filter="mobile">
+                <i class="fas fa-mobile-alt"></i> Mobile
+            </button>
+            <button class="filter-btn" data-filter="web">
+                <i class="fas fa-globe"></i> Web
+            </button>
+            <button class="filter-btn" data-filter="desktop">
+                <i class="fas fa-desktop"></i> Desktop
+            </button>
+        </div>
+    </div>
 
     <!-- Projects Grid -->
     <section class="projects-grid-section">
@@ -62,12 +64,12 @@
                     <img src="images/AfroChinaTrade Logo.png" alt="AfroChinaTrade">
                     <div class="project-card-overlay">
                         <div class="project-card-actions">
-                            <a href="https://github.com/otikanelson" class="project-action-btn" target="_blank" rel="noopener">
+                            <a href="https://github.com/otikanelson/AfroChinaTrade" class="project-action-btn" target="_blank" rel="noopener" title="View on GitHub">
                                 <i class="fab fa-github"></i>
                             </a>
-                            <button class="project-action-btn">
-                                <i class="fas fa-download"></i>
-                            </button>
+                            <a href="https://play.google.com/store/apps/details?id=com.afrochinatrade_mobile.act_mobile" class="project-action-btn" target="_blank" rel="noopener" title="View on Play Store">
+                                <i class="fab fa-google-play"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -76,11 +78,11 @@
                         <h3 class="project-card-title">AfroChinaTrade</h3>
                         <span class="project-category-badge mobile">Mobile</span>
                     </div>
-                    <p class="project-card-description">Cross-border trade platform connecting African and Chinese businesses with real-time messaging, product listings, and secure transactions.</p>
+                    <p class="project-card-description">Multi-tenant SaaS mobile platform facilitating trade between African businesses and Chinese suppliers with marketplace interactions and procurement workflows.</p>
                     <div class="project-card-tags">
                         <span class="app-tag">React Native</span>
                         <span class="app-tag">Node.js</span>
-                        <span class="app-tag">MongoDB</span>
+                        <span class="app-tag">Express</span>
                     </div>
                 </div>
             </div>
@@ -90,12 +92,12 @@
                     <img src="images/Ajosave Logo.png" alt="AjoSave">
                     <div class="project-card-overlay">
                         <div class="project-card-actions">
-                            <a href="https://github.com/otikanelson" class="project-action-btn" target="_blank" rel="noopener">
+                            <a href="https://github.com/otikanelson/Ajosave" class="project-action-btn" target="_blank" rel="noopener" title="View on GitHub">
                                 <i class="fab fa-github"></i>
                             </a>
-                            <button class="project-action-btn">
+                            <a href="https://drive.google.com/uc?export=download&id=1xSTyMBNdsgYiPUzAmjxscyUS477lXJ5o" class="project-action-btn" target="_blank" rel="noopener" title="Download APK">
                                 <i class="fas fa-download"></i>
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -104,11 +106,11 @@
                         <h3 class="project-card-title">AjoSave</h3>
                         <span class="project-category-badge mobile">Mobile</span>
                     </div>
-                    <p class="project-card-description">Mobile savings app with group contribution cycles, automated payouts, and microloans qualification for African communities.</p>
+                    <p class="project-card-description">Mobile cooperative savings platform inspired by Africa's traditional thrift system with automated contribution cycles and smart payout scheduling.</p>
                     <div class="project-card-tags">
                         <span class="app-tag">React Native</span>
                         <span class="app-tag">Expo</span>
-                        <span class="app-tag">Firebase</span>
+                        <span class="app-tag">TypeScript</span>
                     </div>
                 </div>
             </div>
@@ -118,12 +120,12 @@
                     <img src="images/Recall Logo.png" alt="DUO Recall">
                     <div class="project-card-overlay">
                         <div class="project-card-actions">
-                            <a href="https://github.com/otikanelson" class="project-action-btn" target="_blank" rel="noopener">
+                            <a href="https://github.com/otikanelson/DuoRecall" class="project-action-btn" target="_blank" rel="noopener" title="View on GitHub">
                                 <i class="fab fa-github"></i>
                             </a>
-                            <button class="project-action-btn">
+                            <a href="https://drive.google.com/uc?export=download&id=11GdhZ9x9XOSt90QG-FYUjJg0kO6SZctP" class="project-action-btn" target="_blank" rel="noopener" title="Download APK">
                                 <i class="fas fa-download"></i>
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -132,11 +134,11 @@
                         <h3 class="project-card-title">DUO Recall</h3>
                         <span class="project-category-badge mobile">Mobile</span>
                     </div>
-                    <p class="project-card-description">Smart reminder and task management app with AI-powered scheduling and location-based notifications.</p>
+                    <p class="project-card-description">Mobile flashcard app for studying with custom deck creation, CSV import, interactive flip-card quiz mode, and progress tracking.</p>
                     <div class="project-card-tags">
                         <span class="app-tag">React Native</span>
                         <span class="app-tag">Expo</span>
-                        <span class="app-tag">SQLite</span>
+                        <span class="app-tag">AsyncStorage</span>
                     </div>
                 </div>
             </div>
@@ -146,12 +148,9 @@
                     <img src="images/Volair Logo.png" alt="VOLAIR">
                     <div class="project-card-overlay">
                         <div class="project-card-actions">
-                            <a href="https://github.com/otikanelson" class="project-action-btn" target="_blank" rel="noopener">
+                            <a href="https://github.com/otikanelson/Volair" class="project-action-btn" target="_blank" rel="noopener" title="View on GitHub">
                                 <i class="fab fa-github"></i>
                             </a>
-                            <button class="project-action-btn">
-                                <i class="fas fa-download"></i>
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -160,11 +159,11 @@
                         <h3 class="project-card-title">VOLAIR</h3>
                         <span class="project-category-badge mobile">Mobile</span>
                     </div>
-                    <p class="project-card-description">Flight booking and travel management app with real-time flight tracking and itinerary planning.</p>
+                    <p class="project-card-description">Cross-platform private jet booking app built with React Native, TypeScript, and Expo with clean architecture design.</p>
                     <div class="project-card-tags">
                         <span class="app-tag">React Native</span>
                         <span class="app-tag">TypeScript</span>
-                        <span class="app-tag">REST API</span>
+                        <span class="app-tag">Expo</span>
                     </div>
                 </div>
             </div>
@@ -174,12 +173,12 @@
                     <img src="images/Insightory Logo.png" alt="Insightory">
                     <div class="project-card-overlay">
                         <div class="project-card-actions">
-                            <a href="https://github.com/otikanelson" class="project-action-btn" target="_blank" rel="noopener">
+                            <a href="https://github.com/otikanelson/Insightory" class="project-action-btn" target="_blank" rel="noopener" title="View on GitHub">
                                 <i class="fab fa-github"></i>
                             </a>
-                            <button class="project-action-btn">
-                                <i class="fas fa-download"></i>
-                            </button>
+                            <a href="https://play.google.com/store/apps/details?id=com.son_the_nel.Inventory" class="project-action-btn" target="_blank" rel="noopener" title="View on Play Store">
+                                <i class="fab fa-google-play"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -188,11 +187,11 @@
                         <h3 class="project-card-title">INSIGHTORY</h3>
                         <span class="project-category-badge mobile">Mobile</span>
                     </div>
-                    <p class="project-card-description">AI-powered inventory management system with image recognition and predictive analytics for stock optimization.</p>
+                    <p class="project-card-description">Predictive inventory management app with TensorFlow-based LSTM forecasting, real-time analytics, and demand predictions for SMBs.</p>
                     <div class="project-card-tags">
                         <span class="app-tag">React Native</span>
                         <span class="app-tag">TensorFlow</span>
-                        <span class="app-tag">Python</span>
+                        <span class="app-tag">Node.js</span>
                     </div>
                 </div>
             </div>
@@ -202,12 +201,9 @@
                     <img src="images/Frebfit Logo.png" alt="FREBFIT">
                     <div class="project-card-overlay">
                         <div class="project-card-actions">
-                            <a href="https://github.com/otikanelson" class="project-action-btn" target="_blank" rel="noopener">
+                            <a href="https://github.com/otikanelson/Frebfit" class="project-action-btn" target="_blank" rel="noopener" title="View on GitHub">
                                 <i class="fab fa-github"></i>
                             </a>
-                            <button class="project-action-btn">
-                                <i class="fas fa-download"></i>
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -216,11 +212,11 @@
                         <h3 class="project-card-title">FREBFIT</h3>
                         <span class="project-category-badge mobile">Mobile</span>
                     </div>
-                    <p class="project-card-description">Fitness tracking app with workout plans, nutrition tracking, and progress analytics built with native Android.</p>
+                    <p class="project-card-description">Mobile fitness app built with Java and Android Studio featuring workout selection, trainer search, and survey features.</p>
                     <div class="project-card-tags">
                         <span class="app-tag">Java</span>
                         <span class="app-tag">Android</span>
-                        <span class="app-tag">SQLite</span>
+                        <span class="app-tag">Material Design</span>
                     </div>
                 </div>
             </div>
@@ -230,12 +226,9 @@
                     <img src="images/Grim Logo.png" alt="GRIM">
                     <div class="project-card-overlay">
                         <div class="project-card-actions">
-                            <a href="https://github.com/otikanelson" class="project-action-btn" target="_blank" rel="noopener">
+                            <a href="https://github.com/otikanelson" class="project-action-btn" target="_blank" rel="noopener" title="View on GitHub">
                                 <i class="fab fa-github"></i>
                             </a>
-                            <button class="project-action-btn">
-                                <i class="fas fa-download"></i>
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -258,12 +251,12 @@
                     <img src="images/CFC Logo.jpeg" alt="CFC Wallet">
                     <div class="project-card-overlay">
                         <div class="project-card-actions">
-                            <a href="https://github.com/otikanelson" class="project-action-btn" target="_blank" rel="noopener">
+                            <a href="https://github.com/otikanelson/CFC-Wallet" class="project-action-btn" target="_blank" rel="noopener" title="View on GitHub">
                                 <i class="fab fa-github"></i>
                             </a>
-                            <button class="project-action-btn">
+                            <a href="#" class="project-action-btn" download title="Download APK">
                                 <i class="fas fa-download"></i>
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
