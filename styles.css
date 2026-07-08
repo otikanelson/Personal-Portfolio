@@ -1035,7 +1035,7 @@ a, button, .btn, .nav-link, .app-tile, .web-tile, .skill-card, input, textarea {
 }
 
 .web-tile {
-    flex: 1;
+    flex: 0.8;
     min-width: 0;
     position: relative;
     overflow: hidden;
@@ -1045,33 +1045,25 @@ a, button, .btn, .nav-link, .app-tile, .web-tile, .skill-card, input, textarea {
     box-shadow: 0 12px 40px rgba(0,0,0,0.5);
     transition: transform 0.45s cubic-bezier(0.4,0,0.2,1),
                 box-shadow 0.45s ease,
-                flex 0.45s cubic-bezier(0.4,0,0.2,1);
-    transform: rotateY(-6deg) scale(0.97);
+                flex 0.45s cubic-bezier(0.4,0,0.2,1),
+                opacity 0.45s ease;
+    transform: rotateY(-8deg) scale(0.95);
     transform-origin: center center;
+    opacity: 0.65;
 }
 
-.web-tile:last-child { transform: rotateY(6deg) scale(0.97); }
+.web-tile:last-child { transform: rotateY(8deg) scale(0.95); }
 
-/* straighten and expand on hover */
-.web-tile:hover {
+/* straighten and expand when active */
+.web-tile.active {
     transform: rotateY(0deg) scale(1) !important;
-    flex: 6;
+    flex: 5.5;
     box-shadow:
         0 24px 64px rgba(0,0,0,0.6),
         0 0 0 1px var(--border-bright),
         0 0 32px rgba(124,58,237,0.2);
     z-index: 2;
-}
-
-/* shrink non-hovered tiles slightly */
-.web-stage:hover .web-tile:not(:hover) {
-    flex: 0.8;
-    transform: rotateY(-8deg) scale(0.95);
-    opacity: 0.7;
-}
-
-.web-stage:hover .web-tile:last-child:not(:hover) {
-    transform: rotateY(8deg) scale(0.95);
+    opacity: 1;
 }
 
 .web-tile-preview {
@@ -1139,7 +1131,7 @@ a, button, .btn, .nav-link, .app-tile, .web-tile, .skill-card, input, textarea {
     filter: brightness(1) saturate(1);
 }
 
-.web-tile:hover .web-tile-preview img {
+.web-tile.active .web-tile-preview img {
     filter: brightness(0.9) saturate(1);
     transform: scale(1.04);
 }
@@ -1156,7 +1148,7 @@ a, button, .btn, .nav-link, .app-tile, .web-tile, .skill-card, input, textarea {
     transition: height 0.4s ease;
 }
 
-.web-tile:hover::after {
+.web-tile.active::after {
     height: 38%;
     background: linear-gradient(to top, rgba(10,10,20,0.88) 5%, transparent);
 }
@@ -1202,9 +1194,9 @@ a, button, .btn, .nav-link, .app-tile, .web-tile, .skill-card, input, textarea {
     z-index: 2;
 }
 
-.web-tile:hover .web-tile-info  { transform: translateY(0); opacity: 1; }
-.web-tile:hover .web-tile-label,
-.web-tile:hover .web-tile-logo  { opacity: 0; }
+.web-tile.active .web-tile-info  { transform: translateY(0); opacity: 1; }
+.web-tile.active .web-tile-label,
+.web-tile.active .web-tile-logo  { opacity: 0; }
 
 .web-tile-info h4 {
     font-size: 1.15rem;
@@ -1269,7 +1261,7 @@ a, button, .btn, .nav-link, .app-tile, .web-tile, .skill-card, input, textarea {
     transition: opacity 0.3s ease 0.15s, transform 0.3s ease 0.15s;
 }
 
-.web-tile:hover .web-tile-actions { opacity: 1; transform: translateY(0); }
+.web-tile.active .web-tile-actions { opacity: 1; transform: translateY(0); }
 
 /* vercel button */
 .btn-vercel {
@@ -2308,15 +2300,28 @@ textarea.form-input { resize: vertical; min-height: 120px; }
         flex-direction: column; 
         gap: 20px; 
     }
-    .web-tile { 
+    .web-tile, .web-tile.active { 
         transform: none !important; 
-        flex: 1; 
+        flex: none !important; 
+        opacity: 1 !important;
+        height: auto !important;
     }
-    .web-tile:hover { flex: 1; }
-    .web-stage:hover .web-tile:not(:hover) { 
-        flex: 1; 
-        transform: none; 
-        opacity: 1; 
+    .web-tile-preview {
+        height: 280px !important;
+    }
+    .web-tile-info {
+        position: relative !important;
+        transform: none !important;
+        opacity: 1 !important;
+        padding: 24px 20px 20px !important;
+    }
+    .web-tile-actions {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    .web-tile-label,
+    .web-tile-logo {
+        opacity: 0 !important;
     }
     
     /* Mobile row adjustments */
