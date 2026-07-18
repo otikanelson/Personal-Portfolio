@@ -24,29 +24,85 @@
         </ul>
     </nav>
 
-    <button class="menu-toggle">
+    <button class="menu-toggle" id="menuToggle">
         <i class="fas fa-bars"></i>
     </button>
+
+    <!-- Mobile Sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="mobile-sidebar" id="mobileSidebar">
+        <div class="mobile-sidebar-header">
+            <div class="mobile-sidebar-logo">
+                <img src="images/Bg.png" alt="Nelson Otika" class="mobile-sidebar-avatar">
+                <div>
+                    <div class="mobile-sidebar-user">Nelson Otika</div>
+                    <div class="mobile-sidebar-role">Software Engineer</div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="mobile-sidebar-nav">
+            <a href="index.html#hero" class="mobile-nav-link">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="index.html#mobile-portfolio" class="mobile-nav-link">
+                <i class="fas fa-briefcase"></i>
+                <span>Work</span>
+            </a>
+            <a href="projects.html" class="mobile-nav-link active">
+                <i class="fas fa-code"></i>
+                <span>Projects</span>
+            </a>
+            <a href="index.html#about" class="mobile-nav-link">
+                <i class="fas fa-user"></i>
+                <span>About</span>
+            </a>
+            <a href="index.html#contact" class="mobile-nav-link">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </nav>
+
+        <div class="mobile-sidebar-footer">
+            <div class="mobile-sidebar-social">
+                <a href="https://github.com/otikanelson" class="mobile-social-link" target="_blank" rel="noopener">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/otika-somtochukwu-0318622b2/" class="mobile-social-link" target="_blank" rel="noopener">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://www.behance.net/somtootika" class="mobile-social-link" target="_blank" rel="noopener">
+                    <i class="fab fa-behance"></i>
+                </a>
+                <a href="https://twitter.com/otikanelson" class="mobile-social-link" target="_blank" rel="noopener">
+                    <i class="fab fa-x-twitter"></i>
+                </a>
+            </div>
+            <a href="https://drive.google.com/drive/folders/1_PRJsUyyVbCnhK2Y_D75CgdQ4Yf0Y7KM" 
+               class="mobile-sidebar-resume" target="_blank" rel="noopener">
+                <i class="fas fa-download"></i>
+                <span>Resume</span>
+            </a>
+        </div>
+    </div>
 
     <!-- Projects Hero -->
     <section class="projects-hero">
         <div class="projects-hero-content">
-            <h1 class="projects-hero-title">All Projects</h1>
-            <p class="projects-hero-subtitle">A comprehensive showcase of my mobile, web, and desktop applications</p>
-            
             <!-- Filter Tabs -->
             <div class="project-filters" id="projectFilters">
                 <button class="filter-btn active" data-filter="all">
-                    <i class="fas fa-th"></i> All Projects
+                    <i class="fas fa-th"></i>
                 </button>
                 <button class="filter-btn" data-filter="mobile">
-                    <i class="fas fa-mobile-alt"></i> Mobile
+                    <i class="fas fa-mobile-alt"></i>
                 </button>
                 <button class="filter-btn" data-filter="web">
-                    <i class="fas fa-globe"></i> Web
+                    <i class="fas fa-globe"></i>
                 </button>
                 <button class="filter-btn" data-filter="desktop">
-                    <i class="fas fa-desktop"></i> Desktop
+                    <i class="fas fa-desktop"></i>
                 </button>
             </div>
         </div>
@@ -54,6 +110,12 @@
 
     <!-- Projects Grid -->
     <section class="projects-grid-section">
+        <!-- Dynamic Section Header -->
+        <div class="projects-section-header">
+            <h2 class="projects-section-title" id="projectsSectionTitle">All Projects</h2>
+            <p class="projects-section-subtitle" id="projectsSectionSubtitle">Explore all of my mobile, web, and desktop applications</p>
+        </div>
+        
         <div class="projects-container">
             
             <!-- Mobile Projects -->
@@ -424,7 +486,7 @@
         <p>&copy; 2026 Nelson Otika. All rights reserved.</p>
         <div class="footer-links">
             <a href="https://github.com/otikanelson" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
-            <a href="https://linkedin.com/in/nelson-otika" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.linkedin.com/in/otika-somtochukwu-0318622b2/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
             <a href="mailto:otikanelson29@gmail.com"><i class="fas fa-envelope"></i></a>
         </div>
     </footer>
@@ -435,12 +497,40 @@
         const filterBtns = document.querySelectorAll('.filter-btn');
         const projectCards = document.querySelectorAll('.project-card');
         const projectFilters = document.getElementById('projectFilters');
+        const sectionTitle = document.getElementById('projectsSectionTitle');
+        const sectionSubtitle = document.getElementById('projectsSectionSubtitle');
+
+        // Define content for each filter
+        const filterContent = {
+            all: {
+                title: 'All Projects',
+                subtitle: 'Explore all of my mobile, web, and desktop applications'
+            },
+            mobile: {
+                title: 'Mobile Applications',
+                subtitle: 'Cross-platform mobile apps built with React Native and Java'
+            },
+            web: {
+                title: 'Web Development',
+                subtitle: 'Full-stack web applications using React.js, Node.js, and modern frameworks'
+            },
+            desktop: {
+                title: 'Desktop Applications', 
+                subtitle: 'Professional desktop tools built with JavaFX and modern architectures'
+            }
+        };
 
         function filterProjects(filter) {
             // Update active button
             filterBtns.forEach(b => b.classList.remove('active'));
             const activeBtn = document.querySelector(`.filter-btn[data-filter="${filter}"]`);
             if (activeBtn) activeBtn.classList.add('active');
+
+            // Update section header content
+            if (filterContent[filter]) {
+                sectionTitle.textContent = filterContent[filter].title;
+                sectionSubtitle.textContent = filterContent[filter].subtitle;
+            }
 
             // Filter projects
             projectCards.forEach(card => {
