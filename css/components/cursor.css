@@ -1,0 +1,46 @@
+/* ═══════════════════════════════════════════════════════════════
+   CUSTOM CURSOR
+   ═══════════════════════════════════════════════════════════════ */
+
+.figma-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 10000;
+    mix-blend-mode: difference;
+    will-change: transform;
+    transition: opacity 0.3s ease;
+}
+
+.figma-cursor svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+    transition: transform 0.2s ease-out;
+    will-change: transform;
+}
+
+.figma-cursor.clicking svg {
+    transform: scale(0.9);
+    transition: transform 0.1s ease-out;
+}
+
+.figma-cursor.hovering svg {
+    transform: scale(1.2);
+    transition: transform 0.2s ease-out;
+}
+
+/* Hide default cursor on interactive elements */
+a,
+button,
+.btn,
+.nav-link,
+.app-tile,
+.web-tile,
+.skill-card,
+input,
+textarea {
+    cursor: none !important;
+}

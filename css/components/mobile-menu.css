@@ -1,0 +1,196 @@
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE MENU & SIDEBAR
+   ═══════════════════════════════════════════════════════════════ */
+
+.menu-toggle {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    background: rgba(17, 17, 34, 0.9);
+    backdrop-filter: blur(24px);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.menu-toggle:hover {
+    border-color: var(--border-bright);
+    background: var(--card-hover);
+    transform: scale(1.05);
+}
+
+.menu-toggle:active {
+    transform: scale(0.95);
+}
+
+.menu-toggle i {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+}
+
+.menu-toggle.active i {
+    transform: rotate(90deg);
+}
+
+.mobile-sidebar {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 280px;
+    height: 100vh;
+    background: rgba(17, 17, 34, 0.98);
+    backdrop-filter: blur(40px);
+    border-left: 1px solid var(--border);
+    z-index: 9999;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: none;
+    flex-direction: column;
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+    display: none;
+}
+
+.mobile-sidebar.open {
+    right: 0;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-sidebar-header {
+    padding: 80px 24px 32px;
+    border-bottom: 1px solid var(--border);
+}
+
+.mobile-sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.mobile-sidebar-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 1px solid var(--border);
+}
+
+.mobile-sidebar-user {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.mobile-sidebar-role {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.mobile-sidebar-nav {
+    flex: 1;
+    padding: 24px 0;
+}
+
+.mobile-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 24px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link.active {
+    color: var(--primary-light);
+    background: rgba(124, 58, 237, 0.1);
+    border-left-color: var(--primary-color);
+}
+
+.mobile-nav-link i {
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+}
+
+.mobile-sidebar-footer {
+    padding: 24px;
+    border-top: 1px solid var(--border);
+}
+
+.mobile-sidebar-social {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.mobile-social-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: rgba(124, 58, 237, 0.1);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border);
+}
+
+.mobile-social-link:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(124, 58, 237, 0.3);
+}
+
+.mobile-sidebar-resume {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    background: var(--gradient-1);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.3);
+}
+
+.mobile-sidebar-resume:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
+}

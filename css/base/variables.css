@@ -1,0 +1,32 @@
+/* ═══════════════════════════════════════════════════════════════
+   CSS VARIABLES & ROOT STYLES
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+    --primary-color: #7c3aed;
+    --primary-light: #a78bfa;
+    --accent-color: #06b6d4;
+    --accent-pink: #ec4899;
+    --accent-orange: #f97316;
+    --dark-bg: #0a0a14;
+    --dark-surface: #111122;
+    --card-bg: #16162a;
+    --card-hover: #1e1e38;
+    --text-primary: #f1f0ff;
+    --text-secondary: #8b8aaa;
+    --text-muted: #4a4a6a;
+    --border: rgba(124, 58, 237, 0.2);
+    --border-bright: rgba(124, 58, 237, 0.5);
+    --gradient-1: linear-gradient(135deg, #7c3aed 0%, #a78bfa 50%, #06b6d4 100%);
+    --gradient-art: linear-gradient(135deg, #7c3aed 0%, #ec4899 50%, #f97316 100%);
+    --shadow-glow: 0 0 40px rgba(124, 58, 237, 0.25);
+    --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* Light theme support */
+[data-theme="light"] {
+    --dark-bg: #ffffff;
+    --card-bg: #f8fafc;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+}

@@ -1,0 +1,59 @@
+/* ═══════════════════════════════════════════════════════════════
+   ACCESSIBILITY & FOCUS STATES
+   ═══════════════════════════════════════════════════════════════ */
+
+.keyboard-navigation *:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.btn:focus,
+.form-input:focus,
+.tab-button:focus,
+.nav-link:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.nav-link:focus-visible,
+.btn:focus-visible,
+.tab-button:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    background: rgba(99, 102, 241, 0.1);
+}
+
+/* Selection styles */
+::selection {
+    background: var(--primary-color);
+    color: white;
+}
+
+::-moz-selection {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    :root {
+        --text-secondary: #e5e5e5;
+        --border-color: #666666;
+    }
+    
+    .skill-card,
+    .stat-card,
+    .portfolio-card,
+    .contact-form {
+        border-color: var(--border-color);
+    }
+}

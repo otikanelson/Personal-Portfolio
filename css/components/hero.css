@@ -1,0 +1,97 @@
+/* ═══════════════════════════════════════════════════════════════
+   HERO SECTION
+   ═══════════════════════════════════════════════════════════════ */
+
+.hero {
+    min-height: 120vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 80px;
+    position: relative;
+    overflow: hidden;
+    background-image: url('../../images/Hero_bg.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right center;
+}
+
+.hero-container {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 100px;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content {
+    animation: fadeInUp 0.9s ease-out;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(124, 58, 237, 0.12);
+    border: 1px solid rgba(124, 58, 237, 0.35);
+    border-radius: 50px;
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 32px;
+    color: var(--primary-light);
+    letter-spacing: 0.3px;
+    position: relative;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15);
+}
+
+.hero-badge::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--primary-light);
+    border-radius: 50%;
+    animation: blink 2s ease-in-out infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+.hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.2rem, 6vw, 5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 28px;
+    background: var(--gradient-art);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: 50px;
+    line-height: 1.7;
+    max-width: 520px;
+}
+
+.hero-cta {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.hero-image {
+    position: relative;
+    animation: fadeInRight 0.9s ease-out 0.2s both;
+    z-index: 2;
+}

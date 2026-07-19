@@ -1,0 +1,115 @@
+/* ═══════════════════════════════════════════════════════════════
+   BUTTONS
+   ═══════════════════════════════════════════════════════════════ */
+
+.btn {
+    padding: 13px 26px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+}
+
+.btn:hover::after {
+    transform: translateX(100%);
+}
+
+.btn-primary {
+    background: var(--gradient-1);
+    color: white;
+    box-shadow: 0 6px 24px rgba(124, 58, 237, 0.4);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba(124, 58, 237, 0.5);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover {
+    background: rgba(124, 58, 237, 0.1);
+    border-color: var(--border-bright);
+    transform: translateY(-2px);
+}
+
+.btn-vercel {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-vercel:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.btn-download {
+    background: rgba(1, 135, 95, 0.15);
+    color: #34d399;
+    border: 1px solid rgba(1, 135, 95, 0.4);
+}
+
+.btn-download:hover {
+    background: rgba(1, 135, 95, 0.25);
+    border-color: #34d399;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(1, 135, 95, 0.25);
+}
+
+.btn-profile-primary {
+    background: #ffffff;
+    color: #000000;
+    padding: 12px 24px;
+    border-radius: 24px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s ease;
+}
+
+.btn-profile-primary:hover {
+    background: #f3f4f6;
+}
+
+.btn-profile-secondary {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 24px;
+    font-weight: 500;
+    font-size: 15px;
+    text-decoration: none;
+    transition: background 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.btn-profile-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+}

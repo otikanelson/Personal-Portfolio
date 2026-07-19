@@ -1,0 +1,60 @@
+/* ═══════════════════════════════════════════════════════════════
+   BACKGROUND EFFECTS
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Circuit + Ink Background */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(124, 58, 237, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124, 58, 237, 0.07) 1px, transparent 1px),
+        radial-gradient(ellipse 700px 500px at 15% 20%, rgba(124, 58, 237, 0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 500px 700px at 85% 10%, rgba(236, 72, 153, 0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 600px 400px at 5% 80%, rgba(249, 115, 22, 0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 400px 600px at 90% 85%, rgba(6, 182, 212, 0.10) 0%, transparent 60%);
+    background-size: 50px 50px, 50px 50px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Ink splatter dots */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+        radial-gradient(ellipse 48px 32px at 12% 18%, rgba(124, 58, 237, 0.55) 0%, transparent 65%),
+        radial-gradient(ellipse 28px 44px at 88% 12%, rgba(236, 72, 153, 0.45) 0%, transparent 65%),
+        radial-gradient(ellipse 56px 28px at 22% 78%, rgba(249, 115, 22, 0.40) 0%, transparent 65%),
+        radial-gradient(ellipse 36px 52px at 78% 82%, rgba(6, 182, 212, 0.45) 0%, transparent 65%),
+        radial-gradient(ellipse 20px 30px at 48% 8%, rgba(124, 58, 237, 0.50) 0%, transparent 65%),
+        radial-gradient(ellipse 32px 20px at 62% 92%, rgba(236, 72, 153, 0.40) 0%, transparent 65%),
+        radial-gradient(circle 10px at 35% 42%, rgba(6, 182, 212, 0.70) 0%, transparent 55%),
+        radial-gradient(circle 7px at 68% 28%, rgba(124, 58, 237, 0.80) 0%, transparent 55%),
+        radial-gradient(circle 12px at 18% 55%, rgba(249, 115, 22, 0.60) 0%, transparent 55%),
+        radial-gradient(circle 6px at 82% 48%, rgba(236, 72, 153, 0.70) 0%, transparent 55%),
+        radial-gradient(circle 4px at 55% 65%, rgba(6, 182, 212, 0.80) 0%, transparent 55%),
+        radial-gradient(circle 5px at 28% 88%, rgba(124, 58, 237, 0.70) 0%, transparent 55%),
+        radial-gradient(circle 3px at 72% 72%, rgba(249, 115, 22, 0.80) 0%, transparent 55%),
+        radial-gradient(circle 4px at 42% 22%, rgba(236, 72, 153, 0.75) 0%, transparent 55%);
+    pointer-events: none;
+    z-index: 0;
+    animation: inkDrift 30s ease-in-out infinite;
+}
+
+@keyframes inkDrift {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.75;
+    }
+    33% {
+        transform: translate(6px, -8px) scale(1.03);
+        opacity: 0.9;
+    }
+    66% {
+        transform: translate(-4px, 5px) scale(0.97);
+        opacity: 0.8;
+    }
+}
