@@ -1,28 +1,24 @@
 /* ═══════════════════════════════════════════════════════════════
-   SKILLS SECTION — GIT GRAPH (horizontal)
-   Branch colors reuse the exact accents already used for the
-   mobile / web / desktop portfolio rows (rgba(124,58,237) /
-   rgba(6,182,212) / rgba(236,72,153)), so this section reads as
-   part of the same visual system instead of a separate module.
+   SKILLS SECTION — GIT GRAPH (Framed Desktop Conveyor + Mobile Grid)
    ═══════════════════════════════════════════════════════════════ */
 
 .skills-graph-section {
-    --branch-core: #7c3aed;
-    --branch-extended: #06b6d4;
-    --branch-also: #ec4899;
+    --branch-core: #7c3aed;       /* purple */
+    --branch-extended: #06b6d4;   /* cyan   */
+    --branch-also: #ec4899;       /* pink   */
 
-    /* was: padding: 120px 0; */
-    padding: clamp(24px, 4vh, 48px) 0;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-
+    padding: 24px 0;
+    min-height: auto;
+    max-height: 100vh;
     background: var(--dark-bg);
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
 .skills-graph-section.in-view {
@@ -31,101 +27,112 @@
 }
 
 .skills-graph-container {
-    max-width: 980px;
+    max-width: 1280px;
     width: 100%;
+    height: 700px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-/* tighten header spacing so it doesn't eat the vertical budget */
-.skills-graph-container .section-header {
-    margin-bottom: clamp(16px, 3vh, 32px);
+.skills-graph-section .section-header {
+    margin-bottom: 24px;
     text-align: center;
 }
 
-/* ── Body: frozen lane labels + scrollable timeline ── */
+.skills-graph-section .section-title {
+    font-size: 2.2rem;
+    margin-bottom: 6px;
+}
+
+.skills-graph-section .section-subtitle {
+    font-size: 0.95rem;
+    margin: 0 auto;
+    max-width: 600px;
+    color: var(--text-secondary);
+}
+
+/* ── Framed Graph Body Container (Desktop) ── */
 .skills-graph-body {
     position: relative;
     display: flex;
-    align-items: flex-start;
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    background: var(--card-bg);
+    flex-direction: column;
+    width: 100%;
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
     overflow: hidden;
 }
 
-.skills-graph-lane-labels {
-    position: relative;
-    flex-shrink: 0;
-    width: 92px;
-    border-right: 1px solid var(--border);
-    background: var(--card-bg);
-    z-index: 2;
-}
-
-.skills-graph-lane-label {
-    position: absolute;
-    left: 14px;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-family: ui-monospace, SFMono-Regular, "Roboto Mono", Menlo, Consolas, monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.02em;
-    white-space: nowrap;
-}
-
-.lane-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    flex-shrink: 0;
-}
-
 .skills-graph-scroll {
-    flex: 1;
+    width: 100%;
     min-width: 0;
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: var(--border) transparent;
-    padding: 4px 0;
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
 }
 
-.skills-graph-scroll::-webkit-scrollbar {
-    height: 5px;
+.skills-graph-scroll:hover .skills-graph-track {
+    animation-play-state: paused;
 }
 
-.skills-graph-scroll::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: 3px;
+/* ── Conveyor Track & Keyframes ── */
+.skills-graph-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+    animation: continuousScroll 28s linear infinite;
+}
+
+@keyframes continuousScroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 .skills-graph-canvas {
     position: relative;
+    flex-shrink: 0;
 }
 
 .graph-line {
     fill: none;
-    stroke-width: 2;
+    stroke-width: 3;
     stroke-linecap: round;
-    transition: stroke-dashoffset 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+    transition: stroke-dashoffset 0.8s cubic-bezier(0.65, 0, 0.35, 1);
     opacity: 0.85;
 }
 
-/* ── Nodes: small icon sitting directly on the line ── */
+/* ── Tier Inline Header Labels (Desktop) ── */
+.skill-branch-label {
+    position: absolute;
+    transform: translateY(-100%);
+    font-family: ui-monospace, SFMono-Regular, "Roboto Mono", Menlo, Consolas, monospace;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: lowercase;
+    padding-bottom: 8px;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+/* ── Skill Nodes (Desktop) ── */
 .skill-node-h {
     position: absolute;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 6px;
-    width: 0; /* children center on the exact x via transform */
+    justify-content: center;
     transform: translate(-50%, -50%) scale(0.6);
     opacity: 0;
     transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 2;
 }
 
 .skills-graph-section.in-view .skill-node-h {
@@ -135,14 +142,16 @@
 
 .skill-node-h-icon {
     border-radius: 50%;
-    background: var(--dark-bg);
-    border: 2px solid;
+    /* Change background from var(--dark-bg) to white or a light surface */
+    background: #d1d1d1; 
+    border: 2.5px solid;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
-    padding: 4px;
-    transition: transform 0.25s ease;
+    padding: 7px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
 }
 
 .skill-node-h-icon img {
@@ -153,53 +162,103 @@
 
 .skill-node-h:hover .skill-node-h-icon {
     transform: scale(1.25);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
 }
 
-.skill-node-h-label {
-    position: absolute;
-    top: calc(100% + 4px);
-    font-size: 0.62rem;
-    line-height: 1.15;
-    color: var(--text-secondary);
-    text-align: center;
-    width: 62px;
-    white-space: normal;
-    transition: color 0.25s ease;
+/* ── Keyframe Animations ── */
+@keyframes graphPulse {
+    0% { opacity: 0.75; }
+    50% { opacity: 1; }
+    100% { opacity: 0.75; }
 }
 
-.skill-node-h:hover .skill-node-h-label {
-    color: var(--text-primary);
+.skills-graph-section.in-view .graph-line {
+    animation: graphPulse 4s ease-in-out infinite alternate;
 }
 
-/* ── Reduced motion ── */
-@media (prefers-reduced-motion: reduce) {
-    .skills-graph-section,
-    .skill-node-h,
-    .graph-line {
-        transition: none !important;
-        opacity: 1 !important;
-        transform: translate(-50%, -50%) !important;
-    }
-}
-
-/* ── Mobile ── */
-@media (max-height: 700px) {
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE LAYOUT (@media max-width: 640px)
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
     .skills-graph-section {
-        min-height: auto;
-        padding: 32px 0;
+        padding: 32px 0 60px; /* Adds healthy bottom breathing room */
+        max-height: none !important; /* Removes vertical capping */
+        overflow: visible; /* Prevents clipping content at the bottom */
     }
 
-    .skills-graph-lane-labels {
-        width: 64px;
+    .skills-graph-container {
+        max-height: none !important; /* Ensures the container grows with content */
+        margin-bottom: 70px;
     }
 
-    .skills-graph-lane-label {
-        left: 10px;
-        font-size: 0.6rem;
+    .skills-graph-body {
+        border: none;
+        background: transparent;
+        padding: 0;
+        gap: 16px;
+        overflow: visible;
     }
 
-    .skill-node-h-label {
-        font-size: 0.56rem;
-        width: 48px;
+    .skills-graph-scroll {
+        mask-image: none;
+        -webkit-mask-image: none;
+    }
+
+    /* Categorized Mobile Card */
+    .mobile-skill-group {
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: var(--card-bg);
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .mobile-group-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: ui-monospace, SFMono-Regular, "Roboto Mono", Menlo, Consolas, monospace;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: lowercase;
+        letter-spacing: 0.04em;
+    }
+
+    .mobile-group-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+    }
+
+    .mobile-skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 10px;
+    }
+
+    .mobile-skill-pill {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 10px;
+        padding: 6px 10px;
+    }
+
+    .mobile-skill-pill img {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+    }
+
+    .mobile-skill-name {
+        font-size: 0.75rem;
+        color: var(--text-primary);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }

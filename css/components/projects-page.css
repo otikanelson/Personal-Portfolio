@@ -1,154 +1,124 @@
 /* ═══════════════════════════════════════════════════════════════
    PROJECTS PAGE STYLES
-   Styles for the standalone projects.html page
    ═══════════════════════════════════════════════════════════════ */
 
-/* Projects Hero */
-.projects-hero {
-    min-height: 50vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 120px 40px 60px;
-    position: relative;
-}
-
-.projects-hero-content {
-    text-align: center;
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.projects-hero-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 700;
-    margin-bottom: 16px;
-    background: var(--gradient-art);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.projects-hero-subtitle {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    margin-bottom: 32px;
-    line-height: 1.6;
-}
-
-/* Project Filters */
-.project-filters {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    flex-wrap: wrap;
-    max-width: 900px;
-    transition: all 0.3s ease;
-}
-
-/* Sticky filters (cloned version) */
-#stickyFilters.sticky {
+/* ── Page layout: sidebar + content side by side ── */
+.filter-sidebar {
     position: fixed;
-    top: 70px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
-    background: transparent;
-    padding: 12px 24px;
-    border-radius: 50px;
-    backdrop-filter: blur(5px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--border);
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 100vh;
+    z-index: 90;
     display: flex;
-    gap: 12px;
+    flex-direction: column;
     justify-content: center;
-    flex-wrap: wrap;
-    width: auto;
-    max-width: none;
+    pointer-events: none; /* let clicks pass through the empty areas */
 }
 
-#stickyFilters.sticky .filter-btn {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--text-secondary);
-    width: 45px;
-    height: 45px;
-    padding: 12px;
-}
-
-#stickyFilters.sticky .filter-btn:hover {
-    background: rgba(124, 58, 237, 0.1);
-    border-color: var(--border-bright);
-    color: var(--primary-light);
-}
-
-#stickyFilters.sticky .filter-btn.active {
-    background: var(--gradient-1);
-    color: white;
-    border-color: var(--primary-color);
-    box-shadow: 0 6px 24px rgba(124, 58, 237, 0.4);
-}
-
-.filter-btn {
-    padding: 14px;
-    border-radius: 50%;
-    background: transparent;
-    color: var(--text-secondary);
-    border: 1px solid var(--border);
-    font-weight: 600;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
+.filter-sidebar-inner {
+    pointer-events: all;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 20px 0;
+    background: rgba(17, 17, 34, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-right: 1px solid var(--border);
+    border-radius: 0 16px 16px 0;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3);
+    width: 100%;
+}
+
+.filter-sidebar-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+    opacity: 0.6;
+}
+
+.filter-sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 0 10px;
+}
+
+/* Filter buttons */
+.filter-btn {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 50px;
-    height: 50px;
+    gap: 4px;
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    padding: 0;
+}
+
+.filter-btn i {
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.filter-btn span {
+    font-size: 0.55rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1;
 }
 
 .filter-btn:hover {
-    background: rgba(124, 58, 237, 0.1);
+    background: rgba(124, 58, 237, 0.12);
     border-color: var(--border-bright);
     color: var(--primary-light);
-    transform: translateY(-2px);
+    transform: translateX(3px);
 }
 
 .filter-btn.active {
     background: var(--gradient-1);
     color: white;
     border-color: var(--primary-color);
-    box-shadow: 0 6px 24px rgba(124, 58, 237, 0.4);
+    box-shadow: 0 4px 16px rgba(124, 58, 237, 0.4);
 }
 
-.filter-btn i {
-    font-size: 1rem;
-}
-
-/* Projects Grid */
+/* Shift the grid content right to clear the sidebar */
 .projects-grid-section {
-    padding: 60px 40px 100px;
+    padding: 100px 40px 100px calc(80px + 32px);
     background: var(--dark-bg);
-    min-height: 80vh;
+    min-height: 100vh;
 }
 
 /* Dynamic Section Header */
 .projects-section-header {
     text-align: center;
-    margin-bottom: 60px;
-    padding: 0 20px;
+    margin-bottom: 48px;
 }
 
 .projects-section-title {
     font-family: 'Space Grotesk', sans-serif;
     font-size: clamp(1.8rem, 3vw, 2.5rem);
     font-weight: 700;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     background: var(--gradient-art);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    transition: all 0.3s ease;
+    transition: opacity 0.3s ease;
 }
 
 .projects-section-subtitle {
@@ -157,14 +127,14 @@
     line-height: 1.6;
     max-width: 500px;
     margin: 0 auto;
-    transition: all 0.3s ease;
+    transition: opacity 0.3s ease;
 }
 
+/* Projects grid */
 .projects-container {
     max-width: 1400px;
     margin: 0 auto;
     display: grid;
-    /* Reduced min width from 280px to 220px to make desktop cards naturally smaller */
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 18px;
 }
@@ -188,7 +158,6 @@
 .project-card-image {
     position: relative;
     width: 100%;
-    /* Compact image height for desktop */
     height: 140px;
     overflow: hidden;
     background: var(--dark-surface);
@@ -306,6 +275,7 @@
     margin-bottom: 10px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -318,7 +288,7 @@
 
 /* Projects Footer */
 .projects-footer {
-    padding: 40px 40px;
+    padding: 40px 40px 40px calc(80px + 32px);
     background: var(--dark-surface);
     border-top: 1px solid var(--border);
     text-align: center;
@@ -363,74 +333,71 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   MOBILE RESPONSIVE OVERRIDES
+   MOBILE — sidebar becomes a bottom bar
    ═══════════════════════════════════════════════════════════════ */
 
 @media (max-width: 768px) {
-    /* 1. Hero / Section Main Title & Subtitle */
-    .projects-hero {
-        padding: 80px 16px 20px !important;
+    /* Sidebar becomes a compact bottom bar */
+    .filter-sidebar {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        justify-content: flex-end;
     }
 
-    .projects-hero-title,
-    .projects-section-title {
-        font-size: 1.4rem !important; /* Scaled down from 1.6rem / 2rem */
-        margin-bottom: 8px !important;
+    .filter-sidebar-inner {
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+        border-right: none;
+        border-top: 1px solid var(--border);
+        border-radius: 16px 16px 0 0;
+        padding: 10px 16px;
+        gap: 8px;
     }
 
-    .projects-hero-subtitle,
-    .projects-section-subtitle {
-        font-size: 0.8rem !important; /* Compact subtitle */
-        line-height: 1.4 !important;
+    .filter-sidebar-label {
+        display: none;
     }
 
-    /* 2. Section Sub-headers ("Featured Mobile Projects" & "View All" Button) */
-    .projects-section-header {
-        margin-bottom: 20px !important;
-        padding: 0 8px !important;
-    }
-
-    /* Target section sub-titles like "Featured Mobile Projects" */
-    .projects-section-header h2,
-    .projects-section-header h3 {
-        font-size: 1.1rem !important;
-        line-height: 1.2 !important;
-    }
-
-    .projects-section-header p {
-        font-size: 0.75rem !important;
-    }
-
-    /* Target "View All" Pill Button */
-    .projects-section-header a,
-    .projects-section-header .view-all-btn,
-    .projects-section-header [class*="view-all"] {
-        padding: 6px 12px !important;
-        font-size: 0.72rem !important; /* Reduced button font size */
-        height: auto !important;
-        min-height: unset !important;
-        white-space: nowrap !important;
-    }
-
-    /* 3. Filter Buttons Bar */
-    .project-filters {
-        gap: 8px !important;
+    .filter-sidebar-nav {
+        flex-direction: row;
+        padding: 0;
+        gap: 8px;
+        width: auto;
     }
 
     .filter-btn {
-        width: 38px !important;
-        height: 38px !important;
-        padding: 0 !important;
-        font-size: 0.75rem !important;
+        width: 54px;
+        height: 46px;
+        border-radius: 10px;
     }
 
-    .filter-btn i {
-        font-size: 0.8rem !important;
+    .filter-btn:hover {
+        transform: translateY(-2px);
     }
 
-    /* 4. Project Cards & Grid */
+    /* Content no longer needs left offset — needs bottom padding for the bar */
     .projects-grid-section {
-        padding: 24px 12px 40px !important;
+        padding: 80px 12px 100px 12px !important;
+    }
+
+    .projects-footer {
+        padding: 30px 16px 90px 16px !important;
+    }
+
+    .projects-section-header {
+        margin-bottom: 20px;
+    }
+
+    .projects-section-title {
+        font-size: 1.4rem;
+    }
+
+    .projects-section-subtitle {
+        font-size: 0.8rem;
     }
 
     .projects-container {
@@ -439,7 +406,7 @@
     }
 
     .project-card-image {
-        height: 90px !important; /* Compact card image height */
+        height: 90px !important;
     }
 
     .project-card-content {
@@ -447,8 +414,7 @@
     }
 
     .project-card-title {
-        font-size: 0.78rem !important; /* Reduced card title size ("AjoSave") */
-        line-height: 1.2 !important;
+        font-size: 0.78rem !important;
     }
 
     .project-card-description {
@@ -456,28 +422,19 @@
         margin-bottom: 6px !important;
     }
 
-    /* Tech Tags / Badges inside cards ("React Native", "Expo") */
     .project-category-badge,
-    .project-card-tags span,
-    .project-card-tags .tag {
-        font-size: 0.55rem !important; /* Extra small tags so they fit side-by-side */
+    .project-card-tags span {
+        font-size: 0.55rem !important;
         padding: 2px 6px !important;
-        border-radius: 6px !important;
     }
 
     .project-action-btn {
         width: 32px !important;
         height: 32px !important;
     }
-
-    .project-action-btn i {
-        font-size: 0.75rem !important;
-    }
 }
 
-/* 5. Extra Small Mobile Adjustments (< 480px) */
 @media (max-width: 480px) {
-    .projects-hero-title,
     .projects-section-title {
         font-size: 1.25rem !important;
     }

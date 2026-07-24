@@ -1,18 +1,11 @@
 // ═══════════════════════════════════════════════════════════════
-// SKILLS SECTION — GIT GRAPH (horizontal)
-// Renders skills as a horizontal commit graph, closer to GitHub's
-// own "Network" graph view than the CLI `git log --graph` style:
-// Core Stack runs as the main lane (top), Extended Stack and Also
-// Worked With fork off into their own parallel lanes below it.
-// Lane labels stay fixed on the left; the timeline itself scrolls
-// horizontally when it overflows the viewport.
+// SKILLS SECTION — GIT GRAPH (Desktop Conveyor Carousel + Mobile Grid)
 // ═══════════════════════════════════════════════════════════════
 
-// ── Real stack, pulled from the existing skill cards ──
 const SKILLS_DATA = [
     {
         tier: 'core',
-        label: 'core',
+        label: 'core tools',
         skills: [
             { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
             { name: 'React Native', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
@@ -28,7 +21,7 @@ const SKILLS_DATA = [
     },
     {
         tier: 'extended',
-        label: 'extended',
+        label: 'extended tools',
         skills: [
             { name: 'Next.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg' },
             { name: 'PostgreSQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
@@ -40,7 +33,7 @@ const SKILLS_DATA = [
     },
     {
         tier: 'also',
-        label: 'experimental',
+        label: 'experimental tools',
         skills: [
             { name: 'Firebase', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg' },
             { name: 'Bootstrap', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg' },
@@ -59,25 +52,11 @@ const LANE_INDEX = { core: 0, extended: 1, also: 2 };
 const TIER_BY_LANE = { 0: 'core', 1: 'extended', 2: 'also' };
 const LANE_TEXT = { core: 'core', extended: 'extended', also: 'experimental' };
 
-const BREAKPOINT = 640;
-
-function getMetrics() {
-    const isMobile = window.innerWidth <= BREAKPOINT;
-    return {
-        isMobile,
-        laneGap: isMobile ? 84 : 104,     // vertical distance between lanes
-        nodeGap: isMobile ? 50 : 68,      // horizontal distance between commits
-        xStart: isMobile ? 30 : 40,
-        yStart: isMobile ? 30 : 36,
-        iconSize: isMobile ? 22 : 28,
-    };
-}
-
-function flattenItems() {
+function buildItems() {
     const items = [];
-    SKILLS_DATA.forEach((tier) => {
-        tier.skills.forEach((skill) => {
-            items.push({ ...skill, tier: tier.tier, lane: LANE_INDEX[tier.tier] });
+    SKILLS_DATA.forEach((group) => {
+        group.skills.forEach((skill) => {
+            items.push({ ...skill, tier: group.tier, lane: LANE_INDEX[group.tier] });
         });
     });
     return items;
@@ -89,51 +68,21 @@ function svgEl(tag, attrs) {
     return el;
 }
 
-function buildGraph(mount) {
-    const m = getMetrics();
-    const items = flattenItems();
+function renderSingleCanvas(canvasContainer, items, canvasWidth, canvasHeight, nodeGap, iconSize, laneGap, yStart, X_PAD) {
     const lastIndex = items.length - 1;
+    const laneY = (lane) => yStart + lane * laneGap;
+    const itemX = (i) => X_PAD + i * nodeGap;
 
-    const laneY = (lane) => m.yStart + lane * m.laneGap;
-    const itemX = (i) => m.xStart + i * m.nodeGap;
-
-    const canvasWidth = itemX(lastIndex) + m.xStart;
-    const canvasHeight = m.yStart * 2 + 2 * m.laneGap;
-
-    // First index at which each lane appears (its fork point)
     const firstIndexOfLane = {};
     items.forEach((item, i) => {
         if (!(item.lane in firstIndexOfLane)) firstIndexOfLane[item.lane] = i;
     });
 
-    mount.innerHTML = `
-        <div class="skills-graph-lane-labels" style="height:${canvasHeight}px;">
-            ${[0, 1, 2].map((lane) => `
-                <div class="skills-graph-lane-label" style="top:${laneY(lane)}px; color:${COLUMN_VAR[TIER_BY_LANE[lane]]}">
-                    <span class="lane-dot" style="background:${COLUMN_VAR[TIER_BY_LANE[lane]]}"></span>
-                    <span>${LANE_TEXT[TIER_BY_LANE[lane]]}</span>
-                </div>
-            `).join('')}
-        </div>
-        <div class="skills-graph-scroll">
-            <div class="skills-graph-canvas" style="width:${canvasWidth}px; height:${canvasHeight}px;"></div>
-        </div>
-    `;
+    const svg = svgEl('svg', { viewBox: `0 0 ${canvasWidth} ${canvasHeight}` });
+    Object.assign(svg.style, { position: 'absolute', inset: '0', width: '100%', height: '100%' });
+    canvasContainer.appendChild(svg);
 
-    const canvas = mount.querySelector('.skills-graph-canvas');
-
-    const svg = svgEl('svg', {
-        viewBox: `0 0 ${canvasWidth} ${canvasHeight}`,
-        preserveAspectRatio: 'none',
-    });
-    svg.style.position = 'absolute';
-    svg.style.inset = '0';
-    svg.style.width = '100%';
-    svg.style.height = '100%';
-    svg.style.overflow = 'visible';
-    canvas.appendChild(svg);
-
-    // Straight lane lines: from each lane's fork point to the last item
+    // Branch main paths
     Object.keys(firstIndexOfLane).forEach((laneKey) => {
         const lane = Number(laneKey);
         const y = laneY(lane);
@@ -142,11 +91,10 @@ function buildGraph(mount) {
         const path = svgEl('path', { d: `M ${x1} ${y} L ${x2} ${y}` });
         path.classList.add('graph-line');
         path.style.stroke = COLUMN_VAR[TIER_BY_LANE[lane]];
-        path.dataset.delay = String(firstIndexOfLane[lane] * 40);
         svg.appendChild(path);
     });
 
-    // Curved fork connectors where a lane branches off the core lane
+    // Fork curves
     Object.keys(firstIndexOfLane).forEach((laneKey) => {
         const lane = Number(laneKey);
         if (lane === 0) return;
@@ -160,19 +108,27 @@ function buildGraph(mount) {
         const path = svgEl('path', { d });
         path.classList.add('graph-line');
         path.style.stroke = COLUMN_VAR[TIER_BY_LANE[lane]];
-        path.dataset.delay = String(forkIndex * 40);
         svg.appendChild(path);
     });
 
-    // Prime dashoffset for the draw-in animation
-    svg.querySelectorAll('path').forEach((path) => {
-        const len = path.getTotalLength();
-        path.style.strokeDasharray = String(len);
-        path.style.strokeDashoffset = String(len);
-        path.style.transitionDelay = `${path.dataset.delay}ms`;
+    // Section Labels inline above branch start
+    Object.keys(firstIndexOfLane).forEach((laneKey) => {
+        const lane = Number(laneKey);
+        const startX = itemX(firstIndexOfLane[lane]);
+        const startY = laneY(lane);
+        const color = COLUMN_VAR[TIER_BY_LANE[lane]];
+
+        const branchLabel = document.createElement('div');
+        branchLabel.className = 'skill-branch-label';
+        branchLabel.style.left = `${startX}px`;
+        branchLabel.style.top = `${startY - (iconSize / 2) - 4}px`;
+        branchLabel.style.color = color;
+        branchLabel.textContent = LANE_TEXT[TIER_BY_LANE[lane]];
+
+        canvasContainer.appendChild(branchLabel);
     });
 
-    // Nodes: small circular icon sitting on the line, label below it
+    // Skill icon nodes
     items.forEach((item, i) => {
         const color = COLUMN_VAR[TIER_BY_LANE[item.lane]];
         const x = itemX(i);
@@ -180,17 +136,78 @@ function buildGraph(mount) {
 
         const node = document.createElement('div');
         node.className = 'skill-node-h';
+        node.title = item.name;
         node.style.left = `${x}px`;
         node.style.top = `${y}px`;
-        node.style.transitionDelay = `${i * 40}ms`;
+
         node.innerHTML = `
-            <span class="skill-node-h-icon" style="border-color:${color}; width:${m.iconSize}px; height:${m.iconSize}px;">
-                <img src="${item.icon}" alt="${item.name}" loading="lazy">
+            <span class="skill-node-h-icon" style="border-color:${color}; width:${iconSize}px; height:${iconSize}px;">
+                <img src="${item.icon}" alt="${item.name}">
             </span>
-            <span class="skill-node-h-label">${item.name}</span>
         `;
-        canvas.appendChild(node);
+        canvasContainer.appendChild(node);
     });
+}
+
+function buildGraph(mount) {
+    const isMobile = window.innerWidth <= 640;
+
+    if (isMobile) {
+        // ── MOBILE LAYOUT (Categorized Skill Cards) ──
+        mount.innerHTML = SKILLS_DATA.map((group) => `
+            <div class="mobile-skill-group">
+                <div class="mobile-group-header" style="color:${COLUMN_VAR[group.tier]}">
+                    <span class="mobile-group-dot" style="background:${COLUMN_VAR[group.tier]}"></span>
+                    <span>${LANE_TEXT[group.tier]}</span>
+                </div>
+                <div class="mobile-skills-grid">
+                    ${group.skills.map((skill) => `
+                        <div class="mobile-skill-pill">
+                            <img src="${skill.icon}" alt="${skill.name}" loading="lazy">
+                            <span class="mobile-skill-name">${skill.name}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `).join('');
+
+    } else {
+        // ── DESKTOP LAYOUT (Conveyor Belt Carousel) ──
+        const items = buildItems();
+        const lastIndex = items.length - 1;
+        // Inside buildGraph() under the desktop section:
+        // Inside buildGraph() under the desktop layout section:
+
+        const X_PAD = 40;
+        const nodeGap = 90;
+        const iconSize = 56;
+        const laneGap = 110;  /* Increased from 72 to spread the branches vertically */
+        const yStart = 70;    /* Increased from 48 to give more top padding above the top branch */
+        const canvasWidth = X_PAD * 2 + lastIndex * nodeGap;
+        const canvasHeight = yStart * 2 + 2 * laneGap;
+
+        mount.innerHTML = `
+            <div class="skills-graph-scroll">
+                <div class="skills-graph-track">
+                    <div class="skills-graph-canvas canvas-orig" style="width:${canvasWidth}px; height:${canvasHeight}px;"></div>
+                    <div class="skills-graph-canvas canvas-dup" style="width:${canvasWidth}px; height:${canvasHeight}px;"></div>
+                </div>
+            </div>
+        `;
+
+        const canvasOrig = mount.querySelector('.canvas-orig');
+        const canvasDup = mount.querySelector('.canvas-dup');
+
+        renderSingleCanvas(canvasOrig, items, canvasWidth, canvasHeight, nodeGap, iconSize, laneGap, yStart, X_PAD);
+        renderSingleCanvas(canvasDup, items, canvasWidth, canvasHeight, nodeGap, iconSize, laneGap, yStart, X_PAD);
+
+        // Set SVG path dash offsets for desktop animation
+        mount.querySelectorAll('.graph-line').forEach((path) => {
+            const len = path.getTotalLength();
+            path.style.strokeDasharray = String(len);
+            path.style.strokeDashoffset = String(len);
+        });
+    }
 }
 
 export function initSkillsGitGraph(selector = '#skills-graph-body') {
@@ -199,12 +216,8 @@ export function initSkillsGitGraph(selector = '#skills-graph-body') {
 
     const section = mount.closest('.skills-graph-section') || mount;
 
-    let isMobile = getMetrics().isMobile;
     buildGraph(mount);
 
-    // Scroll-triggered reveal: adds .in-view once on the section,
-    // which drives the CSS transitions and kicks the SVG
-    // stroke-dashoffset draw-in animation.
     const observer = new IntersectionObserver(
         (entries) => {
             entries.forEach((entry) => {
@@ -217,28 +230,20 @@ export function initSkillsGitGraph(selector = '#skills-graph-body') {
                 }
             });
         },
-        { threshold: 0.2 }
+        { threshold: 0.15 }
     );
     observer.observe(section);
 
-    // Rebuild only when crossing the mobile/desktop breakpoint
     let resizeTimeout;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
-            const nowMobile = getMetrics().isMobile;
-            if (nowMobile !== isMobile) {
-                isMobile = nowMobile;
-                buildGraph(mount);
-                if (section.classList.contains('in-view')) {
-                    mount.querySelectorAll('.skill-node-h, .graph-line').forEach((el) => {
-                        el.style.transitionDelay = '0ms';
-                    });
-                    mount.querySelectorAll('.graph-line').forEach((path) => {
-                        path.style.strokeDashoffset = '0';
-                    });
-                }
+            buildGraph(mount);
+            if (section.classList.contains('in-view')) {
+                mount.querySelectorAll('.graph-line').forEach((path) => {
+                    path.style.strokeDashoffset = '0';
+                });
             }
-        }, 250);
+        }, 120);
     });
 }
