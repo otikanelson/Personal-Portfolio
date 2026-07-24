@@ -2,7 +2,10 @@
    CSS VARIABLES & ROOT STYLES
    ═══════════════════════════════════════════════════════════════ */
 
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
 :root {
+    --font-heading: 'Space Grotesk', sans-serif;
     --primary-color: #7c3aed;
     --primary-light: #a78bfa;
     --accent-color: #06b6d4;

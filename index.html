@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -60,11 +60,55 @@
     <!-- Inline scripts for project data and interactions -->
     <script>
         // Wait for components to load before initializing
-        window.addEventListener('componentsLoaded', function() {
+        window.addEventListener('componentsLoaded', function () {
             initializePortfolio();
         });
 
         function initializePortfolio() {
+            // ─── MOBILE SIDEBAR MENU ─────────────────────────────────────
+            function initMobileMenu() {
+                const menuToggle = document.getElementById('menuToggle');
+                const mobileSidebar = document.getElementById('mobileSidebar');
+                const sidebarOverlay = document.getElementById('sidebarOverlay');
+                const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+                if (!menuToggle || !mobileSidebar) return;
+
+                function openMenu() {
+                    mobileSidebar.classList.add('active');
+                    if (sidebarOverlay) sidebarOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Lock background scrolling
+                }
+
+                function closeMenu() {
+                    mobileSidebar.classList.remove('active');
+                    if (sidebarOverlay) sidebarOverlay.classList.remove('active');
+                    document.body.style.overflow = ''; // Unlock scrolling
+                }
+
+                // Toggle menu button click
+                menuToggle.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (mobileSidebar.classList.contains('active')) {
+                        closeMenu();
+                    } else {
+                        openMenu();
+                    }
+                });
+
+                // Close when overlay is tapped
+                if (sidebarOverlay) {
+                    sidebarOverlay.addEventListener('click', closeMenu);
+                }
+
+                // Close menu when tapping any navigation link
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', closeMenu);
+                });
+            }
+
+            // Call the function
+            initMobileMenu();
             // ─── PROJECT DATA ────────────────────────────────────────────
             const PROJECTS = {
                 frebfit: {
