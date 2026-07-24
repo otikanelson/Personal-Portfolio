@@ -169,3 +169,196 @@
 .view-all-link:hover i {
     transform: translateX(4px);
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   WEB STAGE — ACCORDION HOVER-EXPAND TILES
+   ═══════════════════════════════════════════════════════════════ */
+
+.web-stage {
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+    overflow: hidden;
+    min-height: 420px;
+}
+
+.web-tile {
+    position: relative;
+    flex: 0 1 50px;          /* contracted floor: ~50px */
+    min-width: 50px;
+    overflow: hidden;
+    border-radius: 16px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    transition: flex-grow 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                flex-basis 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                border-color 0.3s ease;
+}
+
+/* .expanded is toggled via JS (see webtiles.js) so the state PERSISTS
+   after the mouse leaves the row — it does not rely on :hover at all. */
+.web-tile.expanded {
+    flex: 1 1 0%;
+    border-color: var(--border-bright);
+}
+
+/* Preview / carousel fills whatever width the flex-box gives the tile */
+.web-tile-preview {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.web-carousel-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.web-carousel-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.web-carousel-slide.active {
+    opacity: 1;
+}
+
+.web-carousel-dots {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 0.3s ease 0.15s;
+}
+
+.web-tile.expanded .web-carousel-dots {
+    opacity: 1;
+}
+
+/* Logo + label shown on contracted (non-hovered) tiles */
+.web-tile-logo {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+    z-index: 3;
+    transition: opacity 0.3s ease;
+}
+
+.web-tile-label {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    z-index: 3;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+}
+
+.web-tile.expanded .web-tile-logo,
+.web-tile.expanded .web-tile-label {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Info panel fades/slides in only on the expanded (hovered) tile */
+.web-tile-info {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 24px;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.55) 55%, rgba(0, 0, 0, 0.15) 100%);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.35s ease 0.1s, transform 0.35s ease 0.1s;
+    pointer-events: none;
+}
+
+.web-tile.expanded .web-tile-info {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.web-tile-info h4 {
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.web-tile-info p {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.web-tile-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.web-tile-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.web-tile-actions .btn {
+    padding: 8px 14px;
+    font-size: 0.82rem;
+    white-space: nowrap;
+}
+
+/* ── Mobile: stack instead of accordion-expand ── */
+@media (max-width: 768px) {
+    .web-stage {
+        flex-direction: column;
+        min-height: 0;
+    }
+
+    .web-stage .web-tile,
+    .web-stage .web-tile.expanded {
+        flex: none;
+        width: 100%;
+        height: 220px;
+    }
+
+    .web-tile-info {
+        position: static;
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+        background: rgba(0, 0, 0, 0.85);
+    }
+
+    .web-tile-logo,
+    .web-tile-label {
+        opacity: 1;
+    }
+}

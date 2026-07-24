@@ -220,7 +220,7 @@
 }
 
 .detail-name {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 1.4rem;
     font-weight: 700;
     color: var(--text-primary);

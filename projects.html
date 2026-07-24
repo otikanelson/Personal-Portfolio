@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -92,9 +92,6 @@
         <div class="projects-hero-content">
             <!-- Filter Tabs -->
             <div class="project-filters" id="projectFilters">
-                <button class="filter-btn active" data-filter="all">
-                    <i class="fas fa-th"></i>
-                </button>
                 <button class="filter-btn" data-filter="mobile">
                     <i class="fas fa-mobile-alt"></i>
                 </button>
@@ -103,6 +100,9 @@
                 </button>
                 <button class="filter-btn" data-filter="desktop">
                     <i class="fas fa-desktop"></i>
+                </button>
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-th"></i>
                 </button>
             </div>
         </div>
@@ -491,7 +491,7 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script type="module" src="js/main.js"></script>
     <script>
         // Project filtering
         const filterBtns = document.querySelectorAll('.filter-btn');

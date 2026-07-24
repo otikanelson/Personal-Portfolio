@@ -22,7 +22,7 @@
     font-size: 1.4rem;
     margin-bottom: 28px;
     color: var(--text-primary);
-    font-family: 'Playfair Display', serif;
+    font-family: 'Space Grotesk', sans-serif;
 }
 
 .contact-item {
@@ -112,7 +112,7 @@
     color: var(--text-primary);
     font-size: 15px;
     transition: all 0.3s ease;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
 }
 
 .form-input:focus {

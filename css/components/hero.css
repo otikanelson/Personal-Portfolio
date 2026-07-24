@@ -2,96 +2,153 @@
    HERO SECTION
    ═══════════════════════════════════════════════════════════════ */
 
-.hero {
-    min-height: 120vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 120px 80px;
-    position: relative;
-    overflow: hidden;
-    background-image: url('../../images/Hero_bg.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: right center;
+@media (max-width: 768px) {
+    /* 1. Container & Layout Setup */
+    .hero-profile-banner {
+        padding: 40px 16px 20px !important;
+        overflow-x: hidden !important;
+    }
+
+    .profile-banner-container {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .profile-left-block {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    /* 2. Reorder Right Block Elements: Buttons First, Stats Second */
+    .profile-right-block {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+    }
+
+    .profile-actions-row {
+        order: 1 !important; /* Forces Action Buttons & Socials to top */
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 16px !important;
+        width: 100% !important;
+        margin-top: 10px !important;
+    }
+
+    .profile-stats {
+        order: 2 !important; /* Forces Stats Card below the buttons */
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+        padding: 16px 10px !important;
+        border-radius: 16px !important;
+        box-sizing: border-box !important;
+        background: rgba(255, 255, 255, 0.03) !important; /* Subtle card background */
+        border: 1px solid var(--border, rgba(255, 255, 255, 0.08)) !important;
+    }
+
+    /* 3. Row 1: Social Links Bar */
+    .social-links-group {
+        display: flex !important;
+        justify-content: flex-start !important;
+        gap: 12px !important;
+        width: 100% !important;
+    }
+
+    .social-icon-btn {
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        border-radius: 50% !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* 4. Row 2: CTA Buttons (Side-by-side 2 Equal Columns) */
+    .cta-buttons-group {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .btn-profile-secondary,
+    .btn-profile-primary {
+        width: 100% !important;
+        height: 48px !important;
+        padding: 0 8px !important;
+        border-radius: 12px !important;
+        font-size: 0.85rem !important;
+        font-weight: 600 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        white-space: nowrap !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 5. Clean Vertical Stats Layout & Dividers */
+    .profile-stats .stat-item {
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important; /* Stacks Icon above text */
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 0 6px !important;
+        position: relative !important;
+        /* Adds vertical divider line between stat items */
+        border-right: 1px solid rgba(255, 255, 255, 0.15) !important; 
+    }
+
+    .profile-stats .stat-item:last-child {
+        border-right: none !important;
+    }
+
+    .profile-stats .stat-item::after,
+    .profile-stats .stat-item::before {
+        display: none !important;
+        content: none !important;
+    }
+
+    .profile-stats .stat-item i {
+        font-size: 1.1rem !important;
+        margin-bottom: 6px !important;
+        color: var(--primary-light, #7c3aed) !important;
+    }
+
+    .profile-stats .stat-item span {
+        font-size: 0.75rem !important;
+        font-weight: 600 !important;
+        line-height: 1.2 !important;
+        white-space: normal !important;
+    }
 }
 
-.hero-container {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 100px;
-    align-items: center;
-    max-width: 1400px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-}
+/* Extra Tweaks for Small Mobile Screens */
+@media (max-width: 480px) {
+    .profile-name {
+        font-size: 1.8rem !important;
+    }
 
-.hero-content {
-    animation: fadeInUp 0.9s ease-out;
-}
+    .btn-profile-secondary,
+    .btn-profile-primary {
+        font-size: 0.8rem !important;
+        gap: 4px !important;
+    }
 
-.hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: rgba(124, 58, 237, 0.12);
-    border: 1px solid rgba(124, 58, 237, 0.35);
-    border-radius: 50px;
-    padding: 10px 24px;
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 32px;
-    color: var(--primary-light);
-    letter-spacing: 0.3px;
-    position: relative;
-    z-index: 10;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15);
-}
-
-.hero-badge::before {
-    content: '';
-    width: 8px;
-    height: 8px;
-    background: var(--primary-light);
-    border-radius: 50%;
-    animation: blink 2s ease-in-out infinite;
-}
-
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-}
-
-.hero-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3.2rem, 6vw, 5rem);
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 28px;
-    background: var(--gradient-art);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.hero-subtitle {
-    font-size: 1.25rem;
-    color: var(--text-secondary);
-    margin-bottom: 50px;
-    line-height: 1.7;
-    max-width: 520px;
-}
-
-.hero-cta {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.hero-image {
-    position: relative;
-    animation: fadeInRight 0.9s ease-out 0.2s both;
-    z-index: 2;
+    .profile-stats .stat-item span {
+        font-size: 0.7rem !important;
+    }
 }

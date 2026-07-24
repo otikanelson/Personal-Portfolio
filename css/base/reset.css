@@ -20,7 +20,7 @@ html {
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     background: var(--dark-bg);
     color: var(--text-primary);
     line-height: 1.6;
