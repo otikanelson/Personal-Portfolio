@@ -25,6 +25,7 @@
         opacity: 0;
         transform: translateX(-30px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -192,6 +193,7 @@
         opacity: 0;
         transform: translateX(30px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -282,4 +284,24 @@
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .desktop-row .view-all-link {
+        font-size: 0.72rem !important;
+        white-space: nowrap !important;
+        /* Fixes "View All" breaking onto 2 lines */
+        gap: 5px !important;
+        border-radius: 20px !important;
+        flex-shrink: 0 !important;
+        align-self: center !important;
+    }
+
+    .desktop-row .view-all-link span {
+        display: inline-block !important;
+    }
+
+    .desktop-row .view-all-link i {
+        font-size: 0.65rem !important;
+    }
 }

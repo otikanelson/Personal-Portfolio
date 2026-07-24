@@ -299,3 +299,202 @@
 .screenshot-img:hover {
     transform: scale(1.05);
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE OVERRIDES (@media max-width: 768px)
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+
+    /* Section & Header Padding */
+    .mobile-portfolio-section {
+        padding: 10px 16px;
+    }
+
+    /* Row Header Layout */
+    .mobile-row .portfolio-row-header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+    }
+
+    .mobile-row .portfolio-row-title h3 {
+        font-size: 1.1rem;
+    }
+
+    .mobile-row .portfolio-row-title p {
+        font-size: 0.78rem;
+    }
+
+    /* Stack Row Stage Vertically on Mobile */
+    .mobile-row .row-stage {
+        flex-direction: column;
+        border-radius: 16px;
+    }
+
+    /* Keep Project Strip Horizontally Scrollable */
+    .mobile-row .project-strip {
+        padding: 12px;
+        gap: 12px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        /* Hide scrollbar for clean UI */
+    }
+
+    .mobile-row .project-strip::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Inline & Compact "View All" button on mobile */
+    .mobile-row .view-all-link {
+        font-size: 0.72rem !important;
+        padding: 6px 12px !important;
+        white-space: nowrap !important;
+        /* Prevents "View All" from breaking onto 2 lines */
+        gap: 5px !important;
+        border-radius: 20px !important;
+        flex-shrink: 0 !important;
+        align-self: center !important;
+    }
+
+    .mobile-row .view-all-link span {
+        display: inline-block !important;
+    }
+
+    .mobile-row .view-all-link i {
+        font-size: 0.65rem !important;
+    }
+
+    /* Mobile Tile Sizing */
+    .app-tile {
+        width: 140px;
+        /* Slightly smaller for mobile viewports */
+        border-radius: 14px;
+    }
+
+    .app-tile-banner,
+    .app-tile-banner-placeholder {
+        height: 90px;
+    }
+
+    .app-tile-body {
+        padding: 10px 8px;
+    }
+
+    .app-tile-name {
+        font-size: 0.78rem;
+    }
+
+    .app-tag {
+        font-size: 0.45rem;
+        padding: 2px 4px;
+    }
+
+    /* Override Desktop Split-Screen Behavior when Focused */
+    .mobile-row.tile-focused .project-strip {
+        width: 100% !important;
+        min-width: 100% !important;
+        height: 100% !important;
+        flex-direction: row !important;
+        /* Keep horizontal on tap */
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        padding: 12px !important;
+    }
+
+    .mobile-row.tile-focused .app-tile {
+        width: 140px !important;
+        flex-direction: column !important;
+        /* Retain tile shape */
+    }
+
+    .mobile-row.tile-focused .app-tile .app-tile-banner,
+    .mobile-row.tile-focused .app-tile .app-tile-banner-placeholder {
+        width: 100% !important;
+        height: 90px !important;
+        border-radius: 0 !important;
+    }
+
+    .mobile-row.tile-focused .app-tile .app-tile-tags {
+        display: flex !important;
+        /* Keep tags visible */
+    }
+
+    /* Detail Panel (Stacked Below on Mobile) */
+    .mobile-row .project-detail-panel {
+        border-left: none;
+        border-top: 1px solid var(--border);
+        padding: 20px 16px;
+        max-height: 500px;
+        /* Enable smooth scrolling inside detail panel */
+    }
+
+    .detail-header {
+        gap: 12px;
+        margin-bottom: 14px;
+    }
+
+    .detail-icon-wrap {
+        width: 68px;
+        height: 68px;
+        border-radius: 16px;
+    }
+
+    .detail-name {
+        font-size: 1.15rem;
+    }
+
+    .detail-subtitle {
+        font-size: 0.78rem;
+    }
+
+    .detail-stats {
+        gap: 10px;
+    }
+
+    .detail-stat {
+        font-size: 0.72rem;
+    }
+
+    .detail-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .detail-actions .btn {
+        width: 100%;
+        padding: 10px 8px;
+        font-size: 0.78rem;
+        justify-content: center;
+    }
+
+    .screenshot-img {
+        height: 210px;
+        /* Scaled down mobile screenshots */
+    }
+}
+
+/* Extra Small Screens (max-width: 480px) */
+@media (max-width: 480px) {
+    .app-tile {
+        width: 125px;
+    }
+
+    .app-tile-banner,
+    .app-tile-banner-placeholder {
+        height: 80px;
+    }
+
+    .detail-actions {
+        grid-template-columns: 1fr;
+        /* Stack action buttons full width */
+    }
+
+    .screenshot-img {
+        height: 180px;
+    }
+}

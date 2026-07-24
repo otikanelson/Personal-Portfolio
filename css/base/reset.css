@@ -6,6 +6,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Space Grotesk', sans-serif;
     -webkit-overflow-scrolling: touch;
     -webkit-tap-highlight-color: rgba(124, 58, 237, 0.2);
 }
