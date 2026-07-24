@@ -399,7 +399,6 @@
         min-width: 100% !important;
         height: 100% !important;
         flex-direction: row !important;
-        /* Keep horizontal on tap */
         overflow-x: auto !important;
         overflow-y: hidden !important;
         padding: 12px !important;

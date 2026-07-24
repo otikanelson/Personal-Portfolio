@@ -9,6 +9,58 @@
     display: none;
 }
 
+/* 1. Ensure the component container lets elements display outside its boundaries */
+#mobile-sidebar {
+    position: relative;
+    z-index: 99999;
+    overflow: visible !important;
+}
+
+/* 2. Style the sidebar drawer with absolute priority */
+.mobile-sidebar {
+    display: flex !important;
+    flex-direction: column;
+    position: fixed !important;
+    top: 0 !important;
+    right: -320px; /* Off-screen default */
+    width: 280px;
+    height: 100vh;
+    height: 100dvh; /* Handles dynamic mobile viewports */
+    background: rgba(17, 17, 34, 0.98) !important;
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border-left: 1px solid var(--border, rgba(255, 255, 255, 0.1));
+    z-index: 99999 !important;
+    transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+}
+
+/* 3. Open State Override */
+.mobile-sidebar.open,
+.mobile-sidebar.active {
+    right: 0 !important; /* Slide into view */
+}
+
+/* 4. Backdrop Overlay */
+.sidebar-overlay {
+    display: block !important;
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+    z-index: 99998 !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.sidebar-overlay.open,
+.sidebar-overlay.active {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
 /* ── MOBILE RESPONSIVE STYLES ── */
 @media (max-width: 768px) {
     /* Hamburger Toggle Button */

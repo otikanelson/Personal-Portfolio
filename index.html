@@ -62,53 +62,69 @@
         // Wait for components to load before initializing
         window.addEventListener('componentsLoaded', function () {
             initializePortfolio();
+            initMobileMenu();
         });
 
-        function initializePortfolio() {
-            // ─── MOBILE SIDEBAR MENU ─────────────────────────────────────
-            function initMobileMenu() {
-                const menuToggle = document.getElementById('menuToggle');
-                const mobileSidebar = document.getElementById('mobileSidebar');
-                const sidebarOverlay = document.getElementById('sidebarOverlay');
-                const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+        // ─── MOBILE NAVIGATION LOGIC ──────────────────────────────────────
+        function initMobileMenu() {
+            const menuToggle = document.getElementById('menuToggle');
+            if (!menuToggle) return;
 
-                if (!menuToggle || !mobileSidebar) return;
+            menuToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
 
-                function openMenu() {
-                    mobileSidebar.classList.add('active');
-                    if (sidebarOverlay) sidebarOverlay.classList.add('active');
-                    document.body.style.overflow = 'hidden'; // Lock background scrolling
-                }
+                const sidebar = document.querySelector('.mobile-sidebar') || document.getElementById('mobileSidebar');
+                const overlay = document.querySelector('.sidebar-overlay') || document.getElementById('sidebarOverlay');
 
-                function closeMenu() {
-                    mobileSidebar.classList.remove('active');
-                    if (sidebarOverlay) sidebarOverlay.classList.remove('active');
-                    document.body.style.overflow = ''; // Unlock scrolling
-                }
+                if (!sidebar) return;
 
-                // Toggle menu button click
-                menuToggle.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    if (mobileSidebar.classList.contains('active')) {
-                        closeMenu();
-                    } else {
-                        openMenu();
+                const isOpen = sidebar.classList.contains('active') || sidebar.classList.contains('open');
+
+                if (isOpen) {
+                    sidebar.classList.remove('active', 'open');
+                    sidebar.style.right = '-320px';
+                    if (overlay) {
+                        overlay.classList.remove('active', 'open');
+                        overlay.style.opacity = '0';
+                        overlay.style.visibility = 'hidden';
                     }
-                });
-
-                // Close when overlay is tapped
-                if (sidebarOverlay) {
-                    sidebarOverlay.addEventListener('click', closeMenu);
+                    menuToggle.classList.remove('active', 'open');
+                    document.body.style.overflow = '';
+                } else {
+                    sidebar.classList.add('active', 'open');
+                    sidebar.style.right = '0px';
+                    if (overlay) {
+                        overlay.classList.add('active', 'open');
+                        overlay.style.opacity = '1';
+                        overlay.style.visibility = 'visible';
+                    }
+                    menuToggle.classList.add('active', 'open');
+                    document.body.style.overflow = 'hidden';
                 }
+            });
 
-                // Close menu when tapping any navigation link
-                mobileLinks.forEach(link => {
-                    link.addEventListener('click', closeMenu);
-                });
-            }
+            document.addEventListener('click', (e) => {
+                const sidebar = document.querySelector('.mobile-sidebar') || document.getElementById('mobileSidebar');
+                const overlay = document.querySelector('.sidebar-overlay') || document.getElementById('sidebarOverlay');
 
-            // Call the function
-            initMobileMenu();
+                if (!sidebar) return;
+
+                if (e.target.closest('.sidebar-overlay') || e.target.closest('#sidebarOverlay') || e.target.closest('.mobile-nav-link')) {
+                    sidebar.classList.remove('active', 'open');
+                    sidebar.style.right = '-320px';
+                    if (overlay) {
+                        overlay.classList.remove('active', 'open');
+                        overlay.style.opacity = '0';
+                        overlay.style.visibility = 'hidden';
+                    }
+                    menuToggle.classList.remove('active', 'open');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+
+        function initializePortfolio() {
+            
             // ─── PROJECT DATA ────────────────────────────────────────────
             const PROJECTS = {
                 frebfit: {
@@ -262,6 +278,7 @@
             }
             const certsGrid = document.getElementById('certsGrid');
             if (certsGrid) {
+                certsGrid.innerHTML = '';
                 certImages.forEach(({ src, title }, index) => {
                     const card = document.createElement('div');
                     card.className = 'cert-card';
@@ -464,6 +481,7 @@
                 let currentSlide = 0;
                 let autoplayInterval = null;
 
+                dotsContainer.innerHTML = '';
                 slides.forEach((_, index) => {
                     const dot = document.createElement('div');
                     dot.className = 'web-carousel-dot';
@@ -548,6 +566,7 @@
                 let currentSlide = 0;
                 let autoplayInterval;
 
+                dotsContainer.innerHTML = '';
                 slides.forEach((_, index) => {
                     const dot = document.createElement('div');
                     dot.className = 'carousel-dot';
@@ -593,8 +612,8 @@
                     startAutoplay();
                 }
 
-                nextBtn.addEventListener('click', nextSlide);
-                prevBtn.addEventListener('click', prevSlide);
+                if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+                if (prevBtn) prevBtn.addEventListener('click', prevSlide);
 
                 carousel.addEventListener('mouseenter', stopAutoplay);
                 carousel.addEventListener('mouseleave', startAutoplay);
@@ -612,6 +631,7 @@
         // Initialize immediately if components are already loaded
         if (document.querySelector('#hero section')) {
             initializePortfolio();
+            initMobileMenu();
         }
     </script>
 </body>
