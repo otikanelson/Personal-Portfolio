@@ -65,7 +65,7 @@ const PROJECTS = {
         description: 'Mobile app for predictive inventory management helping SMBs monitor stock levels and forecast demand. Features TensorFlow-based LSTM forecasting model, real-time analytics, and demand predictions. Built with React Native integrating machine learning for inventory optimization.',
         rating: '4.7', downloads: '600+', category: 'Business',
         tags: ['React Native', 'TensorFlow', 'Node.js', 'ML'],
-        github: 'https://github.com/otikanelson',
+        github: 'https://github.com/otikanelson/Insightory',
         apk: 'https://play.google.com/store/apps/details?id=com.son_the_nel.Inventory',
         icon: 'images/Insightory Logo.png',
         screenshots: ['images/Insightory_1.jpeg', 'images/Insightory_2.jpeg', 'images/Insightory_3.jpeg', 'images/Insightory_4.jpeg', 'images/Insightory_5.jpeg', 'images/Insightory_6.jpeg']
