@@ -439,3 +439,30 @@
         }
     }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   DESKTOP BUTTON CLICK FIX
+   ═══════════════════════════════════════════════════════════════ */
+@media (min-width: 769px) {
+    /* Prevent preview image slides from swallowing clicks */
+    .web-carousel-slide {
+        pointer-events: none !important;
+    }
+
+    /* Elevate action container above all gradient pseudo-elements & preview layers */
+    .web-tile-info {
+        z-index: 10;
+    }
+
+    .web-tile-actions {
+        position: relative;
+        z-index: 20;
+        pointer-events: auto;
+    }
+
+    .web-tile-actions .btn {
+        position: relative;
+        z-index: 21;
+        cursor: pointer;
+    }
+}
