@@ -14,14 +14,13 @@
 }
 
 .web-tile {
-    flex: 0.8;
+    flex: 0.4;
     min-width: 0;
     position: relative;
     overflow: hidden;
     cursor: pointer;
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
     transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
         box-shadow 0.45s ease,
         flex 0.45s cubic-bezier(0.4, 0, 0.2, 1),
@@ -60,49 +59,22 @@
     position: relative;
     width: 100%;
     height: 100%;
+    display: block;
 }
 
 .web-carousel-slide {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
-    opacity: 0;
-    transition: opacity 0.6s ease;
-    pointer-events: none;
-}
-
-.web-carousel-slide.active {
-    opacity: 1;
-    pointer-events: all;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: relative;
 }
 
 .web-carousel-dots {
-    position: absolute;
-    bottom: 12px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 6px;
-    z-index: 5;
-}
-
-.web-carousel-dot {
-    width: 6px;
-    height: 6px;
-    background: rgba(255, 255, 255, 0.4);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.web-carousel-dot.active {
-    background: var(--primary-color);
-    width: 18px;
-    border-radius: 3px;
+    display: none !important;
 }
 
 .web-tile-preview img {
@@ -121,16 +93,25 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 18%;
-    background: linear-gradient(to top, rgba(10, 10, 20, 0.75), transparent);
+    height: 0%;
+    background: transparent;
     pointer-events: none;
     z-index: 1;
     transition: height 0.4s ease;
 }
 
 .web-tile.active::after {
-    height: 38%;
-    background: linear-gradient(to top, rgba(10, 10, 20, 0.88) 5%, transparent);
+    height: 0%;
+    background: transparent;
+}
+
+/* Light theme: no overlay needed anymore */
+[data-theme="light"] .web-tile::after {
+    background: transparent;
+}
+
+[data-theme="light"] .web-tile.active::after {
+    background: transparent;
 }
 
 .web-tile-logo {
@@ -161,6 +142,20 @@
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
+/* Light theme web project text adjustments */
+[data-theme="light"] .web-tile-label {
+    color: rgba(255, 255, 255, 0.85);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="light"] .web-tile-info h4 {
+    color: #ffffff !important;
+}
+
+[data-theme="light"] .web-tile-info p {
+    color: #ffffff !important;
+}
+
 .web-tile-info {
     position: absolute;
     bottom: 0;
@@ -187,11 +182,11 @@
 .web-tile-info h4 {
     font-size: 1.15rem;
     font-weight: 700;
-    color: #ffffff;
+    color: #ffffff !important;
     margin-bottom: 5px;
-    background: linear-gradient(135deg, rgba(124, 58, 237, 0.4) 0%, rgba(167, 139, 250, 0.35) 50%, rgba(124, 58, 237, 0.4) 100%);
+    background: linear-gradient(135deg, rgba(96, 44, 184, 0.591) 0%, rgba(115, 95, 175, 0.591) 50%, rgba(91, 42, 175, 0.604) 100%);
     background-size: 200% 200%;
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(2px);
     padding: 6px 10px;
     border-radius: 6px;
     display: inline-block;
@@ -203,12 +198,12 @@
 
 .web-tile-info p {
     font-size: 0.92rem;
-    color: #ffffff;
+    color: #ffffff !important;
     margin-bottom: 10px;
     line-height: 1.5;
-    background: linear-gradient(135deg, rgba(124, 58, 237, 0.35) 0%, rgba(167, 139, 250, 0.3) 50%, rgba(124, 58, 237, 0.35) 100%);
+    background: linear-gradient(135deg, rgba(96, 44, 184, 0.591) 0%, rgba(115, 95, 175, 0.591) 50%, rgba(91, 42, 175, 0.604) 100%);
     background-size: 200% 200%;
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(2px);
     padding: 6px 10px;
     border-radius: 6px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -392,6 +387,7 @@
         max-width: 100% !important;
         background: none !important;
         padding: 0 !important;
+        color: var(--text-primary) !important;
     }
 
     .web-tile-info p {
@@ -404,6 +400,15 @@
         opacity: 1 !important;
         background: none !important;
         padding: 0 !important;
+        color: var(--text-secondary) !important;
+    }
+
+    /* Light theme mobile text visibility fix */
+    [data-theme="light"] .web-tile-info h4 {
+        color: var(--text-primary) !important;
+    }
+
+    [data-theme="light"] .web-tile-info p {
         color: var(--text-secondary) !important;
     }
 
@@ -465,4 +470,30 @@
         z-index: 21;
         cursor: pointer;
     }
+}
+
+
+/* Light theme web tile adjustments */
+[data-theme="light"] .web-tile {
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+}
+
+[data-theme="light"] .web-tile.active {
+    box-shadow:
+        0 24px 64px rgba(0, 0, 0, 0.15),
+        0 0 0 1px var(--primary-color),
+        0 0 32px rgba(139, 92, 246, 0.15);
+}
+
+[data-theme="light"] .web-tile-preview {
+    background: var(--dark-surface);
+}
+
+[data-theme="light"] .web-carousel-dot {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] .web-carousel-dot.active {
+    background: var(--primary-color);
 }

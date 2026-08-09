@@ -6,6 +6,11 @@
     padding: 140px 80px;
     background: var(--dark-bg);
     position: relative;
+    border-top: 1px solid transparent;
+}
+
+[data-theme="light"] .contact-section {
+    border-top-color: var(--border);
 }
 
 .contact-container {
@@ -143,4 +148,27 @@ textarea.form-input {
 
 .form-status.error {
     color: #f87171;
+}
+
+/* Light theme contact adjustments */
+[data-theme="light"] .contact-form-group input,
+[data-theme="light"] .contact-form-group textarea {
+    background: rgba(139, 92, 246, 0.03);
+    border: 1px solid var(--border);
+}
+
+[data-theme="light"] .contact-form-group input:focus,
+[data-theme="light"] .contact-form-group textarea:focus {
+    background: rgba(139, 92, 246, 0.05);
+    border-color: var(--border-bright);
+}
+
+[data-theme="light"] .contact-info-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+}
+
+[data-theme="light"] .contact-info-card:hover {
+    background: var(--card-hover);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }

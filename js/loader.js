@@ -9,6 +9,7 @@
         { path: 'html/components/navigation.html', target: 'navigation' },
         { path: 'html/components/mobile-sidebar.html', target: 'mobile-sidebar' },
         { path: 'html/sections/hero.html', target: 'hero' },
+        { path: 'html/sections/passion-building.html', target: 'passion-building' },
         { path: 'html/sections/mobile-portfolio.html', target: 'mobile-portfolio' },
         { path: 'html/sections/web-portfolio.html', target: 'web-portfolio' },
         { path: 'html/sections/desktop-portfolio.html', target: 'desktop-portfolio' },

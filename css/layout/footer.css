@@ -54,3 +54,18 @@
     color: var(--text-secondary);
     font-size: 0.85rem;
 }
+
+/* Light theme footer adjustments */
+[data-theme="light"] footer,
+[data-theme="light"] .projects-footer {
+    background: var(--dark-surface);
+    border-top: 1px solid var(--border);
+}
+
+[data-theme="light"] .footer-links a {
+    background: rgba(139, 92, 246, 0.08);
+}
+
+[data-theme="light"] .footer-links a:hover {
+    background: var(--primary-color);
+}

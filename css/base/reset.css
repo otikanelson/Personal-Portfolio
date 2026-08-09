@@ -28,6 +28,7 @@ body {
     overflow-x: hidden;
     cursor: none;
     width: 100%;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body>* {

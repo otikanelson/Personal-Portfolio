@@ -7,6 +7,7 @@
 @import url('css/base/variables.css');
 @import url('css/base/reset.css');
 @import url('css/base/backgrounds.css');
+@import url('css/base/sections.css');
 
 /* Layout */
 @import url('css/layout/about.css');
@@ -19,6 +20,7 @@
 @import url('css/components/profile-banner.css');
 @import url('css/components/cursor.css');
 @import url('css/components/buttons.css');
+@import url('css/components/passion-building.css');
 @import url('css/components/skills.css');
 @import url('css/components/portfolio.css');
 @import url('css/components/mobile-projects.css');
@@ -29,6 +31,7 @@
 @import url('css/components/projects-page.css');
 
 /* Utilities */
+@import url('css/utilities/scroll-animations.css');
 @import url('css/utilities/animations.css');
 @import url('css/utilities/helpers.css');
 @import url('css/utilities/accessibility.css');

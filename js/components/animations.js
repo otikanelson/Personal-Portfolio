@@ -2,6 +2,31 @@
 // SCROLL ANIMATIONS & OBSERVERS
 // ═══════════════════════════════════════════════════════════════
 
+// Universal scroll animation initializer
+// Applies to any element with .scroll-animate class
+export function initUniversalScrollAnimations() {
+    const animatedElements = document.querySelectorAll('.scroll-animate, .scroll-animate-fast, .scroll-animate-slow, .scroll-animate-left, .scroll-animate-right, .scroll-animate-scale');
+    
+    if (animatedElements.length === 0) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                // Optional: unobserve after animation to improve performance
+                // observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    animatedElements.forEach(element => {
+        observer.observe(element);
+    });
+}
+
 // Skills animation counter
 export function animateCounters() {
     const counters = document.querySelectorAll('.stat-card h3');
@@ -70,16 +95,14 @@ export function initPortfolioAnimations() {
     const portfolioObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Add animate-in class to trigger the main section animation
-                entry.target.classList.add('animate-in');
-                
-                // Animate project tiles/cards in sequence with staggered delay
+                // Trigger children animations
                 const tiles = entry.target.querySelectorAll('.app-tile, .web-tile, .desktop-showcase');
                 tiles.forEach((tile, index) => {
                     setTimeout(() => {
                         tile.style.opacity = '1';
                         tile.style.transform = 'translateY(0) scale(1)';
-                    }, 600 + (index * 150)); // Start after section animation
+                        tile.style.filter = 'blur(0)';
+                    }, 600 + (index * 150));
                 });
             }
         });
@@ -94,12 +117,16 @@ export function initPortfolioAnimations() {
         tiles.forEach(tile => {
             tile.style.opacity = '0';
             tile.style.transform = 'translateY(30px) scale(0.95)';
-            tile.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            tile.style.filter = 'blur(5px)';
+            tile.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         });
         
         portfolioObserver.observe(section);
     });
 }
+
+// Legacy section animations - kept for backwards compatibility
+// New sections should use .scroll-animate class instead
 
 // Trigger counter animation when stats section is visible
 export function initStatsObserver() {

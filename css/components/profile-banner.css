@@ -14,6 +14,7 @@
     align-items: center;
     color: #ffffff;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .hero-profile-banner::before {
@@ -22,6 +23,7 @@
     top: 0; right: 0; bottom: 0; left: 0;
     background: radial-gradient(circle at 80% 20%, rgba(29, 78, 216, 0.15) 0%, transparent 50%);
     pointer-events: none;
+    transition: background 0.3s ease;
 }
 
 .profile-banner-container {
@@ -83,6 +85,7 @@
     font-weight: 700;
     margin: 0;
     letter-spacing: -0.5px;
+    transition: color 0.3s ease;
 }
 
 .profile-bio {
@@ -91,6 +94,7 @@
     margin: 0;
     max-width: 600px;
     line-height: 1.5;
+    transition: color 0.3s ease;
 }
 
 .profile-tags {
@@ -108,6 +112,7 @@
     padding: 4px 12px;
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
 }
 
 .status-badge {
@@ -116,6 +121,7 @@
     align-items: center;
     gap: 6px;
     font-weight: 500;
+    transition: color 0.3s ease;
 }
 
 .status-dot {
@@ -143,6 +149,7 @@
     border-radius: 20px;
     font-size: 13px;
     color: #9ca3af;
+    transition: all 0.3s ease;
 }
 
 .stat-item {
@@ -178,7 +185,7 @@
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     border: 1px solid rgba(255, 255, 255, 0.05);
     font-size: 16px;
 }
@@ -192,4 +199,83 @@
     display: flex;
     align-items: center;
     gap: 12px;
+}
+
+/* Light theme profile banner adjustments */
+[data-theme="light"] .hero-profile-banner {
+    background: linear-gradient(135deg, #f1f5f9 0%, #f8fafc 50%, #e8eef5 100%);
+    border-bottom: 1px solid var(--border);
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .hero-profile-banner::before {
+    background: radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+}
+
+[data-theme="light"] .profile-avatar {
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+}
+
+[data-theme="light"] .badge-pro {
+    background: var(--primary-color);
+}
+
+[data-theme="light"] .profile-name {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .profile-bio {
+    color: var(--text-secondary);
+}
+
+[data-theme="light"] .tag-badge,
+[data-theme="light"] .location-badge {
+    color: var(--text-primary);
+    background: rgba(139, 92, 246, 0.08);
+    border: 1px solid var(--border);
+}
+
+[data-theme="light"] .status-badge {
+    color: #059669;
+}
+
+[data-theme="light"] .status-dot {
+    background-color: #10b981;
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+}
+
+[data-theme="light"] .profile-stats {
+    background: rgba(139, 92, 246, 0.05);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+}
+
+[data-theme="light"] .stat-item:not(:last-child)::after {
+    color: var(--border-bright);
+}
+
+[data-theme="light"] .stat-item i {
+    color: var(--primary-color);
+}
+
+[data-theme="light"] .social-icon-btn {
+    background: rgba(139, 92, 246, 0.08);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+}
+
+[data-theme="light"] .social-icon-btn:hover {
+    background: var(--primary-color);
+    color: #ffffff;
+    border-color: var(--primary-color);
+}
+
+[data-theme="light"] .profile-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+}
+
+[data-theme="light"] .profile-stat-divider {
+    background: var(--border);
 }

@@ -245,3 +245,34 @@
 .lightbox-next {
     right: 20px;
 }
+
+/* Light theme modal adjustments */
+[data-theme="light"] .apk-modal-overlay {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="light"] .apk-modal {
+    background: var(--dark-surface);
+    border: 1px solid var(--border);
+}
+
+[data-theme="light"] .apk-modal-icon {
+    background: rgba(249, 115, 22, 0.1);
+}
+
+[data-theme="light"] .apk-modal-note {
+    background: rgba(139, 92, 246, 0.08);
+}
+
+[data-theme="light"] .lightbox-close,
+[data-theme="light"] .lightbox-nav {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .lightbox-close:hover,
+[data-theme="light"] .lightbox-nav:hover {
+    background: rgba(255, 255, 255, 1);
+    border-color: var(--primary-color);
+}

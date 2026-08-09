@@ -113,3 +113,43 @@
 .btn-profile-secondary:hover {
     background: rgba(255, 255, 255, 0.15);
 }
+
+/* Light theme button adjustments */
+[data-theme="light"] .btn-secondary {
+    background: rgba(139, 92, 246, 0.05);
+    border: 1px solid var(--border);
+}
+
+[data-theme="light"] .btn-secondary:hover {
+    background: rgba(139, 92, 246, 0.15);
+}
+
+[data-theme="light"] .btn-vercel {
+    background: rgba(139, 92, 246, 0.08);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+}
+
+[data-theme="light"] .btn-vercel:hover {
+    background: rgba(139, 92, 246, 0.15);
+    border-color: var(--border-bright);
+}
+
+[data-theme="light"] .btn-profile-primary {
+    background: var(--primary-color);
+    color: #ffffff;
+}
+
+[data-theme="light"] .btn-profile-primary:hover {
+    background: var(--primary-light);
+}
+
+[data-theme="light"] .btn-profile-secondary {
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+}
+
+[data-theme="light"] .btn-profile-secondary:hover {
+    background: rgba(139, 92, 246, 0.2);
+}

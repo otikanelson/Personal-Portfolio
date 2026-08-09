@@ -23,7 +23,7 @@
     align-items: center;
     gap: 6px;
     padding: 20px 0;
-    background: rgba(17, 17, 34, 0.75);
+    background: var(--dark-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-right: 1px solid var(--border);
@@ -186,6 +186,7 @@
 }
 
 .project-card:hover .project-card-overlay {
+    background: linear-gradient(to top, rgba(10, 10, 20, 0.95), transparent);
     opacity: 1;
 }
 
@@ -446,4 +447,33 @@
     .projects-container {
         gap: 8px !important;
     }
+}
+
+/* Light theme projects page adjustments */
+[data-theme="light"] .filter-sidebar {
+    background: rgba(255, 255, 255, 0.95);
+    border-right: 1px solid var(--border);
+}
+
+[data-theme="light"] .filter-btn {
+    background: rgba(139, 92, 246, 0.05);
+}
+
+[data-theme="light"] .filter-btn:hover,
+[data-theme="light"] .filter-btn.active {
+    background: rgba(139, 92, 246, 0.15);
+}
+
+[data-theme="light"] .project-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+}
+
+[data-theme="light"] .project-card:hover {
+    background: var(--card-hover);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .project-card-overlay {
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.85));
 }

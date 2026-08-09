@@ -14,8 +14,9 @@ import {
 import './components/tabs.js';
 import { initSkillsGitGraph } from './components/skills.js';
 import { 
+    initUniversalScrollAnimations,
     initScrollAnimations, 
-    initPortfolioAnimations, 
+    initPortfolioAnimations,
     initStatsObserver, 
     initParallax, 
     initSkillsTrackReveal 
@@ -26,6 +27,7 @@ import {
     initKeyboardNavigation, 
     initLoadingAnimation 
 } from './components/interactions.js';
+import { initAchievementsCarousel } from './components/passion-carousel.js';
 import { debounce, logWelcomeMessage } from './utils/helpers.js';
 
 // ═══════════════════════════════════════════════════════════════
@@ -49,7 +51,11 @@ window.addEventListener('componentsLoaded', function() {
     // Skills
     initSkillsGitGraph();
     
+    // Passion building carousel
+    initAchievementsCarousel();
+    
     // Scroll animations
+    initUniversalScrollAnimations(); // New universal scroll animation system
     initScrollAnimations();
     initPortfolioAnimations();
     initStatsObserver();

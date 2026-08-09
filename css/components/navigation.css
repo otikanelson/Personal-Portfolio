@@ -93,3 +93,96 @@
     transition: width 0.1s ease;
     box-shadow: 0 0 10px rgba(124, 58, 237, 0.5);
 }
+
+/* Theme Toggle Button */
+.theme-toggle {
+    position: fixed;
+    top: 12px;
+    right: 24px;
+    width: 46px;
+    height: 46px;
+    background: rgba(17, 17, 34, 0.85);
+    backdrop-filter: blur(24px);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(124, 58, 237, 0.1);
+}
+
+.theme-toggle:hover {
+    border-color: var(--border-bright);
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.5), var(--shadow-glow);
+    transform: translateY(-2px) rotate(15deg);
+}
+
+.theme-toggle i {
+    font-size: 18px;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover i {
+    color: var(--primary-light);
+}
+
+/* Theme specific styles */
+[data-theme="light"] .theme-toggle {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(139, 92, 246, 0.1);
+}
+
+[data-theme="light"] .theme-toggle:hover {
+    box-shadow: 0 4px 28px rgba(0, 0, 0, 0.15), var(--shadow-glow);
+}
+
+/* Hide sun in light mode, moon in dark mode */
+[data-theme="light"] .theme-toggle .fa-moon {
+    display: none;
+}
+
+[data-theme="dark"] .theme-toggle .fa-sun,
+.theme-toggle .fa-sun {
+    display: none;
+}
+
+[data-theme="light"] .theme-toggle .fa-sun {
+    display: block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .theme-toggle {
+        top: 20px;
+        right: 78px;
+        width: 48px;
+        height: 48px;
+    }
+    
+    .theme-toggle i {
+        font-size: 18px;
+    }
+}
+
+/* Light theme navigation adjustments */
+[data-theme="light"] .navbar {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(139, 92, 246, 0.1);
+}
+
+[data-theme="light"] .navbar:hover {
+    box-shadow: 0 4px 28px rgba(0, 0, 0, 0.12), var(--shadow-glow);
+}
+
+[data-theme="light"] .nav-resume {
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid var(--border);
+}
+
+[data-theme="light"] .scroll-progress-indicator {
+    background: rgba(139, 92, 246, 0.08);
+}

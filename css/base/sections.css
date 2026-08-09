@@ -1,0 +1,99 @@
+/* ═══════════════════════════════════════════════════════════════
+   SECTION BACKGROUNDS & BORDERS
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Base section styling */
+section {
+    position: relative;
+    border-bottom: 1px solid var(--section-border);
+}
+
+/* Alternating section backgrounds for better contrast */
+section:nth-of-type(odd) {
+    background-color: var(--section-bg-primary);
+}
+
+section:nth-of-type(even) {
+    background-color: var(--section-bg-secondary);
+}
+
+/* Specific section backgrounds */
+#hero,
+.hero-profile-banner {
+    background-color: var(--section-bg-primary);
+}
+
+#passion-building {
+    background-color: var(--section-bg-secondary);
+}
+
+#mobile-portfolio {
+    background-color: var(--section-bg-primary);
+}
+
+#web-portfolio {
+    background-color: var(--section-bg-secondary);
+}
+
+#desktop-portfolio {
+    background-color: var(--section-bg-primary);
+}
+
+#skills {
+    background-color: var(--section-bg-secondary);
+}
+
+#about {
+    background-color: var(--section-bg-primary);
+}
+
+#contact {
+    background-color: var(--section-bg-secondary);
+}
+
+/* Dark theme section backgrounds */
+[data-theme="dark"] section:nth-of-type(odd) {
+    background-color: rgba(10, 10, 20, 0.4);
+}
+
+[data-theme="dark"] section:nth-of-type(even) {
+    background-color: rgba(17, 17, 34, 0.4);
+}
+
+[data-theme="dark"] #hero,
+[data-theme="dark"] .hero-profile-banner {
+    background-color: rgba(10, 10, 20, 0.4);
+}
+
+[data-theme="dark"] #passion-building {
+    background-color: rgba(17, 17, 34, 0.4);
+}
+
+[data-theme="dark"] #mobile-portfolio {
+    background-color: rgba(10, 10, 20, 0.4);
+}
+
+[data-theme="dark"] #web-portfolio {
+    background-color: rgba(17, 17, 34, 0.4);
+}
+
+[data-theme="dark"] #desktop-portfolio {
+    background-color: rgba(10, 10, 20, 0.4);
+}
+
+[data-theme="dark"] #skills {
+    background-color: rgba(17, 17, 34, 0.4);
+}
+
+[data-theme="dark"] #about {
+    background-color: rgba(10, 10, 20, 0.4);
+}
+
+[data-theme="dark"] #contact {
+    background-color: rgba(17, 17, 34, 0.4);
+}
+
+/* Dark theme section borders */
+[data-theme="dark"] section {
+    border-bottom-color: rgba(124, 58, 237, 0.15);
+}

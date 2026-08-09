@@ -269,3 +269,31 @@
         box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
     }
 }
+
+/* Light theme mobile menu adjustments */
+[data-theme="light"] .menu-toggle {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .menu-toggle:hover {
+    background: rgba(255, 255, 255, 1);
+}
+
+[data-theme="light"] .mobile-sidebar {
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .mobile-nav-link:hover,
+[data-theme="light"] .mobile-nav-link.active {
+    background: rgba(139, 92, 246, 0.08);
+}
+
+[data-theme="light"] .mobile-social-link {
+    background: rgba(139, 92, 246, 0.08);
+}
+
+[data-theme="light"] .mobile-social-link:hover {
+    background: var(--primary-color);
+}

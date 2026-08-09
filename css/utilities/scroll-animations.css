@@ -1,0 +1,146 @@
+/* ═══════════════════════════════════════════════════════════════
+   UNIVERSAL SCROLL ANIMATIONS
+   Reusable animation classes for all sections
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Base scroll animation class - applies to any section */
+.scroll-animate {
+    opacity: 0 !important;
+    transform: translateY(40px) !important;
+    transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+/* Active state when section is in view */
+.scroll-animate.in-view {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Text-only blur animation - for headings, paragraphs, buttons */
+.scroll-animate h1,
+.scroll-animate h2,
+.scroll-animate h3,
+.scroll-animate h4,
+.scroll-animate h5,
+.scroll-animate h6,
+.scroll-animate p,
+.scroll-animate a,
+.scroll-animate span,
+.scroll-animate .section-title,
+.scroll-animate .section-subtitle,
+.scroll-animate .btn,
+.scroll-animate li,
+.scroll-animate label,
+.scroll-animate input,
+.scroll-animate textarea {
+    filter: blur(12px) !important;
+    transition: filter 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.scroll-animate.in-view h1,
+.scroll-animate.in-view h2,
+.scroll-animate.in-view h3,
+.scroll-animate.in-view h4,
+.scroll-animate.in-view h5,
+.scroll-animate.in-view h6,
+.scroll-animate.in-view p,
+.scroll-animate.in-view a,
+.scroll-animate.in-view span,
+.scroll-animate.in-view .section-title,
+.scroll-animate.in-view .section-subtitle,
+.scroll-animate.in-view .btn,
+.scroll-animate.in-view li,
+.scroll-animate.in-view label,
+.scroll-animate.in-view input,
+.scroll-animate.in-view textarea {
+    filter: blur(0) !important;
+}
+
+/* Image blur for project sections only */
+.portfolio-section.scroll-animate img,
+.portfolio-section .scroll-animate img,
+.passion-section.scroll-animate img,
+.passion-section .scroll-animate img {
+    filter: blur(15px) !important;
+    transition: filter 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.portfolio-section.scroll-animate.in-view img,
+.portfolio-section .scroll-animate.in-view img,
+.passion-section.scroll-animate.in-view img,
+.passion-section .scroll-animate.in-view img {
+    filter: blur(0) !important;
+}
+
+/* Faster variant for smaller sections or secondary content */
+.scroll-animate-fast {
+    opacity: 0 !important;
+    transform: translateY(30px) !important;
+    transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.scroll-animate-fast.in-view {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Slower, more dramatic variant for hero sections */
+.scroll-animate-slow {
+    opacity: 0 !important;
+    transform: translateY(60px) !important;
+    transition: opacity 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                transform 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.scroll-animate-slow.in-view {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Side slide variants */
+.scroll-animate-left {
+    opacity: 0 !important;
+    transform: translateX(-50px) !important;
+    transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.scroll-animate-left.in-view {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+}
+
+.scroll-animate-right {
+    opacity: 0 !important;
+    transform: translateX(50px) !important;
+    transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.scroll-animate-right.in-view {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+}
+
+/* Scale variant */
+.scroll-animate-scale {
+    opacity: 0 !important;
+    transform: scale(0.92) !important;
+    transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.scroll-animate-scale.in-view {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+}
+
+/* Staggered delay classes for child elements */
+.scroll-animate-delay-1 { transition-delay: 0.2s; }
+.scroll-animate-delay-2 { transition-delay: 0.4s; }
+.scroll-animate-delay-3 { transition-delay: 0.6s; }
+.scroll-animate-delay-4 { transition-delay: 0.8s; }
+.scroll-animate-delay-5 { transition-delay: 1s; }
+
