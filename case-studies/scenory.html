@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCENORY — Case Study | Nelson Otika</title>
+<link rel="shortcut icon" type="image/png" href="../images/Browser_Logo.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a14;
+    --surface:#16162a;
+    --surface-2:#1e1e38;
+    --border:rgba(124,58,237,0.2);
+    --border-bright:rgba(124,58,237,0.5);
+    --text:#f1f0ff;
+    --muted:#8b8aaa;
+    --accent:#f97316;
+    --accent-soft:rgba(249,115,22,.14);
+    --dur:420ms;
+  }
+  [data-theme="light"] {
+    --bg:#fafafa;
+    --surface:#ede9fe;
+    --surface-2:#ddd6fe;
+    --border:rgba(139,92,246,0.15);
+    --border-bright:rgba(139,92,246,0.35);
+    --text:#0f172a;
+    --muted:#475569;
+    --accent:#f97316;
+  }
+  @media (prefers-reduced-motion:reduce){ :root{ --dur:0ms; } }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    transition:background var(--dur), color var(--dur);
+  }
+  .scroll-progress-indicator{
+    position:fixed; top:0; left:0; right:0; height:4px;
+    background:rgba(124,58,237,0.1); z-index:1001;
+  }
+  .scroll-progress-bar{
+    height:100%; background:linear-gradient(135deg,#7c3aed 0%,#a78bfa 50%,#f97316 100%);
+    transition:width 0.1s ease;
+    box-shadow:0 0 10px rgba(124,58,237,0.5);
+  }
+  [data-theme="light"] .scroll-progress-indicator{
+    background:rgba(139,92,246,0.08);
+  }
+  [data-theme="light"] .scroll-progress-bar{
+    background:linear-gradient(135deg,#8b5cf6 0%,#a78bfa 50%,#f97316 100%);
+  }
+  a{ color:inherit; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  .wrap{ max-width:1040px; margin:0 auto; padding:0 28px; }
+  .prose{ max-width:680px; }
+
+  nav{
+    position:fixed; top:12px; left:50%; transform:translateX(-50%);
+    background:rgba(17,17,34,0.85);
+    backdrop-filter:blur(24px);
+    border:1px solid var(--border);
+    border-radius:60px;
+    padding:6px 16px;
+    z-index:1000;
+    transition:all 0.3s ease;
+    box-shadow:0 4px 24px rgba(0,0,0,0.4), 0 0 0 1px rgba(124,58,237,0.1);
+  }
+  nav:hover{
+    border-color:var(--border-bright);
+    box-shadow:0 4px 32px rgba(0,0,0,0.5), 0 0 40px rgba(124,58,237,0.25);
+    transform:translateX(-50%) translateY(-2px);
+  }
+  [data-theme="light"] nav{
+    background:rgba(255,255,255,0.95);
+    box-shadow:0 4px 20px rgba(0,0,0,0.08), 0 0 0 1px rgba(139,92,246,0.1);
+  }
+  [data-theme="light"] nav:hover{
+    box-shadow:0 4px 28px rgba(0,0,0,0.12), 0 0 40px rgba(139,92,246,0.15);
+  }
+  nav .wrap{
+    display:flex; align-items:center; gap:2px;
+    max-width:none; padding:0;
+  }
+  .nav-links{ display:flex; gap:2px; list-style:none; align-items:center; }
+  .nav-links a{
+    font-size:12px; color:var(--muted); text-decoration:none;
+    font-weight:500; padding:5px 12px; border-radius:25px;
+    transition:all 0.25s ease;
+  }
+  .nav-links a:hover, .nav-links a.active{
+    background:linear-gradient(135deg,#7c3aed 0%,#a78bfa 50%,#f97316 100%);
+    color:white;
+    box-shadow:0 4px 16px rgba(124,58,237,0.35);
+  }
+  [data-theme="light"] .nav-links a:hover, [data-theme="light"] .nav-links a.active{
+    background:linear-gradient(135deg,#8b5cf6 0%,#a78bfa 50%,#f97316 100%);
+  }
+  .brand{
+    font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600;
+    text-decoration:none; color:var(--text); padding:5px 12px;
+    border-radius:25px; transition:all 0.25s ease;
+  }
+  .brand:hover{
+    background:linear-gradient(135deg,#7c3aed 0%,#a78bfa 50%,#f97316 100%);
+    color:white;
+  }
+  .theme-toggle{
+    position:fixed; top:12px; right:24px; z-index:1000;
+    width:46px; height:46px; border-radius:50%;
+    background:rgba(17,17,34,0.85);
+    backdrop-filter:blur(24px);
+    border:1px solid var(--border);
+    color:var(--text); cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:all 0.3s ease;
+    box-shadow:0 4px 24px rgba(0,0,0,0.4), 0 0 0 1px rgba(124,58,237,0.1);
+  }
+  .theme-toggle:hover{
+    transform:translateY(-2px) rotate(15deg);
+    border-color:var(--border-bright);
+    box-shadow:0 4px 32px rgba(0,0,0,0.5), 0 0 40px rgba(124,58,237,0.25);
+  }
+  .theme-toggle i{
+    font-size:18px; color:var(--muted); transition:all 0.3s ease;
+  }
+  .theme-toggle:hover i{ color:#a78bfa; }
+  [data-theme="light"] .theme-toggle{
+    background:rgba(255,255,255,0.95);
+    box-shadow:0 4px 20px rgba(0,0,0,0.1), 0 0 0 1px rgba(139,92,246,0.1);
+  }
+  [data-theme="light"] .theme-toggle:hover{
+    box-shadow:0 4px 28px rgba(0,0,0,0.15), 0 0 40px rgba(139,92,246,0.15);
+  }
+  .theme-toggle .fa-sun{ display:block; }
+  .theme-toggle .fa-moon{ display:none; }
+  [data-theme="light"] .theme-toggle .fa-sun{ display:none; }
+  [data-theme="light"] .theme-toggle .fa-moon{ display:block; }
+  .breadcrumb{
+    font-size:12px; color:var(--muted); padding:88px 0 0;
+  }
+  .breadcrumb a{ text-decoration:none; }
+  .breadcrumb a:hover{ color:var(--text); }
+  .breadcrumb .sep{ margin:0 8px; opacity:.5; }
+
+  .hero{ padding:24px 0 40px; }
+  .kicker{
+    font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--accent);
+    display:flex; align-items:center; gap:10px; margin-bottom:22px;
+  }
+  .kicker::before{
+    content:''; width:22px; height:1px; background:var(--accent);
+  }
+  h1.title{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(42px,7vw,76px);
+    line-height:1.02;
+    letter-spacing:-.01em;
+    margin-bottom:22px;
+  }
+  .tagline{
+    font-size:17px; color:var(--muted); max-width:600px; margin-bottom:34px;
+  }
+
+  .cta-row{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:12px 20px; border-radius:8px; font-size:14px; font-weight:500;
+    text-decoration:none; transition:transform var(--dur), background var(--dur), border-color var(--dur);
+    border:1px solid transparent;
+  }
+  .btn-primary{ background:var(--accent); color:#0B0A12; }
+  .btn-primary:hover{ transform:translateY(-1px); }
+  .btn-ghost{ border-color:var(--border); color:var(--text); }
+  .btn-ghost:hover{ border-color:var(--accent); }
+
+  section{ padding:64px 0; border-top:1px solid var(--border); }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace; font-size:12px;
+    color:var(--muted); letter-spacing:.08em; text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  h2{
+    font-family:'Space Grotesk',sans-serif; font-weight:600;
+    font-size:clamp(28px,4vw,38px); margin-bottom:20px; letter-spacing:-.01em;
+  }
+  p + p{ margin-top:14px; }
+  .prose p{ color:#C9C5DA; font-size:16px; }
+
+  .features-grid{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:32px;
+  }
+  @media (max-width:640px){ .features-grid{ grid-template-columns:1fr; } }
+  .feature-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:10px;
+    padding:20px 22px; transition:border-color var(--dur);
+  }
+  .feature-card:hover{ border-color:var(--accent); }
+  .feature-card .icon{
+    width:36px; height:36px; border-radius:8px;
+    background:var(--accent-soft); color:var(--accent);
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px; margin-bottom:14px;
+  }
+  .feature-card h4{ font-size:15px; font-weight:600; margin-bottom:6px; }
+  .feature-card p{ font-size:13.5px; color:var(--muted); }
+
+  .quote{
+    font-family:'Space Grotesk',sans-serif; font-style:italic;
+    font-size:clamp(24px,3.4vw,32px); line-height:1.4; color:var(--text);
+    max-width:720px; border-left:2px solid var(--accent); padding-left:28px;
+    font-weight:500;
+  }
+
+  .meta-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    padding:8px 0; margin-top:8px;
+  }
+  .meta-row{
+    display:grid; grid-template-columns:160px 1fr; gap:16px;
+    padding:14px 24px; border-bottom:1px solid var(--border);
+    font-size:14px;
+  }
+  .meta-row:last-child{ border-bottom:none; }
+  .meta-row .k{ color:var(--muted); font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.03em; }
+  .meta-row .v a{ color:var(--accent); text-decoration:none; }
+  .meta-row .v a:hover{ text-decoration:underline; }
+
+  footer{
+    border-top:1px solid var(--border); padding:36px 0 60px;
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:16px;
+  }
+  footer .back{ font-size:13px; color:var(--muted); text-decoration:none; }
+  footer .back:hover{ color:var(--text); }
+  footer .copyright{ font-size:12px; color:var(--muted); }
+
+  .desktop-preview{
+    margin-top:48px;
+    border-radius:12px; overflow:hidden;
+    border:1px solid var(--border);
+    box-shadow:0 20px 60px rgba(0,0,0,0.3);
+  }
+  .desktop-preview img{ width:100%; display:block; }
+
+  @media (max-width:768px){
+    nav{ top:20px; padding:4px 10px; }
+    .nav-links{ gap:0; }
+    .nav-links a, .brand{ font-size:11px; padding:4px 8px; }
+    .theme-toggle{ top:20px; right:20px; width:48px; height:48px; }
+    .breadcrumb{ padding:96px 0 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scroll-progress-indicator">
+  <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+</div>
+
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+  <i class="fas fa-sun"></i>
+  <i class="fas fa-moon"></i>
+</button>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="../index.html">Nelson Otika</a>
+    <ul class="nav-links">
+      <li><a href="../index.html#hero">Home</a></li>
+      <li><a href="../index.html#mobile-portfolio">Work</a></li>
+      <li><a href="../projects.html">Projects</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="breadcrumb">
+    <a href="../index.html">Home</a>
+    <span class="sep">/</span> SCENORY
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Case Study — Desktop / Content Creation</div>
+    <h1 class="title">SCENORY</h1>
+    <p class="tagline">Creating skits and animations is creative work, not administrative drudgery. SCENORY is a desktop tool built to help content creators organize scenes, manage scripts, and track production workflows—so they can focus on the story, not the spreadsheet.</p>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/otikanelson" target="_blank" rel="noopener">GitHub</a>
+    </div>
+
+    <!-- Desktop Application Screenshot -->
+    <div class="desktop-preview">
+      <img src="../images/scenory.png" alt="SCENORY Desktop Application" style="width:100%; display:block;">
+    </div>
+  </div>
+</header>
+
+<section id="problem">
+  <div class="wrap">
+    <div class="eyebrow">The Problem</div>
+    <h2>Creative tools shouldn't feel like accounting software</h2>
+    <div class="prose">
+      <p>My friend is an animator and content creator—talented, hardworking, constantly juggling scenes, scripts, character notes, and production timelines. But every tool available felt like it was built for corporations, not creators. Bloated interfaces, steep learning curves, subscriptions that add up.</p>
+      <p>The best work happens when tools disappear into the background. SCENORY was built to do exactly that—stay out of the way while quietly making everything easier.</p>
+    </div>
+  </div>
+</section>
+
+<section id="solution">
+  <div class="wrap">
+    <div class="eyebrow">The Solution</div>
+    <h2>A production assistant that doesn't get in your way</h2>
+    <div class="prose">
+      <p>SCENORY is a lightweight desktop application designed specifically for animators and skit creators. Organize scenes, write and edit scripts, track character details, manage production schedules—all in one clean interface. Built with Electron and React, it runs locally, keeps your data private, and works offline.</p>
+      <p>No subscriptions. No cloud lock-in. Just a tool that respects your workflow and helps you ship faster.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="icon"><i class="fas fa-film"></i></div>
+        <h4>Scene Management</h4>
+        <p>Organize scenes visually, reorder sequences, and track production status at a glance.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon"><i class="fas fa-scroll"></i></div>
+        <h4>Script Editor</h4>
+        <p>Clean, distraction-free script writing with auto-save and version tracking.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon"><i class="fas fa-users"></i></div>
+        <h4>Character Database</h4>
+        <p>Track character profiles, relationships, and story arcs across projects.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon"><i class="fas fa-calendar-alt"></i></div>
+        <h4>Production Timeline</h4>
+        <p>Schedule scenes, set deadlines, and monitor progress without external tools.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon"><i class="fas fa-lock"></i></div>
+        <h4>Local-First</h4>
+        <p>All data stored locally. No cloud dependencies. Your work stays private.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon"><i class="fas fa-download"></i></div>
+        <h4>Export & Share</h4>
+        <p>Export scripts, shot lists, and production reports in standard formats.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="impact">
+  <div class="wrap">
+    <div class="eyebrow">Philosophy</div>
+    <blockquote class="quote">
+      The best creative tools are invisible. They don't demand attention—they quietly make your work easier, faster, and more organized.
+    </blockquote>
+    <div class="prose" style="margin-top:24px;">
+      <p>SCENORY was built for one person but designed for anyone who creates visual stories. When creativity meets organization, magic happens—and it shouldn't require a degree in project management.</p>
+    </div>
+  </div>
+</section>
+
+<section id="meta">
+  <div class="wrap">
+    <div class="eyebrow">Project Details</div>
+    <div class="meta-card">
+      <div class="meta-row"><div class="k">TYPE</div><div class="v">Desktop Content Creation Tool</div></div>
+      <div class="meta-row"><div class="k">ROLE</div><div class="v">Full-Stack Developer & Designer</div></div>
+      <div class="meta-row"><div class="k">TECHNOLOGY</div><div class="v">Electron · React · Node.js · SQLite</div></div>
+      <div class="meta-row"><div class="k">STATUS</div><div class="v">In Development</div></div>
+      <div class="meta-row"><div class="k">PURPOSE</div><div class="v">Personal tool for animation creator</div></div>
+      <div class="meta-row"><div class="k">SOURCE</div><div class="v"><a href="https://github.com/otikanelson" target="_blank" rel="noopener">github.com/otikanelson ↗</a></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; width:100%;">
+    <a class="back" href="../projects.html">← Back to all projects</a>
+    <span class="copyright">© 2026 Nelson Otika. All rights reserved.</span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    const toggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
+
+  (function(){
+    const bar = document.getElementById('scrollProgressBar');
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      const p = (window.scrollY / h) * 100;
+      bar.style.width = p + '%';
+    });
+  })();
+</script>
+
+</body>
+</html>

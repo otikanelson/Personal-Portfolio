@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shadow of the Arcane — Case Study | Nelson Otika</title>
+<link rel="shortcut icon" type="image/png" href="../images/Browser_Logo.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a14;
+    --surface:#16162a;
+    --surface-2:#1e1e38;
+    --border:rgba(124,58,237,0.2);
+    --border-bright:rgba(124,58,237,0.5);
+    --text:#f1f0ff;
+    --muted:#8b8aaa;
+    --v1:#f97316;
+    --v2:#7c3aed;
+    --v1-soft:rgba(249,115,22,.12);
+    --v2-soft:rgba(124,58,237,.14);
+    --accent:var(--v2);
+    --accent-soft:var(--v2-soft);
+    --dur:420ms;
+  }
+  [data-theme="light"] {
+    --bg:#fafafa;
+    --surface:#ede9fe;
+    --surface-2:#ddd6fe;
+    --border:rgba(139,92,246,0.15);
+    --border-bright:rgba(139,92,246,0.35);
+    --text:#0f172a;
+    --muted:#475569;
+    --v1:#f97316;
+    --v2:#8b5cf6;
+  }
+  @media (prefers-reduced-motion:reduce){ :root{ --dur:0ms; } }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    transition:background var(--dur), color var(--dur);
+  }
+  .scroll-progress-indicator{
+    position:fixed; top:0; left:0; right:0; height:4px;
+    background:rgba(124,58,237,0.1); z-index:1001;
+  }
+  .scroll-progress-bar{
+    height:100%; background:linear-gradient(135deg,#7c3aed 0%,#a78bfa 50%,#06b6d4 100%);
+    transition:width 0.1s ease, background var(--dur);
+    box-shadow:0 0 10px rgba(124,58,237,0.5);
+  }
+  [data-theme="light"] .scroll-progress-indicator{
+    background:rgba(139,92,246,0.08);
+  }
+  [data-theme="light"] .scroll-progress-bar{
+    background:linear-gradient(135deg,#8b5cf6 0%,#a78bfa 50%,#06b6d4 100%);
+  }
+  a{ color:inherit; }
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  .wrap{ max-width:1040px; margin:0 auto; padding:0 28px; }
+  .prose{ max-width:680px; }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:12px; left:50%; transform:translateX(-50%);
+    background:rgba(17,17,34,0.85);
+    backdrop-filter:blur(24px);
+    border:1px solid var(--border);
+    border-radius:60px;
+    padding:6px 16px;
+    z-index:1000;
+    transition:all 0.3s ease;
+    box-shadow:0 4px 24px rgba(0,0,0,0.4), 0 0 0 1px rgba(124,58,237,0.1);
+  }
+  nav:hover{
+    border-color:var(--border-bright);
+    box-shadow:0 4px 32px rgba(0,0,0,0.5), 0 0 40px rgba(124,58,237,0.25);
+    transform:translateX(-50%) translateY(-2px);
+  }
+  [data-theme="light"] nav{
+    background:rgba(255,255,255,0.95);
+    box-shadow:0 4px 20px rgba(0,0,0,0.08), 0 0 0 1px rgba(139,92,246,0.1);
+  }
+  [data-theme="light"] nav:hover{
+    box-shadow:0 4px 28px rgba(0,0,0,0.12), 0 0 40px rgba(139,92,246,0.15);
+  }
+  nav .wrap{
+    display:flex; align-items:center; gap:2px;
+    max-width:none; padding:0;
+  }
+  .nav-links{ display:flex; gap:2px; list-style:none; align-items:center; }
+  .nav-links a{
+    font-size:12px; color:var(--muted); text-decoration:none;
+    font-weight:500; padding:5px 12px; border-radius:25px;
+    transition:all 0.25s ease;
+  }
+  .nav-links a:hover, .nav-links a.active{
+    background:linear-gradient(135deg,#7c3aed 0%,#a78bfa 50%,#06b6d4 100%);
+    color:white;
+    box-shadow:0 4px 16px rgba(124,58,237,0.35);
+  }
+  [data-theme="light"] .nav-links a:hover, [data-theme="light"] .nav-links a.active{
+    background:linear-gradient(135deg,#8b5cf6 0%,#a78bfa 50%,#06b6d4 100%);
+  }
+  .brand{
+    font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600;
+    text-decoration:none; color:var(--text); padding:5px 12px;
+    border-radius:25px; transition:all 0.25s ease;
+  }
+  .brand:hover{
+    background:linear-gradient(135deg,#7c3aed 0%,#a78bfa 50%,#06b6d4 100%);
+    color:white;
+  }
+  .theme-toggle{
+    position:fixed; top:12px; right:24px; z-index:1000;
+    width:46px; height:46px; border-radius:50%;
+    background:rgba(17,17,34,0.85);
+    backdrop-filter:blur(24px);
+    border:1px solid var(--border);
+    color:var(--text); cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:all 0.3s ease;
+    box-shadow:0 4px 24px rgba(0,0,0,0.4), 0 0 0 1px rgba(124,58,237,0.1);
+  }
+  .theme-toggle:hover{
+    transform:translateY(-2px) rotate(15deg);
+    border-color:var(--border-bright);
+    box-shadow:0 4px 32px rgba(0,0,0,0.5), 0 0 40px rgba(124,58,237,0.25);
+  }
+  .theme-toggle i{
+    font-size:18px; color:var(--muted); transition:all 0.3s ease;
+  }
+  .theme-toggle:hover i{ color:var(--primary-light); }
+  [data-theme="light"] .theme-toggle{
+    background:rgba(255,255,255,0.95);
+    box-shadow:0 4px 20px rgba(0,0,0,0.1), 0 0 0 1px rgba(139,92,246,0.1);
+  }
+  [data-theme="light"] .theme-toggle:hover{
+    box-shadow:0 4px 28px rgba(0,0,0,0.15), 0 0 40px rgba(139,92,246,0.15);
+  }
+  .theme-toggle .fa-sun{ display:block; }
+  .theme-toggle .fa-moon{ display:none; }
+  [data-theme="light"] .theme-toggle .fa-sun{ display:none; }
+  [data-theme="light"] .theme-toggle .fa-moon{ display:block; }
+  .breadcrumb{
+    font-size:12px; color:var(--muted); padding:88px 0 0;
+  }
+  .breadcrumb a{ text-decoration:none; }
+  .breadcrumb a:hover{ color:var(--text); }
+  .breadcrumb .sep{ margin:0 8px; opacity:.5; }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding:24px 0 40px; }
+  .kicker{
+    font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--accent); transition:color var(--dur);
+    display:flex; align-items:center; gap:10px; margin-bottom:22px;
+  }
+  .kicker::before{
+    content:''; width:22px; height:1px; background:var(--accent);
+    transition:background var(--dur);
+  }
+  h1.title{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(42px,7vw,76px);
+    line-height:1.02;
+    letter-spacing:-.01em;
+    margin-bottom:22px;
+  }
+  .video-container{
+    margin-top:48px; border-radius:12px; overflow:hidden;
+    border:1px solid var(--border); background:var(--surface);
+    aspect-ratio:16/9; display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .video-container video{
+    width:100%; height:100%; object-fit:cover;
+  }
+  .video-placeholder{
+    font-size:14px; color:var(--muted); text-align:center;
+    padding:40px;
+  }
+  .tagline{
+    font-size:17px; color:var(--muted); max-width:600px; margin-bottom:34px;
+  }
+
+  /* version toggle — signature element */
+  .toggle-block{
+    display:inline-flex; flex-direction:column; gap:14px;
+    padding:20px 22px; background:var(--surface);
+    border:1px solid var(--border); border-radius:10px;
+    margin-bottom:30px; max-width:100%;
+  }
+  .toggle-row{ display:flex; align-items:center; gap:14px; }
+  .toggle{
+    position:relative; display:inline-flex; background:var(--surface-2);
+    border:1px solid var(--border); border-radius:999px; padding:3px;
+    font-family:'JetBrains Mono',monospace; font-size:12px;
+  }
+  .toggle button{
+    position:relative; z-index:2; border:none; background:none;
+    color:var(--muted); padding:8px 18px; border-radius:999px;
+    cursor:pointer; transition:color var(--dur); letter-spacing:.03em;
+  }
+  .toggle button[aria-pressed="true"]{ color:var(--bg); }
+  .toggle .thumb{
+    position:absolute; top:3px; bottom:3px; left:3px;
+    width:calc(50% - 3px); border-radius:999px;
+    background:var(--accent);
+    transition:transform var(--dur) cubic-bezier(.65,0,.35,1), background var(--dur);
+  }
+  .toggle.state-v2 .thumb{ transform:translateX(100%); }
+  .version-line{ font-size:14px; color:var(--muted); min-height:22px; }
+  .version-line strong{ color:var(--text); font-weight:500; }
+
+  .cta-row{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:12px 20px; border-radius:8px; font-size:14px; font-weight:500;
+    text-decoration:none; transition:transform var(--dur), background var(--dur), border-color var(--dur);
+    border:1px solid transparent;
+  }
+  .btn-primary{ background:var(--accent); color:#0B0A12; }
+  .btn-primary:hover{ transform:translateY(-1px); }
+  .btn-ghost{ border-color:var(--border); color:var(--text); }
+  .btn-ghost:hover{ border-color:var(--accent); }
+
+  /* ---------- SECTIONS ---------- */
+  section{ padding:64px 0; border-top:1px solid var(--border); }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace; font-size:12px;
+    color:var(--muted); letter-spacing:.08em; text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  h2{
+    font-family:'Space Grotesk',sans-serif; font-weight:600;
+    font-size:clamp(28px,4vw,38px); margin-bottom:20px; letter-spacing:-.01em;
+  }
+  p + p{ margin-top:14px; }
+  .prose p{ color:#C9C5DA; font-size:16px; }
+
+  /* rebuild comparison */
+  .compare{
+    display:grid; grid-template-columns:1fr 1fr; gap:1px;
+    background:var(--border); border:1px solid var(--border);
+    border-radius:12px; overflow:hidden; margin-top:32px;
+  }
+  .compare-col{ background:var(--surface); padding:26px 24px; transition:background var(--dur); }
+  .compare-col.is-active{ background:var(--surface-2); }
+  .compare-label{
+    font-family:'JetBrains Mono',monospace; font-size:11px;
+    letter-spacing:.08em; text-transform:uppercase; margin-bottom:12px;
+  }
+  .compare-col:first-child .compare-label{ color:var(--v1); }
+  .compare-col:last-child .compare-label{ color:var(--v2); }
+  .compare-col h3{
+    font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:600; margin-bottom:10px;
+  }
+  .compare-col ul{ list-style:none; }
+  .compare-col li{
+    font-size:14px; color:var(--muted); padding:6px 0 6px 16px; position:relative;
+  }
+  .compare-col li::before{
+    content:'—'; position:absolute; left:0; opacity:.5;
+  }
+  @media (max-width:640px){ .compare{ grid-template-columns:1fr; } }
+
+  /* systems grid */
+  .systems-grid{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:32px;
+  }
+  @media (max-width:640px){ .systems-grid{ grid-template-columns:1fr; } }
+  .system-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:10px;
+    padding:20px 22px; transition:border-color var(--dur);
+  }
+  .system-card:hover{ border-color:var(--accent); }
+  .system-card .idx{
+    font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--accent);
+    transition:color var(--dur); display:block; margin-bottom:8px;
+  }
+  .system-card h4{ font-size:15px; font-weight:600; margin-bottom:6px; }
+  .system-card p{ font-size:13.5px; color:var(--muted); }
+
+  /* visual evolution */
+  .shots{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:32px; }
+  @media (max-width:640px){ .shots{ grid-template-columns:1fr; } }
+  .shot{
+    border:1px dashed var(--border); border-radius:10px;
+    aspect-ratio:16/10; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center;
+    padding:20px; gap:6px; background:var(--surface);
+  }
+  .shot .tag{
+    font-family:'JetBrains Mono',monospace; font-size:11px;
+    letter-spacing:.06em; text-transform:uppercase; margin-bottom:6px;
+  }
+  .shot:first-child .tag{ color:var(--v1); }
+  .shot:last-child .tag{ color:var(--v2); }
+  .shot .hint{ font-size:13px; color:var(--muted); max-width:220px; }
+  .disclosure{
+    margin-top:22px; font-size:13.5px; color:var(--muted);
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:8px; padding:14px 16px;
+  }
+  .disclosure strong{ color:var(--text); font-weight:500; }
+
+  /* pull quote */
+  .quote{
+    font-family:'Space Grotesk',sans-serif; font-style:italic;
+    font-size:clamp(24px,3.4vw,32px); line-height:1.4; color:var(--text);
+    max-width:720px; border-left:2px solid var(--accent); padding-left:28px;
+    transition:border-color var(--dur); font-weight:500;
+  }
+
+  /* metadata card */
+  .meta-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    padding:8px 0; margin-top:8px;
+  }
+  .meta-row{
+    display:grid; grid-template-columns:160px 1fr; gap:16px;
+    padding:14px 24px; border-bottom:1px solid var(--border);
+    font-size:14px;
+  }
+  .meta-row:last-child{ border-bottom:none; }
+  .meta-row .k{ color:var(--muted); font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.03em; }
+  .meta-row .v a{ color:var(--accent); text-decoration:none; transition:color var(--dur); }
+  .meta-row .v a:hover{ text-decoration:underline; }
+
+  footer{
+    border-top:1px solid var(--border); padding:36px 0 60px;
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:16px;
+  }
+  footer .back{ font-size:13px; color:var(--muted); text-decoration:none; }
+  footer .back:hover{ color:var(--text); }
+  footer .copyright{ font-size:12px; color:var(--muted); }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:768px){
+    nav{ top:20px; padding:4px 10px; }
+    .nav-links{ gap:0; }
+    .nav-links a, .brand{ font-size:11px; padding:4px 8px; }
+    .theme-toggle{ top:20px; right:20px; width:48px; height:48px; }
+    .breadcrumb{ padding:96px 0 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Scroll Progress -->
+<div class="scroll-progress-indicator">
+  <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+</div>
+
+<!-- Theme Toggle -->
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+  <i class="fas fa-sun"></i>
+  <i class="fas fa-moon"></i>
+</button>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="../index.html">Nelson Otika</a>
+    <ul class="nav-links">
+      <li><a href="../index.html#hero">Home</a></li>
+      <li><a href="../index.html#mobile-portfolio">Work</a></li>
+      <li><a href="../projects.html">Projects</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="breadcrumb">
+    <a href="../">Home</a>
+    <span class="sep">/</span> Shadow of the Arcane
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Case Study — Web / Interactive Fiction</div>
+    <h1 class="title">Shadow of<br>the Arcane</h1>
+    <p class="tagline">A choice-driven text RPG, built while learning JavaScript — then rebuilt once JavaScript wasn't the hard part anymore.</p>
+
+    <div class="toggle-block">
+      <div class="toggle-row">
+        <span class="mono" style="font-size:12px; color:var(--muted);">Viewing</span>
+        <div class="toggle state-v2" id="versionToggle">
+          <div class="thumb"></div>
+          <button type="button" data-version="v1" aria-pressed="false">V1 · Original</button>
+          <button type="button" data-version="v2" aria-pressed="true">V2 · Rebuild</button>
+        </div>
+      </div>
+      <p class="version-line" id="versionLine">
+        <strong>The rebuild.</strong> A structured codebase, dedicated systems, improved UI, sound and visual assets — built after coming back with a developer's eye instead of a beginner's.
+      </p>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://shadow-of-the-arcane.vercel.app/" target="_blank" rel="noopener">Play the live demo →</a>
+      <a class="btn btn-ghost" href="https://github.com/otikanelson/RPG" target="_blank" rel="noopener">View source on GitHub</a>
+    </div>
+
+    <!-- Video Container -->
+    <div class="video-container">
+      <div class="video-placeholder">
+        <i class="fas fa-play-circle" style="font-size:48px; margin-bottom:12px; opacity:0.5;"></i><br>
+        Add gameplay video here
+      </div>
+      <!-- Uncomment and add your video:
+      <video controls poster="path-to-thumbnail.jpg">
+        <source src="path-to-video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      -->
+    </div>
+  </div>
+</header>
+
+<!-- ORIGIN -->
+<section id="origin">
+  <div class="wrap">
+    <div class="eyebrow">Where it started</div>
+    <h2>A learning exercise that got out of hand</h2>
+    <div class="prose">
+      <p>Shadow of the Arcane started as a way to force myself to actually use JavaScript instead of following another tutorial. I built a small text-based RPG where the player could explore a story, make choices, and live with the consequences of those decisions.</p>
+      <p>At its core it's a story-driven RPG built around player choice — writing, atmosphere, and sound carrying the experience instead of graphics. What began as a practice project became one I genuinely wanted to keep developing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- THE REBUILD -->
+<section id="rebuild">
+  <div class="wrap">
+    <div class="eyebrow">The rebuild</div>
+    <h2>I didn't want to leave it where I started</h2>
+    <div class="prose">
+      <p>The original version was intentionally simple — it proved I could turn what I was learning into something interactive. Coming back to it later, I could see how much further I'd come as a developer. So I rebuilt it, this time with a more structured codebase, dedicated systems, improved UI, sound, and visual assets.</p>
+      <p>The project stopped being about "can I make a game?" and became "how far can I take something I originally built while learning?"</p>
+    </div>
+
+    <div class="compare">
+      <div class="compare-col" id="colV1">
+        <div class="compare-label">V1 · Original</div>
+        <h3>Prove it works</h3>
+        <ul>
+          <li>Single-script structure</li>
+          <li>Core choice &amp; dialogue loop</li>
+          <li>Minimal UI, functional only</li>
+          <li>Built to learn JavaScript fundamentals</li>
+        </ul>
+      </div>
+      <div class="compare-col" id="colV2">
+        <div class="compare-label">V2 · Rebuild</div>
+        <h3>Make it good</h3>
+        <ul>
+          <li>Dedicated managers, ui, screens, core, data</li>
+          <li>Audio and asset systems added</li>
+          <li>Deliberate, immersive interface design</li>
+          <li>Built to prove how far I'd progressed</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SYSTEMS -->
+<section id="systems">
+  <div class="wrap">
+    <div class="eyebrow">What I built</div>
+    <h2>Behind the story</h2>
+    <p class="prose" style="color:#C9C5DA; font-size:16px; max-width:680px;">Underneath the narrative is a collection of systems working together to create the game experience.</p>
+
+    <div class="systems-grid">
+      <div class="system-card"><span class="idx mono">SYS</span><h4>Choice &amp; Dialogue</h4><p>Drives the interactive story and player decisions.</p></div>
+      <div class="system-card"><span class="idx mono">SYS</span><h4>Game State</h4><p>Tracks what's happening throughout a playthrough.</p></div>
+      <div class="system-card"><span class="idx mono">SYS</span><h4>Story Progression</h4><p>Controls how different parts of the narrative unfold.</p></div>
+      <div class="system-card"><span class="idx mono">SYS</span><h4>UI</h4><p>Presents dialogue, choices, and gameplay information.</p></div>
+      <div class="system-card"><span class="idx mono">SYS</span><h4>Audio</h4><p>Uses sound to reinforce atmosphere and key moments.</p></div>
+      <div class="system-card"><span class="idx mono">SYS</span><h4>Assets</h4><p>Organizes the visual resources used throughout.</p></div>
+      <div class="system-card" style="grid-column:1/-1;"><span class="idx mono">SYS</span><h4>Game Managers</h4><p>Separates responsibilities instead of putting the entire game into one script.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- VISUAL EVOLUTION -->
+<section id="visuals">
+  <div class="wrap">
+    <div class="eyebrow">The visual evolution</div>
+    <h2>From experiment to experience</h2>
+    <div class="prose">
+      <p>The original game was primarily about functionality. The later version was about immersion — visual presentation, atmosphere, sound, layout, and interface design, all reworked to feel like an actual game rather than a JavaScript exercise.</p>
+    </div>
+
+    <div class="shots">
+      <div class="shot">
+        <span class="tag mono">V1 Screenshot</span>
+        <span class="hint">Drop an image of the original interface here</span>
+      </div>
+      <div class="shot">
+        <span class="tag mono">V2 Screenshot / Gameplay clip</span>
+        <span class="hint">Drop a screenshot or short gameplay video of the rebuild here</span>
+      </div>
+    </div>
+
+    <div class="disclosure">
+      <strong>On AI use:</strong> some of the later visual assets were created with AI assistance, used as part of the visual development process rather than a replacement for the underlying game logic and systems.
+    </div>
+  </div>
+</section>
+
+<!-- LEARNED -->
+<section id="learned">
+  <div class="wrap">
+    <div class="eyebrow">What I learned</div>
+    <blockquote class="quote">
+      The first version taught me how to make something work. The second taught me how to structure it, rethink decisions, and take an old idea somewhere new.
+    </blockquote>
+    <div class="prose" style="margin-top:24px;">
+      <p>Shadow of the Arcane is one of the clearest records of my progression as a developer, because the project itself grew alongside me. Years later, it's become representative of how I approach development now: start with an idea, build it, learn from it, and don't be afraid to rebuild it once you've outgrown the first version.</p>
+    </div>
+  </div>
+</section>
+
+<!-- METADATA -->
+<section id="meta">
+  <div class="wrap">
+    <div class="eyebrow">Project details</div>
+    <div class="meta-card">
+      <div class="meta-row"><div class="k">TYPE</div><div class="v">Interactive Story / RPG</div></div>
+      <div class="meta-row"><div class="k">ROLE</div><div class="v">Designer &amp; Developer</div></div>
+      <div class="meta-row"><div class="k">TECHNOLOGY</div><div class="v">JavaScript · HTML · CSS · Vercel</div></div>
+      <div class="meta-row"><div class="k">STATUS</div><div class="v">Playable</div></div>
+      <div class="meta-row"><div class="k">ORIGINALLY BUILT</div><div class="v">While learning JavaScript</div></div>
+      <div class="meta-row"><div class="k">REBUILT</div><div class="v">Later, as an expanded version</div></div>
+      <div class="meta-row"><div class="k">LIVE DEMO</div><div class="v"><a href="https://shadow-of-the-arcane.vercel.app/" target="_blank" rel="noopener">shadow-of-the-arcane.vercel.app ↗</a></div></div>
+      <div class="meta-row"><div class="k">SOURCE</div><div class="v"><a href="https://github.com/otikanelson/RPG" target="_blank" rel="noopener">github.com/otikanelson/RPG ↗</a></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; width:100%;">
+    <a class="back" href="../projects.html">← Back to all projects</a>
+    <span class="copyright">© 2026 Nelson Otika. All rights reserved.</span>
+  </div>
+</footer>
+
+<script>
+  // Theme toggle
+  (function(){
+    const toggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
+
+  // Scroll progress
+  (function(){
+    const bar = document.getElementById('scrollProgressBar');
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      const p = (window.scrollY / h) * 100;
+      bar.style.width = p + '%';
+    });
+  })();
+
+  // Version toggle
+  (function(){
+    const toggle = document.getElementById('versionToggle');
+    const buttons = toggle.querySelectorAll('button');
+    const line = document.getElementById('versionLine');
+    const colV1 = document.getElementById('colV1');
+    const colV2 = document.getElementById('colV2');
+
+    const copy = {
+      v1: '<strong>The original.</strong> A single-script text RPG built to prove I could turn what I was learning in JavaScript into something interactive — functional first, everything else second.',
+      v2: "<strong>The rebuild.</strong> A structured codebase, dedicated systems, improved UI, sound and visual assets — built after coming back with a developer's eye instead of a beginner's."
+    };
+
+    function setVersion(v){
+      const isV2 = v === 'v2';
+      toggle.classList.toggle('state-v2', isV2);
+      buttons.forEach(b => b.setAttribute('aria-pressed', b.dataset.version === v ? 'true' : 'false'));
+      line.innerHTML = copy[v];
+      document.documentElement.style.setProperty('--accent', isV2 ? 'var(--v2)' : 'var(--v1)');
+      document.documentElement.style.setProperty('--accent-soft', isV2 ? 'var(--v2-soft)' : 'var(--v1-soft)');
+      colV1.classList.toggle('is-active', !isV2);
+      colV2.classList.toggle('is-active', isV2);
+    }
+
+    buttons.forEach(b => b.addEventListener('click', () => setVersion(b.dataset.version)));
+    setVersion('v2');
+  })();
+</script>
+
+</body>
+</html>
