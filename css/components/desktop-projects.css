@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   DESKTOP PROJECTS
+   DESKTOP PROJECTS - FLOATING BROWSER WINDOW
    ═══════════════════════════════════════════════════════════════ */
 
 .desktop-row {
@@ -8,7 +8,7 @@
 
 .desktop-showcase {
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
+    grid-template-columns: 1.3fr 1fr;
     gap: 60px;
     align-items: center;
     padding: 40px 0;
@@ -16,65 +16,137 @@
 
 .laptop-container {
     position: relative;
-    perspective: 1200px;
     animation: fadeInLeft 0.8s ease-out;
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
 }
 
 @keyframes fadeInLeft {
     from {
         opacity: 0;
-        transform: translateX(-30px);
+        transform: translateY(20px);
     }
 
     to {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateY(0);
     }
 }
 
+/* Browser Window Container */
 .laptop-screen {
     position: relative;
-    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
-    border-radius: 12px 12px 4px 4px;
-    padding: 12px 12px 32px;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
     box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.3),
-        0 0 0 1px rgba(0, 0, 0, 0.1);
-    transform: none;
-    transition: none;
+        0 32px 64px -12px rgba(0, 0, 0, 0.3),
+        0 16px 32px -8px rgba(0, 0, 0, 0.2),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.laptop-container:hover .laptop-screen {
-    transform: none;
+.laptop-screen:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        0 40px 80px -12px rgba(0, 0, 0, 0.35),
+        0 20px 40px -8px rgba(0, 0, 0, 0.25),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
+/* Browser Chrome/Header */
 .laptop-bezel {
     position: relative;
-    background: #1a1a1a;
-    border-radius: 8px 8px 0 0;
-    padding: 10px;
+    background: linear-gradient(to bottom, #f5f5f5 0%, #e8e8e8 100%);
+    padding: 12px 16px;
     display: flex;
-    justify-content: center;
     align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Browser Window Controls (macOS style) */
+.laptop-camera {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.laptop-camera::before,
+.laptop-camera::after,
+.laptop-camera {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: block;
+}
+
+.laptop-camera::before {
+    background: #ff5f57;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .laptop-camera {
-    width: 5px;
-    height: 5px;
-    background: radial-gradient(circle, #4a5568 0%, #2d3748 100%);
-    border-radius: 50%;
-    box-shadow: 0 0 3px rgba(74, 85, 104, 0.3);
+    background: #ffbd2e;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
+.laptop-camera::after {
+    background: #28c840;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Address Bar */
+.browser-address-bar {
+    flex: 1;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.browser-address-bar::before {
+    content: '\f023'; /* Lock icon */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: #28c840;
+    font-size: 0.7rem;
+}
+
+/* Screenshot Display Area */
 .laptop-display {
     position: relative;
-    background: #000;
-    border-radius: 4px;
+    background: #ffffff;
     overflow: hidden;
-    aspect-ratio: 16 / 10;
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    /* Responsive aspect ratio - taller for desktop apps */
+    aspect-ratio: 16 / 11;
 }
 
+.laptop-display img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+}
+
+/* Hide old laptop base - not needed for floating window */
+.laptop-base {
+    display: none;
+}
+
+/* Carousel Controls */
 .desktop-carousel {
     position: relative;
     width: 100%;
@@ -94,6 +166,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center top;
     opacity: 0;
     transition: opacity 0.5s ease;
     pointer-events: none;
@@ -108,12 +181,12 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: white;
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -121,70 +194,66 @@
     cursor: pointer;
     transition: all 0.3s ease;
     z-index: 10;
+    opacity: 0;
+}
+
+.laptop-container:hover .carousel-btn {
+    opacity: 1;
 }
 
 .carousel-btn:hover {
-    background: rgba(124, 58, 237, 0.8);
+    background: var(--primary-color);
     border-color: var(--primary-color);
     transform: translateY(-50%) scale(1.1);
 }
 
+.carousel-btn i {
+    font-size: 0.9rem;
+}
+
 .prev-btn {
-    left: 12px;
+    left: -22px;
 }
 
 .next-btn {
-    right: 12px;
+    right: -22px;
 }
 
 .carousel-dots {
     position: absolute;
-    bottom: 12px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     gap: 8px;
     z-index: 10;
+    padding: 8px 16px;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .carousel-dot {
     width: 8px;
     height: 8px;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.5);
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
+.carousel-dot:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
 .carousel-dot.active {
     background: var(--primary-color);
-    width: 24px;
+    width: 28px;
     border-radius: 4px;
 }
 
-.laptop-base {
-    position: relative;
-    background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
-    height: 8px;
-    border-radius: 0 0 20px 20px;
-    margin: 0 -50px;
-    box-shadow:
-        0 8px 24px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-.laptop-base::before {
-    content: '';
-    position: absolute;
-    bottom: -3px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50%;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, #0a0a0a 20%, #0a0a0a 80%, transparent);
-    border-radius: 0 0 4px 4px;
-}
-
+/* Project Details Section */
 .desktop-project-details {
     animation: fadeInRight 0.8s ease-out 0.2s both;
 }
@@ -192,12 +261,12 @@
 @keyframes fadeInRight {
     from {
         opacity: 0;
-        transform: translateX(30px);
+        transform: translateY(20px);
     }
 
     to {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateY(0);
     }
 }
 
@@ -216,6 +285,7 @@
     border: 1px solid var(--border);
     background: var(--card-bg);
     flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .desktop-project-meta {
@@ -287,11 +357,22 @@
     flex-wrap: wrap;
 }
 
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+    .desktop-showcase {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .laptop-container {
+        max-width: 100%;
+    }
+}
+
 @media (max-width: 768px) {
     .desktop-row .view-all-link {
         font-size: 0.72rem !important;
         white-space: nowrap !important;
-        /* Fixes "View All" breaking onto 2 lines */
         gap: 5px !important;
         border-radius: 20px !important;
         flex-shrink: 0 !important;
@@ -305,36 +386,80 @@
     .desktop-row .view-all-link i {
         font-size: 0.65rem !important;
     }
+
+    .desktop-showcase {
+        padding: 20px 0;
+        gap: 32px;
+    }
+
+    .laptop-bezel {
+        padding: 10px 12px;
+    }
+
+    .laptop-camera::before,
+    .laptop-camera::after,
+    .laptop-camera {
+        width: 10px;
+        height: 10px;
+    }
+
+    .browser-address-bar {
+        font-size: 0.7rem;
+        padding: 5px 10px;
+    }
+
+    .carousel-btn {
+        width: 36px;
+        height: 36px;
+    }
+
+    .prev-btn {
+        left: 8px;
+    }
+
+    .next-btn {
+        right: 8px;
+    }
+
+    .carousel-dots {
+        padding: 6px 12px;
+    }
 }
 
-
-/* Light theme desktop projects adjustments */
+/* Light Theme Adjustments */
 [data-theme="light"] .laptop-screen {
-    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    background: #ffffff;
     box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.2),
-        0 0 0 1px rgba(0, 0, 0, 0.15);
+        0 32px 64px -12px rgba(0, 0, 0, 0.2),
+        0 16px 32px -8px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .laptop-screen:hover {
+    box-shadow:
+        0 40px 80px -12px rgba(0, 0, 0, 0.25),
+        0 20px 40px -8px rgba(0, 0, 0, 0.18),
+        0 0 0 1px rgba(0, 0, 0, 0.08);
 }
 
 [data-theme="light"] .laptop-bezel {
-    background: #1a1a1a;
+    background: linear-gradient(to bottom, #f5f5f5 0%, #e8e8e8 100%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-[data-theme="light"] .laptop-camera {
-    background: radial-gradient(circle, #4a5568 0%, #2d3748 100%);
+[data-theme="light"] .browser-address-bar {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #666;
 }
 
-[data-theme="light"] .laptop-base {
-    background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
-}
-
-[data-theme="light"] .laptop-base::before {
-    background: linear-gradient(90deg, transparent, #0a0a0a 20%, #0a0a0a 80%, transparent);
+[data-theme="light"] .laptop-display {
+    background: #ffffff;
 }
 
 [data-theme="light"] .carousel-btn {
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     color: var(--text-primary);
 }
 
@@ -343,6 +468,15 @@
     color: #ffffff;
 }
 
+[data-theme="light"] .carousel-dots {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
 [data-theme="light"] .carousel-dot {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] .carousel-dot:hover {
+    background: rgba(0, 0, 0, 0.5);
 }
