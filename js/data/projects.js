@@ -15,17 +15,6 @@ const PROJECTS = {
         icon: 'images/Frebfit Logo.png',
         screenshots: ['images/Frebfit_1.png', 'images/Frebfit_2.png', 'images/Frebfit_3.png', 'images/Frebfit_4.png']
     },
-    volair: {
-        name: 'VOLAIR',
-        subtitle: 'Private Jet Booking — React Native',
-        description: 'Luxury travel felt like an exclusive club I was never invited to—until VOLAIR. Working alongside senior developers, I learned what "clean architecture" really means. This wasn\'t just about booking jets; it was about creating an experience that felt effortless and elegant. Built with React Native and TypeScript, every feature was a lesson in collaboration, precision, and thinking beyond code. It taught me that great software is invisible—users shouldn\'t notice the tech, just how seamlessly it works.',
-        rating: '5.0', downloads: '12', category: 'Travel',
-        tags: ['React Native', 'TypeScript', 'Expo', 'Clean Architecture'],
-        github: 'https://github.com/otikanelson',
-        apk: null,
-        icon: 'images/Volair Logo.png',
-        screenshots: ['images/Volair_1.png', 'images/Volair_2.png', 'images/Volair_3.png', 'images/Volair_4.png', 'images/Volair_5.png', 'images/Volair_6.png', 'images/Volair_7.png']
-    },
     duorecall: {
         name: 'DUO Recall',
         subtitle: 'Flashcard Learning — Spaced Repetition',
@@ -36,17 +25,6 @@ const PROJECTS = {
         apk: 'https://drive.google.com/file/d/1C0Bod4CrO2ppkKc9EBZsSmCKYLP_mFHp/view?usp=sharing',
         icon: 'images/Recall Logo.png',
         screenshots: ['images/DuoRecall_1.jpeg', 'images/DuoRecall_2.jpeg', 'images/DuoRecall_3.jpeg', 'images/DuoRecall_4.jpeg', 'images/DuoRecall_5.jpeg', 'images/DuoRecall_6.jpeg', 'images/DuoRecall_7.jpeg']
-    },
-    trainbooking: {
-        name: 'GRIM',
-        subtitle: 'Train Booking UI — Travel Planning',
-        description: 'Train booking apps in Nigeria are clunky, confusing, and frustrating. During my NIIT internship, I wanted to prove that good UI isn\'t a luxury—it\'s a necessity. GRIM was my sandbox: clean search flows, intuitive booking confirmations, and Material Design principles applied with care. It\'s not flashy, but it\'s thoughtful. Every layout, every transition was about respecting the user\'s time. Sometimes the best feature is the one you never notice because it just works.',
-        rating: '5.0', downloads: '12', category: 'Travel',
-        tags: ['Java', 'Android Studio', 'XML Layouts', 'Material Design'],
-        github: 'https://github.com/otikanelson',
-        apk: null,
-        icon: 'images/Grim Logo.png',
-        screenshots: ['images/Grim_1.jpg', 'images/Grim_2.jpg', 'images/Grim_3.jpg', 'images/Grim_4.jpg']
     },
     ajosave: {
         name: 'AjoSave',
@@ -73,7 +51,7 @@ const PROJECTS = {
     CFCFreight: {
         name: 'CFC Freight',
         subtitle: 'A freight and logistics management mobile application',
-        description: 'Logistics is chaos—shipments delayed, documents lost, drivers and managers playing phone tag. I saw it firsthand and knew tech could fix this. CFC Freight connects shippers, carriers, and forwarders in real time. Automate quotes, track shipments, upload documents, monitor fleets—all from a mobile app. It\'s not glamorous work, but it\'s essential. When your package arrives on time, there\'s an app like this quietly making it happen. Built with React Native because logistics never sleeps, and neither should the tools that power it.',
+        description: 'CFC Freight is an app that connects shippers, carriers, and forwarders in real time. Automate quotes, track shipments, upload documents, monitor fleets. I was given the source code of the application and was paid to redesign it\'s entire frontend.',
         rating: '5.0', downloads: '12', category: 'Utility',
         tags: ['React Native', 'Typescript'],
         github: 'https://github.com/otikanelson/CFC freight',
@@ -94,11 +72,11 @@ const PROJECTS = {
     cfcwallet: {
         name: 'CFC Wallet',
         subtitle: 'Fintech Mobile Application',
-        description: 'In Nigeria, paying for airtime, data, or electricity shouldn\'t feel like a mission. CFC Wallet makes it instant. One app, all your payments—airtime, data, utility bills—handled securely and reliably. I architected this with React Native and Expo, integrating payment gateways and service providers to ensure every transaction is seamless. Real-time balance sync, transactional integrity, and a UI that doesn\'t get in your way. Over 1,200 downloads because when people trust you with their money, you don\'t take shortcuts.',
+        description: 'CFC Wallet is a fintech app for airtime, data, and utility payments in Nigeria. I was given the source code and was paid to redesign its entire frontend.',
         rating: '5.0', downloads: '12', category: 'Finance',
         tags: ['React Native', 'Expo', 'Payment Gateway', 'Fintech'],
         github: 'https://github.com/otikanelson/Wallet-App',
-        apk: null,
+        apk: 'https://play.google.com/store/apps/details?id=com.cfc.walletapp',
         icon: 'images/CFC Logo.jpeg',
         screenshots: ['images/CFC wallet_1.jpeg', 'images/CFC wallet_2.jpeg', 'images/CFC wallet_3.jpeg', 'images/CFC wallet_4.jpeg', 'images/CFC wallet_5.jpeg', 'images/CFC wallet_6.jpeg']
     }
