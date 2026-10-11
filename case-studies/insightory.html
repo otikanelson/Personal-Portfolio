@@ -44,6 +44,35 @@
     -webkit-font-smoothing:antialiased;
     transition:background var(--dur), color var(--dur);
   }
+
+  /* Subtle animations */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  section { animation: fadeInUp 0.8s ease-out; }
+  .hero { animation: fadeIn 1s ease-out; }
+  .shot-card, .feature-card, .phone-frame { animation: scaleIn 0.6s ease-out; animation-fill-mode: both; }
+  .shot-card:nth-child(1) { animation-delay: 0.1s; }
+  .shot-card:nth-child(2) { animation-delay: 0.2s; }
+  .shot-card:nth-child(3) { animation-delay: 0.3s; }
+  .shot-card:nth-child(4) { animation-delay: 0.4s; }
+  .shot-card:nth-child(5) { animation-delay: 0.5s; }
+  .shot-card:nth-child(6) { animation-delay: 0.6s; }
+  .feature-card:nth-child(1) { animation-delay: 0.05s; }
+  .feature-card:nth-child(2) { animation-delay: 0.1s; }
+  .feature-card:nth-child(3) { animation-delay: 0.15s; }
+  .feature-card:nth-child(4) { animation-delay: 0.2s; }
+  .feature-card:nth-child(5) { animation-delay: 0.25s; }
+  .feature-card:nth-child(6) { animation-delay: 0.3s; }
   .scroll-progress-indicator{
     position:fixed; top:0; left:0; right:0; height:4px;
     background:rgba(124,58,237,0.1); z-index:1001;
@@ -244,7 +273,7 @@
     font-size:clamp(28px,4vw,38px); margin-bottom:20px; letter-spacing:-.01em;
   }
   p + p{ margin-top:14px; }
-  .prose p{ color:#C9C5DA; font-size:16px; }
+  .prose p{ color:var(--muted); font-size:16px; }
 
   .features-grid{
     display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:32px;
@@ -350,17 +379,30 @@
 
     <!-- Demo Section: Mobile App -->
     <div style="margin-top:48px;">
-      <h3 style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:600; margin-bottom:24px; text-align:center;">See It In Action</h3>
-      <div style="display:flex; flex-direction:column; align-items:center;">
-        <div class="phone-frame">
-          <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover;" preload="auto">
-            <source src="../images/Insightory.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
+      <div style="display:grid; grid-template-columns:1fr 1.2fr; gap:44px; align-items:center;">
+        <div style="display:flex; justify-content:center;">
+          <div class="phone-frame">
+            <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover;" preload="auto">
+              <source src="../images/Insightory.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
         </div>
-        <p style="margin-top:16px; font-size:13px; color:var(--muted); text-align:center;">Watch a store manager check expiring items, scan inventory, and get AI-powered restock recommendations in real time</p>
+        <div>
+          <h3 style="font-family:'Space Grotesk',sans-serif; font-size:clamp(22px,3vw,28px); font-weight:600; margin-bottom:16px; line-height:1.3;">See It In Action</h3>
+          <p style="font-size:clamp(15px,1.8vw,17px); color:var(--muted); line-height:1.6; margin-bottom:14px;">Watch a store manager check expiring items, scan inventory, and get AI-powered restock recommendations in real time</p>
+          <p style="font-size:clamp(14px,1.6vw,15px); color:var(--muted); line-height:1.6;">The app tracks products from entry to sale, alerting managers when items approach expiration and using ML to predict what needs restocking before shelves go empty.</p>
+        </div>
       </div>
     </div>
+    <style>
+      @media (max-width:900px){
+        .hero > .wrap > div:has(.phone-frame) {
+          grid-template-columns:1fr !important;
+          gap:24px !important;
+        }
+      }
+    </style>
   </div>
 </header>
 
@@ -496,9 +538,9 @@
 <section id="research">
   <div class="wrap">
     <div class="eyebrow">Research Context</div>
-    <h2>Built to prove ML works for small businesses</h2>
-    <div class="prose">
-      <p>This wasn't a personal project—it was research with real stakes. A student studying inventory optimization for small businesses needed a working prototype that actual store managers could test in Lagos and Abuja. The goal was to prove that machine learning could work at the local level, not just for Amazon and Walmart.</p>
+    <h2>Built as a research tool to test real-world ML applications</h2>
+    <div class="prose" style="padding:24px 0;">
+      <p>INSIGHTORY was developed for a research study on inventory optimization for small businesses. A collaborating researcher needed a working prototype that actual store managers could test in Lagos and Abuja. The goal was to prove that machine learning could work at the local level, not just for Amazon and Walmart.</p>
       <p><strong>The challenge was making ML accessible.</strong> LSTM models, time-series forecasting, and confidence intervals had to become simple, actionable insights that a store owner could understand without a statistics background. If the app said "restock 10 units," that recommendation had to be explainable—not a black box.</p>
       <p><strong>The app was tested with real store managers</strong> running small shops in Lagos. They tracked inventory, scanned products, and got AI-powered restock alerts for two months. The feedback was clear: they trusted the predictions because the app explained why it made each recommendation, and it learned their specific business patterns over time.</p>
     </div>
@@ -511,13 +553,10 @@
     <blockquote class="quote">
       Machine learning isn't just for tech giants anymore. When powerful tools are made accessible, everyone benefits—especially small businesses that need them most.
     </blockquote>
-    <div class="prose" style="margin-top:24px;">
+    <div class="prose" style="margin-top:24px; padding:24px 0;">
       <p><strong>Measurable results from the pilot study:</strong> Store managers using INSIGHTORY reduced spoilage by 31% on average and cut stockouts by 28%. They spent less time guessing what to order and more time serving customers. The ML predictions got more accurate over time as the model learned each store's unique patterns.</p>
       <p><strong>What I learned building this:</strong> The hardest part of ML for small businesses isn't the algorithms—it's trust. Store managers don't care about neural networks or confidence intervals. They care that the app tells them what to do, explains why, and gets it right most of the time. Building trust meant making every prediction explainable and giving users manual overrides when they knew better than the model.</p>
-    </div>
-  </div>
-</section>
-      <p>INSIGHTORY is published on Google Play and serves as both a research tool and a functional inventory management platform. It proved that predictive analytics could be packaged in a way that small businesses—busy store managers without technical backgrounds—could actually use.</p>
+      <p style="margin-top:20px;">INSIGHTORY is published on Google Play and functions as both a research platform and a practical inventory management tool. It proved that predictive analytics could be packaged in a way that small businesses—busy store managers without technical backgrounds—could actually use to improve their operations.</p>
     </div>
   </div>
 </section>

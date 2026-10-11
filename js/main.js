@@ -45,7 +45,31 @@ document.addEventListener('DOMContentLoaded', function() {
     initActiveNavigation();
     initSmoothScroll();
     initMobileSidebar();
+    
+    // Check if we need to scroll to a specific section (from case study navigation)
+    checkAndScrollToSection();
 });
+
+// Check sessionStorage for section to scroll to (when navigating from case study pages)
+function checkAndScrollToSection() {
+    const sectionId = sessionStorage.getItem('scrollToSection');
+    
+    if (sectionId) {
+        // Clear the stored value
+        sessionStorage.removeItem('scrollToSection');
+        
+        // Wait a bit for components to load, then scroll
+        setTimeout(() => {
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }, 300);
+    }
+}
 
 // Initialize everything that depends on dynamically loaded components
 window.addEventListener('componentsLoaded', function() {

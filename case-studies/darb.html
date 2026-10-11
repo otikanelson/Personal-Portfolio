@@ -45,6 +45,29 @@
     -webkit-font-smoothing:antialiased;
     transition:background var(--dur), color var(--dur);
   }
+
+  /* Subtle animations */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  section { animation: fadeInUp 0.8s ease-out; }
+  .hero { animation: fadeIn 1s ease-out; }
+  .shot-card, .feature-card, .single-shot { animation: scaleIn 0.6s ease-out; animation-fill-mode: both; }
+  .shot-card:nth-child(1), .feature-card:nth-child(1) { animation-delay: 0.1s; }
+  .shot-card:nth-child(2), .feature-card:nth-child(2) { animation-delay: 0.15s; }
+  .shot-card:nth-child(3), .feature-card:nth-child(3) { animation-delay: 0.2s; }
+  .shot-card:nth-child(4), .feature-card:nth-child(4) { animation-delay: 0.25s; }
+  .shot-card:nth-child(5), .feature-card:nth-child(5) { animation-delay: 0.3s; }
+  .shot-card:nth-child(6), .feature-card:nth-child(6) { animation-delay: 0.35s; }
   .scroll-progress-indicator{
     position:fixed; top:0; left:0; right:0; height:4px;
     background:rgba(124,58,237,0.1); z-index:1001;
@@ -197,7 +220,7 @@
     font-size:clamp(28px,4vw,38px); margin-bottom:20px; letter-spacing:-.01em;
   }
   p + p{ margin-top:14px; }
-  .prose p{ color:#C9C5DA; font-size:16px; }
+  .prose p{ color:var(--muted); font-size:16px; }
 
   .features-grid{
     display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:32px;
@@ -580,6 +603,7 @@
 
 <footer>
   <div class="wrap" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; width:100%;">
+    <a class="back" href="../index.html#mobile-portfolio">← Back to work</a>
     <span class="copyright">© 2026 Nelson Otika. All rights reserved.</span>
   </div>
 </footer>

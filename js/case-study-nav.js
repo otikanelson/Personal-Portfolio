@@ -96,9 +96,33 @@ async function loadCaseStudyNav() {
     
     // Apply accent colors
     applyAccentColors();
+    
+    // Add click handlers for hash navigation
+    setupHashNavigation();
   } catch (error) {
     console.error('Failed to load case study navigation:', error);
   }
+}
+
+// Setup hash navigation to properly scroll when navigating to index.html with hash
+function setupHashNavigation() {
+  const navLinks = document.querySelectorAll('.case-study-navbar a[href*="#"], nav a[href*="#"]');
+  
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    
+    // Only handle links that go to index.html with a hash
+    if (href && href.includes('index.html#')) {
+      link.addEventListener('click', function(e) {
+        // Let the browser handle the navigation, but store the hash
+        const hash = href.split('#')[1];
+        if (hash) {
+          // Store the hash in sessionStorage so index.html can scroll to it
+          sessionStorage.setItem('scrollToSection', hash);
+        }
+      });
+    }
+  });
 }
 
 // Apply accent colors based on data-accent attribute
