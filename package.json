@@ -1,0 +1,16 @@
+{
+  "name": "nelson-otika-portfolio",
+  "version": "1.0.0",
+  "description": "Nelson Otika - Mobile Development Engineer Portfolio",
+  "type": "module",
+  "scripts": {
+    "build": "echo 'Static site - no build needed'"
+  },
+  "keywords": [
+    "portfolio",
+    "mobile-development",
+    "react-native"
+  ],
+  "author": "Nelson Otika",
+  "license": "MIT"
+}
