@@ -165,10 +165,10 @@
   [data-theme="light"] .theme-toggle:hover{
     box-shadow:0 4px 28px rgba(0,0,0,0.15), 0 0 40px rgba(34,197,94,0.15);
   }
-  .theme-toggle .fa-sun{ display:block; }
-  .theme-toggle .fa-moon{ display:none; }
-  [data-theme="light"] .theme-toggle .fa-sun{ display:none; }
-  [data-theme="light"] .theme-toggle .fa-moon{ display:block; }
+  .theme-toggle .fa-sun{ display:none; }
+  .theme-toggle .fa-moon{ display:block; }
+  [data-theme="dark"] .theme-toggle .fa-sun{ display:block; }
+  [data-theme="dark"] .theme-toggle .fa-moon{ display:none; }
   .breadcrumb{
     font-size:12px; color:var(--muted); padding:88px 0 0;
   }
@@ -316,8 +316,8 @@
 </div>
 
 <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-  <i class="fas fa-sun"></i>
   <i class="fas fa-moon"></i>
+  <i class="fas fa-sun"></i>
 </button>
 
 <!-- Navigation loaded dynamically -->
@@ -611,7 +611,7 @@
 <script>
   (function(){
     const toggle = document.getElementById('themeToggle');
-    const savedTheme = localStorage.getItem('theme') || 'dark';
+    const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
     
     toggle.addEventListener('click', () => {

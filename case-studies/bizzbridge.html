@@ -90,10 +90,10 @@
   .theme-toggle:hover i{ color:var(--accent-2); }
   [data-theme="light"] .theme-toggle{background:rgba(255,255,255,0.95);box-shadow:0 4px 20px rgba(0,0,0,0.1), 0 0 0 1px rgba(220,20,60,0.1);}
   [data-theme="light"] .theme-toggle:hover{box-shadow:0 4px 28px rgba(0,0,0,0.15), 0 0 40px rgba(220,20,60,0.15);}
-  .theme-toggle .fa-sun{ display:block; }
-  .theme-toggle .fa-moon{ display:none; }
-  [data-theme="light"] .theme-toggle .fa-sun{ display:none; }
-  [data-theme="light"] .theme-toggle .fa-moon{ display:block; }
+  .theme-toggle .fa-sun{ display:none; }
+  .theme-toggle .fa-moon{ display:block; }
+  [data-theme="dark"] .theme-toggle .fa-sun{ display:block; }
+  [data-theme="dark"] .theme-toggle .fa-moon{ display:none; }
   .breadcrumb{font-size:12px; color:var(--muted); padding:88px 0 0;}
   .breadcrumb a{ text-decoration:none; }
   .breadcrumb a:hover{ color:var(--text); }
@@ -158,7 +158,7 @@
 </head>
 <body data-accent="bizzbridge">
 <div class="scroll-progress-indicator"><div class="scroll-progress-bar" id="scrollProgressBar"></div></div>
-<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><i class="fas fa-sun"></i><i class="fas fa-moon"></i></button>
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><i class="fas fa-moon"></i><i class="fas fa-sun"></i></button>
 <!-- Navigation loaded dynamically -->
 <div class="wrap"><div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span> BIZZBRIDGE</div></div>
 <header class="hero"><div class="wrap"><div class="kicker">Case Study — Web / Marketplace</div><h1 class="title">BIZZBRIDGE</h1><p class="tagline">Nigeria has incredible artisans—carpenters, tailors, plumbers, designers—but finding them feels impossible. BIZZBRIDGE connects skilled craftspeople directly with customers who need their work.</p><div class="cta-row"><a class="btn btn-primary" href="https://biz-bridge-marketplace.vercel.app/" target="_blank" rel="noopener">View Live Site →</a><a class="btn btn-ghost" href="https://github.com/otikanelson/Biz-Bridge-Marketplace" target="_blank" rel="noopener">GitHub</a></div></div></header>
@@ -213,7 +213,7 @@
 <section id="impact"><div class="wrap"><div class="eyebrow">Philosophy</div><blockquote class="quote">Good work deserves to be seen. Skilled artisans shouldn't stay invisible just because there's no platform connecting them to customers who need their expertise.</blockquote><div class="prose" style="margin-top:24px;"><p>BIZZBRIDGE is live—a working marketplace that proves local talent can thrive when given the right infrastructure.</p></div></div></section>
 <section id="meta"><div class="wrap"><div class="eyebrow">Project Details</div><div class="meta-card"><div class="meta-row"><div class="k">TYPE</div><div class="v">Web Marketplace</div></div><div class="meta-row"><div class="k">ROLE</div><div class="v">Full-Stack Developer</div></div><div class="meta-row"><div class="k">TECHNOLOGY</div><div class="v">React · Node.js · MongoDB · Express</div></div><div class="meta-row"><div class="k">CATEGORIES</div><div class="v">26+ Craft Specialties</div></div><div class="meta-row"><div class="k">STATUS</div><div class="v">Live & Deployed</div></div><div class="meta-row"><div class="k">LIVE SITE</div><div class="v"><a href="https://biz-bridge-marketplace.vercel.app/" target="_blank" rel="noopener">biz-bridge-marketplace.vercel.app ↗</a></div></div><div class="meta-row"><div class="k">SOURCE</div><div class="v"><a href="https://github.com/otikanelson/Biz-Bridge-Marketplace" target="_blank" rel="noopener">github.com/otikanelson/Biz-Bridge-Marketplace ↗</a></div></div></div></div></section>
 <footer><div class="wrap" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; width:100%;"><a class="back" href="../index.html#mobile-portfolio">← Back to work</a><span class="copyright">© 2026 Nelson Otika. All rights reserved.</span></div></footer>
-<script>(function(){const toggle = document.getElementById('themeToggle');const savedTheme = localStorage.getItem('theme') || 'dark';document.documentElement.setAttribute('data-theme', savedTheme);toggle.addEventListener('click', () => {const current = document.documentElement.getAttribute('data-theme');const next = current === 'dark' ? 'light' : 'dark';document.documentElement.setAttribute('data-theme', next);localStorage.setItem('theme', next);});})();(function(){const bar = document.getElementById('scrollProgressBar');window.addEventListener('scroll', () => {const h = document.documentElement.scrollHeight - window.innerHeight;const p = (window.scrollY / h) * 100;bar.style.width = p + '%';});})();</script>
+<script>(function(){const toggle = document.getElementById('themeToggle');const savedTheme = localStorage.getItem('theme') || 'light';document.documentElement.setAttribute('data-theme', savedTheme);toggle.addEventListener('click', () => {const current = document.documentElement.getAttribute('data-theme');const next = current === 'dark' ? 'light' : 'dark';document.documentElement.setAttribute('data-theme', next);localStorage.setItem('theme', next);});})();(function(){const bar = document.getElementById('scrollProgressBar');window.addEventListener('scroll', () => {const h = document.documentElement.scrollHeight - window.innerHeight;const p = (window.scrollY / h) * 100;bar.style.width = p + '%';});})();</script>
 <script src="../js/case-study-nav.js"></script>
 </body>
 </html>

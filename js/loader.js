@@ -52,6 +52,27 @@
         
         // Dispatch event when all components are loaded
         window.dispatchEvent(new Event('componentsLoaded'));
+        
+        // Handle scroll to section from case study pages
+        setTimeout(() => {
+            const scrollToSection = sessionStorage.getItem('scrollToSection');
+            if (scrollToSection) {
+                sessionStorage.removeItem('scrollToSection');
+                const element = document.getElementById(scrollToSection);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            } else if (window.location.hash) {
+                // Also handle direct hash navigation
+                const hash = window.location.hash.substring(1);
+                const element = document.getElementById(hash);
+                if (element) {
+                    setTimeout(() => {
+                        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                }
+            }
+        }, 300);
     }
 
     // Start loading
@@ -60,4 +81,9 @@
     } else {
         await loadAllComponents();
     }
+    
+    // Hide loading screen once everything is ready
+    window.addEventListener('load', () => {
+        document.body.classList.add('loaded');
+    });
 })();

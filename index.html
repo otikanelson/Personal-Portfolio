@@ -5,18 +5,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nelson Otika | Software Engineer</title>
+    <meta name="description" content="Nelson Otika - Mobile Development Engineer specializing in React Native, Flutter, and cross-platform solutions. View my portfolio of mobile applications and client projects.">
     <link rel="shortcut icon" type="image/png" href="images/Browser_Logo.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    
+    <!-- Preload critical CSS -->
+    <link rel="preload" href="styles.css" as="style">
+    
+    <!-- Critical CSS inline or external -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"></noscript>
+    
+    <!-- Google Fonts with display=swap for better performance -->
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
+    <!-- EmailJS with defer -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 
 <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--bg, #0a0a0a); display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.5s ease, visibility 0.5s ease;">
+        <div style="text-align: center;">
+            <div style="width: 50px; height: 50px; border: 3px solid rgba(124, 58, 237, 0.3); border-top-color: #7c3aed; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 16px;"></div>
+            <p style="color: var(--text-secondary, #9ca3af); font-size: 0.9rem;">Loading...</p>
+        </div>
+    </div>
+    <style>
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        body.loaded #loading-screen {
+            opacity: 0;
+            visibility: hidden;
+        }
+    </style>
+    
     <!-- Navigation -->
     <nav class="navbar">
         <ul class="nav-menu">
@@ -144,7 +176,8 @@
                     github: 'https://duorecall.vercel.app/',
                     apk: 'https://drive.google.com/file/d/1C0Bod4CrO2ppkKc9EBZsSmCKYLP_mFHp/view?usp=sharing    ',
                     icon: 'images/Recall Logo.png',
-                    screenshots: ['images/DuoRecall_1.jpeg', 'images/DuoRecall_2.jpeg', 'images/DuoRecall_3.jpeg', 'images/DuoRecall_4.jpeg', 'images/DuoRecall_5.jpeg', 'images/DuoRecall_6.jpeg', 'images/DuoRecall_7.jpeg']
+                    screenshots: ['images/DuoRecall_1.jpeg', 'images/DuoRecall_2.jpeg', 'images/DuoRecall_3.jpeg', 'images/DuoRecall_4.jpeg', 'images/DuoRecall_5.jpeg', 'images/DuoRecall_6.jpeg', 'images/DuoRecall_7.jpeg'],
+                    isClient: false
                 },
                 ajosave: {
                     name: 'AjoSave',
@@ -155,7 +188,8 @@
                     github: 'https://github.com/otikanelson/Ajosave',
                     apk: 'https://drive.google.com/uc?export=download&id=1xSTyMBNdsgYiPUzAmjxscyUS477lXJ5o',
                     icon: 'images/Ajosave Logo.png',
-                    screenshots: ['images/AjoMobile_1.jpeg', 'images/AjoMobile_2.jpeg', 'images/AjoMobile_3.jpeg', 'images/AjoMobile_4.jpeg', 'images/AjoMobile_5.jpeg', 'images/AjoMobile_6.jpeg', 'images/AjoMobile_7.jpeg']
+                    screenshots: ['images/AjoMobile_1.jpeg', 'images/AjoMobile_2.jpeg', 'images/AjoMobile_3.jpeg', 'images/AjoMobile_4.jpeg', 'images/AjoMobile_5.jpeg', 'images/AjoMobile_6.jpeg', 'images/AjoMobile_7.jpeg'],
+                    isClient: false
                 },
                 insightory: {
                     name: 'INSIGHTORY',
@@ -166,7 +200,8 @@
                     github: 'https://github.com/otikanelson/Insightory',
                     apk: 'https://play.google.com/store/apps/details?id=com.son_the_nel.Inventory',
                     icon: 'images/Insightory Logo.png',
-                    screenshots: ['images/Insightory_1.jpeg', 'images/Insightory_2.jpeg', 'images/Insightory_3.jpeg', 'images/Insightory_4.jpeg', 'images/Insightory_5.jpeg', 'images/Insightory_6.jpeg']
+                    screenshots: ['images/Insightory_1.jpeg', 'images/Insightory_2.jpeg', 'images/Insightory_3.jpeg', 'images/Insightory_4.jpeg', 'images/Insightory_5.jpeg', 'images/Insightory_6.jpeg'],
+                    isClient: true
                 },
                 CFCFreight: {
                     name: 'CFC Freight',
@@ -176,7 +211,8 @@
                     tags: ['React Native', 'Typescript'],
                     github: 'https://github.com/otikanelson/CFC freight',
                     icon: 'images/CFC Freight Logo.jpeg',
-                    screenshots: ['images/CFC Freight_1.jpeg', 'images/CFC Freight_2.jpeg', 'images/CFC Freight_3.jpeg', 'images/CFC Freight_4.jpeg']
+                    screenshots: ['images/CFC Freight_1.jpeg', 'images/CFC Freight_2.jpeg', 'images/CFC Freight_3.jpeg', 'images/CFC Freight_4.jpeg'],
+                    isClient: true
                 },
                 afrochinatrade: {
                     name: 'AFROCHINATRADE',
@@ -188,7 +224,8 @@
                     apk: 'https://play.google.com/store/apps/details?id=com.afrochinatrade_mobile.act_mobile',
                     appStore: 'https://apps.apple.com/us/app/afrochinatrade/id6794323826',
                     icon: 'images/AfroChinaTrade Logo.png',
-                    screenshots: ['images/AfroChinaTrade_1.jpeg', 'images/AfroChinaTrade_2.jpeg', 'images/AfroChinaTrade_3.jpeg', 'images/AfroChinaTrade_4.jpeg', 'images/AfroChinaTrade_5.jpeg', 'images/AfroChinaTrade_6.jpeg', 'images/AfroChinaTrade_7.jpeg', 'images/AfroChinaTrade_8.jpeg']
+                    screenshots: ['images/AfroChinaTrade_1.jpeg', 'images/AfroChinaTrade_2.jpeg', 'images/AfroChinaTrade_3.jpeg', 'images/AfroChinaTrade_4.jpeg', 'images/AfroChinaTrade_5.jpeg', 'images/AfroChinaTrade_6.jpeg', 'images/AfroChinaTrade_7.jpeg', 'images/AfroChinaTrade_8.jpeg'],
+                    isClient: true
                 },
                 cfcwallet: {
                     name: 'CFC Wallet',
@@ -199,7 +236,8 @@
                     github: 'https://github.com/otikanelson/Wallet-App',
                     apk: 'https://play.google.com/store/apps/details?id=com.cfc.walletapp',
                     icon: 'images/CFC Logo.jpeg',
-                    screenshots: ['images/CFC wallet_1.jpeg', 'images/CFC wallet_2.jpeg', 'images/CFC wallet_3.jpeg', 'images/CFC wallet_4.jpeg', 'images/CFC wallet_5.jpeg', 'images/CFC wallet_6.jpeg']
+                    screenshots: ['images/CFC wallet_1.jpeg', 'images/CFC wallet_2.jpeg', 'images/CFC wallet_3.jpeg', 'images/CFC wallet_4.jpeg', 'images/CFC wallet_5.jpeg', 'images/CFC wallet_6.jpeg'],
+                    isClient: true
                 }
             };
 
@@ -208,7 +246,15 @@
                 if (!p) return;
                 panel.querySelector('.detail-icon').src = p.icon;
                 panel.querySelector('.detail-icon').alt = p.name;
-                panel.querySelector('.detail-name').textContent = p.name;
+                
+                // Add project name with client label if applicable
+                const detailNameEl = panel.querySelector('.detail-name');
+                if (p.isClient) {
+                    detailNameEl.innerHTML = `${p.name} <span class="client-label">(Client)</span>`;
+                } else {
+                    detailNameEl.textContent = p.name;
+                }
+                
                 panel.querySelector('.detail-subtitle').textContent = p.subtitle;
                 panel.querySelector('.d-rating').textContent = p.rating;
                 panel.querySelector('.d-downloads').textContent = p.downloads;
@@ -349,25 +395,55 @@
                 }
             }
 
-            // ─── MOBILE ROW — hover-driven ───────────────────────────────
+            // ─── MOBILE ROW — hover-driven + double-click to lock ───────────────────────────────
             const mobileRow = document.querySelector('.mobile-row');
             if (mobileRow) {
                 const panel = mobileRow.querySelector('.project-detail-panel');
                 const tiles = mobileRow.querySelectorAll('.app-tile:not(.view-more-tile)');
                 let leaveTimer = null;
+                let isLocked = false;
 
                 tiles.forEach(tile => {
                     tile.dataset.hasListener = 'true';
+                    
+                    // Hover to expand
                     tile.addEventListener('mouseenter', () => {
+                        if (isLocked) return; // Don't trigger on hover if locked
+                        
                         clearTimeout(leaveTimer);
                         tiles.forEach(t => t.classList.remove('is-focused'));
                         tile.classList.add('is-focused');
                         mobileRow.classList.add('tile-focused');
                         populatePanel(panel, tile.dataset.project);
                     });
+
+                    // Double-click to lock/unlock
+                    tile.addEventListener('dblclick', (e) => {
+                        e.preventDefault();
+                        
+                        if (isLocked && tile.classList.contains('is-focused')) {
+                            // Unlock if double-clicking the same locked tile
+                            isLocked = false;
+                            mobileRow.classList.remove('locked');
+                        } else if (tile.classList.contains('is-focused')) {
+                            // Lock the currently focused tile
+                            isLocked = true;
+                            mobileRow.classList.add('locked');
+                        } else {
+                            // Focus and lock if not currently focused
+                            tiles.forEach(t => t.classList.remove('is-focused'));
+                            tile.classList.add('is-focused');
+                            mobileRow.classList.add('tile-focused', 'locked');
+                            populatePanel(panel, tile.dataset.project);
+                            isLocked = true;
+                        }
+                    });
                 });
 
+                // Mouse leave behavior - only collapse if not locked
                 mobileRow.addEventListener('mouseleave', () => {
+                    if (isLocked) return; // Don't collapse if locked
+                    
                     leaveTimer = setTimeout(() => {
                         tiles.forEach(t => t.classList.remove('is-focused'));
                         mobileRow.classList.remove('tile-focused');

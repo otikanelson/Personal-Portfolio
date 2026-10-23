@@ -5,8 +5,8 @@
 (function() {
     'use strict';
 
-    // Get theme from localStorage or default to 'dark'
-    const getStoredTheme = () => localStorage.getItem('theme') || 'dark';
+    // Get theme from localStorage or default to 'light'
+    const getStoredTheme = () => localStorage.getItem('theme') || 'light';
     
     // Set theme on document
     const setTheme = (theme) => {
@@ -17,7 +17,7 @@
 
     // Update icon visibility based on theme
     const updateThemeIcon = () => {
-        const theme = document.documentElement.getAttribute('data-theme') || 'dark';
+        const theme = document.documentElement.getAttribute('data-theme') || 'light';
         const themeToggle = document.getElementById('themeToggle');
         
         if (themeToggle) {
@@ -26,11 +26,11 @@
             
             if (sunIcon && moonIcon) {
                 if (theme === 'light') {
-                    sunIcon.style.display = 'block';
-                    moonIcon.style.display = 'none';
-                } else {
                     sunIcon.style.display = 'none';
                     moonIcon.style.display = 'block';
+                } else {
+                    sunIcon.style.display = 'block';
+                    moonIcon.style.display = 'none';
                 }
             }
         }
@@ -38,7 +38,7 @@
 
     // Toggle between light and dark theme
     const toggleTheme = () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         setTheme(newTheme);
     };
