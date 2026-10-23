@@ -85,7 +85,7 @@
   }
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
   .prose { max-width: 640px; font-size: 1.05rem; color: var(--muted); }
-  .prose strong { color: var(--text); font-weight: 600; }
+  .prose strong { color: #ec4899; font-weight: 600; }
 
   .eyebrow {
     font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;
@@ -125,6 +125,7 @@
   h1.title {
     font-family: 'Space Grotesk', sans-serif; font-weight: 700;
     font-size: clamp(36px, 5.5vw, 64px); line-height: 1.1; margin-bottom: 20px;
+    color:#831843;
   }
   .title-highlight {
     background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
@@ -152,6 +153,7 @@
   h2 {
     font-family: 'Space Grotesk', sans-serif; font-weight: 700;
     font-size: clamp(26px, 3.5vw, 36px); margin-bottom: 24px;
+    color: #ec4899;
   }
 
   /* Phone frame + slider */
@@ -175,6 +177,8 @@
     position: absolute; bottom: 12px; padding: 6px 16px; border-radius: 10px;
     font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
     z-index: 5; backdrop-filter: blur(8px);
+    min-width: 80px;
+    text-align: center;
   }
   .comp-label-before { right: 10px; background: rgba(220,38,38,0.95); color: #fff; }
   .comp-label-after { left: 10px; background: rgba(236,72,153,0.9); color: #fff; }
@@ -188,8 +192,16 @@
     border: 6px solid #1f2937; box-shadow: 0 16px 32px rgba(0,0,0,0.5);
   }
   .single-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .single-frame .comp-label { bottom: 12px; left: 10px; background: rgba(236,72,153,0.9); color: #fff; }
-  .single-frame .comp-label-before { left: 10px; background: rgba(220,38,38,0.95); color: #fff; }
+  .single-frame .comp-label { 
+    bottom: 12px; left: 10px; background: rgba(236,72,153,0.9); color: #fff;
+    min-width: 80px;
+    text-align: center;
+  }
+  .single-frame .comp-label-before { 
+    left: 10px; background: rgba(220,38,38,0.95); color: #fff;
+    min-width: 80px;
+    text-align: center;
+  }
 
   footer {
     border-top: 1px solid var(--border); padding: 40px 0;
@@ -225,7 +237,7 @@
     <div class="hero-inner">
       <div class="hero-copy">
         <div class="kicker">Case study — Fintech wallet app</div>
-        <h1 class="title">CFC Wallet <span class="title-highlight">Frontend Redesign</span></h1>
+        <h1 class="title">CFC Wallet <span class="client-label-hero">(Client)</span> <span class="title-highlight">Frontend Redesign</span></h1>
         <p class="tagline">CFC Wallet handles airtime, data, utility bills, and wallet-to-wallet transfers across Nigeria. I was brought in with the existing React Native codebase and asked to redesign the entire frontend — cleaner navigation, better visual hierarchy, and a flow that doesn't make users hunt for the recharge button.</p>
       </div>
       <div class="stamp" aria-hidden="true">
@@ -252,7 +264,7 @@
 
       <div class="single-frame">
         <img src="../images/CFC wallet_2.jpeg" alt="Redesigned wallet screen: transaction history, easy recharge access">
-        <span class="comp-label">Wallet</span>
+        <span class="comp-label comp-label-after">Redesign</span>
       </div>
     </div>
   </div>
@@ -431,3 +443,24 @@
 <script src="../js/case-study-nav.js"></script>
 </body>
 </html>
+
+  /* Client Label in Hero Title */
+  .client-label-hero {
+    font-size: 0.5em;
+    font-weight: 600;
+    color: var(--accent);
+    background: rgba(236,72,153,0.12);
+    padding: 4px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(236,72,153,0.3);
+    margin: 0 8px;
+    display: inline-block;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  [data-theme="light"] .client-label-hero {
+    background: rgba(219,39,119,0.1);
+    border-color: rgba(219,39,119,0.4);
+    color: #db2777;
+  }

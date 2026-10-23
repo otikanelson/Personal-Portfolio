@@ -75,7 +75,7 @@
   a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
   .prose { max-width: 640px; font-size: 1.05rem; color: var(--muted); }
-  .prose strong { color: var(--text); font-weight: 600; }
+  .prose strong { color: #e0212b; font-weight: 600; }
 
   .eyebrow {
     font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;
@@ -112,9 +112,29 @@
   }
   .kicker::before { content: ''; width: 24px; height: 2px; background: var(--accent); }
 
-  h1.title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(36px, 5.5vw, 64px); line-height: 1.1; margin-bottom: 20px; }
+  h1.title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(36px, 5.5vw, 64px); line-height: 1.1; margin-bottom: 20px; color:#7f1d1d; }
   .title-highlight { background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   .tagline { font-size: clamp(16px, 2vw, 20px); color: var(--muted); margin-bottom: 28px; }
+  
+  /* Client Label in Hero Title */
+  .client-label-hero {
+    font-size: 0.4em;
+    font-weight: 600;
+    color: var(--accent);
+    background: rgba(239,68,68,0.12);
+    padding: 4px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(239,68,68,0.3);
+    margin: 0 8px;
+    display: inline-block;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  [data-theme="light"] .client-label-hero {
+    background: rgba(239,68,68,0.1);
+    border-color: rgba(239,68,68,0.4);
+  }
 
   /* Stamp */
   .stamp {
@@ -134,7 +154,7 @@
     font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;
     color: var(--accent); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 12px;
   }
-  h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(26px, 3.5vw, 36px); margin-bottom: 24px; }
+  h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(26px, 3.5vw, 36px); margin-bottom: 24px; color: #e0212b; }
 
   /* Phone frame + slider */
   .mobile-slider-container { display: flex; justify-content: center; margin: 40px 0 12px; gap: 32px; flex-wrap: wrap; }
@@ -204,7 +224,7 @@
     <div class="hero-inner">
       <div class="hero-copy">
         <div class="kicker">Case study — Freight &amp; customs clearing app</div>
-        <h1 class="title">CFC Freight <span class="title-highlight">Frontend Redesign</span></h1>
+        <h1 class="title">CFC Freight <span class="client-label-hero">(Client)</span> <span class="title-highlight">Frontend Redesign</span></h1>
         <p class="tagline">CFC Freight connects shippers, carriers, and clearing agents around Form M, PAAR, and export processing. I was brought in with the existing source code and asked to redesign the entire frontend — the navigation model, the visual language, and the hierarchy of every screen, not just the home page.</p>
       </div>
       <div class="stamp" aria-hidden="true">
